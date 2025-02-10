@@ -7,9 +7,9 @@ from services.indicator_service import fetch_indicator_value
 
 class TargetService:
     @staticmethod
-    async def get_target(db: Connection, target_id: int):
+    async def get_target(db: Connection, target_id: int, perspective_id: int):
         """Obtiene un objetivo y lo convierte a respuesta de API."""
-        row = await TargetRepository.get_target(db, target_id)
+        row = await TargetRepository.get_target(db, target_id, perspective_id)
         if not row:
             return api_response("Target not found", False)
 
@@ -34,9 +34,9 @@ class TargetService:
         return api_response("Target retrieved successfully", True, dict(target_data))
 
     @staticmethod
-    async def get_targets(db: Connection):
+    async def get_targets(db: Connection, perspective_id: int):
         """Obtiene todos los objetivos y los devuelve como respuesta."""
-        targets = await TargetRepository.get_targets(db)
+        targets = await TargetRepository.get_targets(db, perspective_id)
         if not targets:
             return api_response("Targets not found", False)
 

@@ -17,7 +17,6 @@ class TargetBase(BaseModel):
     deficient: Optional[float] = None
     start_date: Optional[datetime] = Field(default_factory=get_current_datetime)  # Timestamp de inicio
     end_date: Optional[datetime] = None  # Timestamp de finalización
-    completion_date: Optional[datetime] = None  # Timestamp de culminación del objetivo
     indicator_id: int
     aggregation_id: Optional[int] = None
 
