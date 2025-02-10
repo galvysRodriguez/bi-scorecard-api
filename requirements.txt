@@ -1,0 +1,9 @@
+fastapi
+asyncpg
+uvicorn
+pydantic
+python-dotenv
+python-multipart
+pyjwt
+bcrypt
+passlib
