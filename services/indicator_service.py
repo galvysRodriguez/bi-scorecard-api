@@ -1,5 +1,6 @@
 from asyncpg import Connection
-from repositories.indicator_repo import get_indicator_query
+from utils.api_response import api_response
+from repositories.indicator_repo import get_indicator_query, get_indicators_query
 
 async def fetch_indicator_value(db: Connection, indicator_id: int, aggregation_id: int):
     """
@@ -31,3 +32,10 @@ async def fetch_indicator_value(db: Connection, indicator_id: int, aggregation_i
             "data": None,
             "error": str(e)
         }
+
+
+async def get_indicators(db: Connection):
+    row = await get_indicators_query(db)
+    if not row:
+        return api_response("Indicator not found", False)
+    return api_response("Indicators retrieved successfully", True, dict(row))

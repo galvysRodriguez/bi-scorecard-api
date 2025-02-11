@@ -12,3 +12,12 @@ async def get_indicator_query(db: Connection, indicator_id: int, aggregation_id:
         WHERE a.id_agregaciones = $1 AND i.id_indicadores = $2
     """
     return await db.fetchrow(query, aggregation_id, indicator_id)
+
+
+async def get_indicators_query(db: Connection):
+    query = """SELECT 
+                    id_indicadores as id, 
+                    indicador as indicator 
+                FROM objetivos.indicadores"""
+
+    return await db.fetch(query)
