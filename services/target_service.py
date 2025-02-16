@@ -7,13 +7,19 @@ from services.indicator_service import fetch_indicator_value
 
 class TargetService:
     @staticmethod
-    async def get_target(db: Connection, target_id: int, perspective_id: int):
+    async def get_target(db: Connection, target_id: int):
         """Obtiene un objetivo y lo convierte a respuesta de API."""
-        row = await TargetRepository.get_target(db, target_id, perspective_id)
+        row = await TargetRepository.get_target(db, target_id)
         if not row:
             return api_response("Target not found", False)
 
-        indicator_value = await fetch_indicator_value(db, row["indicator_id"], row["aggregation_id"])
+        indicator_value = await fetch_indicator_value(
+            db, 
+            row["indicator_id"], 
+            row["aggregation_id"],
+            row["start_date"],
+            row["end_date"])
+
         target_data = {
                 "id": row["id"],
                 "title": row["title"],
@@ -43,7 +49,12 @@ class TargetService:
         response_data = []
         
         for target in targets:
-            indicator_value = await fetch_indicator_value(db, target["indicator_id"], target["aggregation_id"])
+            indicator_value = await fetch_indicator_value(
+                db, 
+                target["indicator_id"], 
+                target["aggregation_id"],
+                target["start_date"],
+                target["end_date"])
             
             # Agregar el valor del indicador a la respuesta
             target_data = {
@@ -65,6 +76,45 @@ class TargetService:
             response_data.append(target_data)
 
         return api_response("Targets retrieved", True, response_data)
+
+    @staticmethod
+    async def get_all_targets(db: Connection):
+        """Obtiene todos los objetivos y los devuelve como respuesta."""
+        targets = await TargetRepository.get_all_targets(db)
+        if not targets:
+            return api_response("Targets not found", False)
+
+        response_data = []
+        
+        for target in targets:
+            indicator_value = await fetch_indicator_value(
+                db, 
+                target["indicator_id"], 
+                target["aggregation_id"],
+                target["start_date"],
+                target["end_date"])
+            
+            # Agregar el valor del indicador a la respuesta
+            target_data = {
+                "id": target["id"],
+                "title": target["title"],
+                "optimal": target["optimal"],
+                "tolerable": target["tolerable"],
+                "deficient": target["deficient"],
+                "indicator_id": target["indicator_id"],
+                "aggregation_id": target["aggregation_id"],
+                "start_date": target["start_date"],
+                "end_date": target["end_date"],
+                "indicator": target["indicator"],
+                "aggregation": target["aggregation"],
+                "perspective": target["perspective"],
+                "indicator_value": indicator_value.get("data", {}).get("value")  # Extraer el valor si está disponible
+            }
+            
+            response_data.append(target_data)
+
+        return api_response("Targets retrieved", True, response_data)
+
 
     @staticmethod
     async def add_target(db: Connection, target_data: TargetCreate):

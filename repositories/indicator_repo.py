@@ -21,3 +21,12 @@ async def get_indicators_query(db: Connection):
                 FROM objetivos.indicadores"""
 
     return await db.fetch(query)
+
+async def get_indicators_perspective_query(db: Connection, perspective_id: int):
+    query = """SELECT 
+                    id_indicadores as id, 
+                    indicador as indicator 
+                FROM objetivos.indicadores
+                WHERE id_perspectivas = $1"""
+
+    return await db.fetch(query, perspective_id)

@@ -1,8 +1,9 @@
 from asyncpg import Connection
+from datetime import datetime
 from utils.api_response import api_response
-from repositories.indicator_repo import get_indicator_query, get_indicators_query
+from repositories.indicator_repo import get_indicator_query, get_indicators_query, get_indicators_perspective_query
 
-async def fetch_indicator_value(db: Connection, indicator_id: int, aggregation_id: int):
+async def fetch_indicator_value(db: Connection, indicator_id: int, aggregation_id: int, start_date, end_date):
     """
     Ejecuta la consulta SQL almacenada y aplica la función de agregación.
     """
@@ -14,11 +15,19 @@ async def fetch_indicator_value(db: Connection, indicator_id: int, aggregation_i
     raw_query = row["consulta"]  # Consulta SQL base
     aggregation_function = row["funcion"]  # Función de agregación (ej. 'SUM')
 
+
+   
+
+    filtered_query = f"""
+        SELECT * FROM ({raw_query}) AS subquery
+        WHERE subquery.fecha BETWEEN $1 AND $2
+    """
+
     # Envolver la consulta base en un subquery con alias
-    final_query = f"SELECT {aggregation_function}(subquery.value) AS result FROM ({raw_query}) AS subquery"
+    final_query = f"SELECT {aggregation_function}(subquery.value) AS result FROM ({filtered_query}) AS subquery"
 
     try:
-        result_row = await db.fetchrow(final_query)
+        result_row = await db.fetchrow(final_query, start_date, end_date)
         return {
             "message": "Indicator value retrieved",
             "status": True,
@@ -36,6 +45,12 @@ async def fetch_indicator_value(db: Connection, indicator_id: int, aggregation_i
 
 async def get_indicators(db: Connection):
     row = await get_indicators_query(db)
+    if not row:
+        return api_response("Indicator not found", False)
+    return api_response("Indicators retrieved successfully", True, dict(row))
+
+async def get_indicators_perspective(db: Connection, perspective_id: int):
+    row = await get_indicators_perspective_query(db, perspective_id)
     if not row:
         return api_response("Indicator not found", False)
     return api_response("Indicators retrieved successfully", True, dict(row))

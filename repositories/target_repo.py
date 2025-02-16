@@ -5,7 +5,7 @@ from schemas.target import TargetCreate
 
 class TargetRepository:
     @staticmethod
-    async def get_target(db: Connection, target_id: int, perspective_id:int):
+    async def get_target(db: Connection, target_id: int):
         """Consulta un objetivo por ID."""
         query = """
             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
@@ -19,9 +19,9 @@ class TargetRepository:
             LEFT JOIN objetivos.agregaciones a ON o.id_agregaciones = a.id_agregaciones
             LEFT JOIN objetivos.indicadores i ON i.id_indicadores = o.id_indicadores
             LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = i.id_perspectivas 
-            WHERE id_objetivos = $1 and i.id_perspectivas = $2
+            WHERE o.id_objetivos = $1
         """
-        return await db.fetchrow(query, target_id, perspective_id)
+        return await db.fetchrow(query, target_id)
 
     @staticmethod
     async def get_targets(db: Connection, perspective_id: int):
@@ -41,6 +41,24 @@ class TargetRepository:
             WHERE i.id_perspectivas = $1
         """
         return await db.fetch(query, perspective_id)
+
+    @staticmethod
+    async def get_all_targets(db: Connection):
+        """Consulta todos los objetivos."""
+        query = """
+            SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
+                   o.deficiente AS deficient, o.fecha_inicio AS start_date, 
+                   o.fecha_final AS end_date, o.id_indicadores AS indicator_id, 
+                   o.id_agregaciones AS aggregation_id,
+                   a.agregacion AS aggregation,
+                   i.indicador AS indicator,
+                   p.perspectiva AS perspective
+            FROM objetivos.objetivos o
+            LEFT JOIN objetivos.agregaciones a ON o.id_agregaciones = a.id_agregaciones
+            LEFT JOIN objetivos.indicadores i ON i.id_indicadores = o.id_indicadores
+            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = i.id_perspectivas
+        """
+        return await db.fetch(query)
 
     @staticmethod
     async def add_target(db: Connection, target_data: TargetCreate):
