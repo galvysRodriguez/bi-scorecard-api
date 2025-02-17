@@ -10,15 +10,13 @@ class TargetRepository:
         query = """
             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
-                   o.fecha_final AS end_date, o.id_indicadores AS indicator_id, 
-                   o.id_agregaciones AS aggregation_id,
-                   a.agregacion AS aggregation,
-                   i.indicador AS indicator,
+                   o.fecha_final AS end_date, o.id_formulas AS indicator_id,
+                   o.id_perspectivas AS perspective_id,
+                   f.titulo AS indicator,
                    p.perspectiva AS perspective
             FROM objetivos.objetivos o
-            LEFT JOIN objetivos.agregaciones a ON o.id_agregaciones = a.id_agregaciones
-            LEFT JOIN objetivos.indicadores i ON i.id_indicadores = o.id_indicadores
-            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = i.id_perspectivas 
+            LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
+            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = o.id_perspectivas 
             WHERE o.id_objetivos = $1
         """
         return await db.fetchrow(query, target_id)
@@ -27,18 +25,16 @@ class TargetRepository:
     async def get_targets(db: Connection, perspective_id: int):
         """Consulta todos los objetivos."""
         query = """
-            SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
+             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
-                   o.fecha_final AS end_date, o.id_indicadores AS indicator_id, 
-                   o.id_agregaciones AS aggregation_id,
-                   a.agregacion AS aggregation,
-                   i.indicador AS indicator,
+                   o.fecha_final AS end_date, o.id_formulas AS indicator_id,
+                   o.id_perspectivas AS perspective_id,
+                   f.titulo AS indicator,
                    p.perspectiva AS perspective
             FROM objetivos.objetivos o
-            LEFT JOIN objetivos.agregaciones a ON o.id_agregaciones = a.id_agregaciones
-            LEFT JOIN objetivos.indicadores i ON i.id_indicadores = o.id_indicadores
-            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = i.id_perspectivas
-            WHERE i.id_perspectivas = $1
+            LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
+            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = o.id_perspectivas 
+            WHERE o.id_perspectivas = $1
         """
         return await db.fetch(query, perspective_id)
 
@@ -48,15 +44,13 @@ class TargetRepository:
         query = """
             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
-                   o.fecha_final AS end_date, o.id_indicadores AS indicator_id, 
-                   o.id_agregaciones AS aggregation_id,
-                   a.agregacion AS aggregation,
-                   i.indicador AS indicator,
+                   o.fecha_final AS end_date, o.id_formulas AS indicator_id,
+                   o.id_perspectivas AS perspective_id,
+                   f.titulo AS indicator,
                    p.perspectiva AS perspective
             FROM objetivos.objetivos o
-            LEFT JOIN objetivos.agregaciones a ON o.id_agregaciones = a.id_agregaciones
-            LEFT JOIN objetivos.indicadores i ON i.id_indicadores = o.id_indicadores
-            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = i.id_perspectivas
+            LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
+            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = o.id_perspectivas 
         """
         return await db.fetch(query)
 
@@ -65,7 +59,7 @@ class TargetRepository:
         """Inserta un nuevo objetivo."""
         query = """
             INSERT INTO objetivos.objetivos (titulo, optimo, tolerable, deficiente, 
-            fecha_inicio, fecha_final, id_indicadores, id_agregaciones)
+            fecha_inicio, fecha_final, id_perspectivas, id_formulas)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING *;
         """
@@ -77,7 +71,7 @@ class TargetRepository:
             query,
             target_data.title, target_data.optimal, target_data.tolerable,
             target_data.deficient, start_date, end_date,
-            target_data.indicator_id, target_data.aggregation_id
+            target_data.perspective_id, target_data.formula_id
         )
 
     @staticmethod
@@ -91,8 +85,8 @@ class TargetRepository:
                 deficiente = COALESCE($5, deficiente), 
                 fecha_inicio = COALESCE($6, id_fecha_inicio), 
                 fecha_final = COALESCE($7, id_fecha_final), 
-                id_indicadores = COALESCE($8, id_indicadores), 
-                id_agregaciones = COALESCE($9, id_agregaciones)
+                id_perspectivas = COALESCE($8, id_perspectivas), 
+                id_formulas = COALESCE($9, id_formulas)
             WHERE id_objetivos = $1
             RETURNING *;
         """

@@ -1,7 +1,7 @@
 from asyncpg import Connection
 from datetime import datetime
 from utils.api_response import api_response
-from repositories.indicator_repo import get_indicator_query, get_indicators_query, get_indicators_perspective_query
+from repositories.indicator_repo import get_indicator_query, get_indicators_query, get_indicators_perspective_query, get_indicator_string_query
 
 async def fetch_indicator_value(db: Connection, indicator_id: int, aggregation_id: int, start_date, end_date):
     """
@@ -42,6 +42,42 @@ async def fetch_indicator_value(db: Connection, indicator_id: int, aggregation_i
             "error": str(e)
         }
 
+async def fetch_indicator(db: Connection, indicator:str, aggregation: str):
+    """
+    Ejecuta la consulta SQL almacenada y aplica la función de agregación.
+    """
+    row = await get_indicator_string_query(db, indicator)
+    print(row)
+    if not row:
+        return {"message": "Indicator or aggregation not found", "status": False, "data": None, "error": "Not Found"}
+
+    raw_query = row["consulta"]  # Consulta SQL base
+    filtered_query = f"""SELECT * FROM ({raw_query}) AS subquery"""
+    final_query = f"SELECT {aggregation}(subquery.value) AS result FROM ({filtered_query}) AS subquery"
+    return await db.fetchrow(final_query)
+
+
+async def fetch_indicator_str(db: Connection, indicator:str, aggregation: str, start_date, end_date):
+    """
+    Ejecuta la consulta SQL almacenada y aplica la función de agregación.
+    """
+    print(indicator, aggregation, start_date, end_date)
+    row = await get_indicator_string_query(db, indicator)
+    print(row)
+    if not row:
+        return {"message": "Indicator or aggregation not found", "status": False, "data": None, "error": "Not Found"}
+
+    raw_query = row["consulta"]  # Consulta SQL base
+
+    filtered_query = f"""
+        SELECT * FROM ({raw_query}) AS subquery
+        WHERE subquery.fecha BETWEEN $1 AND $2
+    """
+
+    final_query = f"SELECT {aggregation}(subquery.value) AS result FROM ({filtered_query}) AS subquery"
+    response = await db.fetchrow(final_query, start_date, end_date)
+    print(response)
+    return response
 
 async def get_indicators(db: Connection):
     row = await get_indicators_query(db)

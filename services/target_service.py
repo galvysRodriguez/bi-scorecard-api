@@ -3,6 +3,7 @@ from repositories.target_repo import TargetRepository
 from schemas.target import TargetCreate
 from utils.api_response import api_response
 from services.indicator_service import fetch_indicator_value
+from services.formula_service import calc_formula_date
 
 
 class TargetService:
@@ -13,10 +14,10 @@ class TargetService:
         if not row:
             return api_response("Target not found", False)
 
-        indicator_value = await fetch_indicator_value(
+        
+        indicator_value = await calc_formula_date(
             db, 
             row["indicator_id"], 
-            row["aggregation_id"],
             row["start_date"],
             row["end_date"])
 
@@ -27,11 +28,10 @@ class TargetService:
                 "tolerable": row["tolerable"],
                 "deficient": row["deficient"],
                 "indicator_id": row["indicator_id"],
-                "aggregation_id": row["aggregation_id"],
+                "perspective_id": row["perspective_id"],
                 "start_date": row["start_date"],
                 "end_date": row["end_date"],
                 "indicator": row["indicator"],
-                "aggregation": row["aggregation"],
                 "perspective": row["perspective"],
                 "indicator_value": indicator_value.get("data", {}).get("value")  # Extraer el valor si está disponible
             }
@@ -49,10 +49,9 @@ class TargetService:
         response_data = []
         
         for target in targets:
-            indicator_value = await fetch_indicator_value(
+            indicator_value = await calc_formula_date(
                 db, 
                 target["indicator_id"], 
-                target["aggregation_id"],
                 target["start_date"],
                 target["end_date"])
             
@@ -64,11 +63,10 @@ class TargetService:
                 "tolerable": target["tolerable"],
                 "deficient": target["deficient"],
                 "indicator_id": target["indicator_id"],
-                "aggregation_id": target["aggregation_id"],
+                "perspecitve_id": target["perspective_id"],
                 "start_date": target["start_date"],
                 "end_date": target["end_date"],
                 "indicator": target["indicator"],
-                "aggregation": target["aggregation"],
                 "perspective": target["perspective"],
                 "indicator_value": indicator_value.get("data", {}).get("value")  # Extraer el valor si está disponible
             }
@@ -81,16 +79,16 @@ class TargetService:
     async def get_all_targets(db: Connection):
         """Obtiene todos los objetivos y los devuelve como respuesta."""
         targets = await TargetRepository.get_all_targets(db)
+        
         if not targets:
             return api_response("Targets not found", False)
 
         response_data = []
         
         for target in targets:
-            indicator_value = await fetch_indicator_value(
+            indicator_value = await calc_formula_date(
                 db, 
                 target["indicator_id"], 
-                target["aggregation_id"],
                 target["start_date"],
                 target["end_date"])
             
@@ -102,11 +100,10 @@ class TargetService:
                 "tolerable": target["tolerable"],
                 "deficient": target["deficient"],
                 "indicator_id": target["indicator_id"],
-                "aggregation_id": target["aggregation_id"],
+                "perspecitve_id": target["perspective_id"],
                 "start_date": target["start_date"],
                 "end_date": target["end_date"],
                 "indicator": target["indicator"],
-                "aggregation": target["aggregation"],
                 "perspective": target["perspective"],
                 "indicator_value": indicator_value.get("data", {}).get("value")  # Extraer el valor si está disponible
             }

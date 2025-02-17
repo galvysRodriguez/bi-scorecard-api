@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from api.token import verify_jwt_token
-from routers import indicators, targets, aggregations
+from routers import indicators, targets, aggregations, formula
 from routers.target import customer, finance, innovation, process
 
 app = FastAPI()
@@ -34,6 +34,7 @@ def get_current_user(token: str = Depends(verify_jwt_token)):
 app.include_router(targets.router)
 app.include_router(indicators.router)
 app.include_router(aggregations.router)
+app.include_router(formula.router)
 app.include_router(customer.router)
 app.include_router(finance.router)
 app.include_router(innovation.router)

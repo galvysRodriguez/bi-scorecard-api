@@ -10,6 +10,10 @@ def get_current_datetime():
     tz = pytz.timezone("America/Caracas")
     return datetime.now(tz).replace(tzinfo=None)
 
+class FormulaBase(BaseModel):
+    title: str
+    formula: str
+
 class TargetBase(BaseModel):
     title: str
     optimal: float
@@ -17,8 +21,8 @@ class TargetBase(BaseModel):
     deficient: Optional[float] = None
     start_date: Optional[datetime] = Field(default_factory=get_current_datetime)  # Timestamp de inicio
     end_date: Optional[datetime] = None  # Timestamp de finalización
-    indicator_id: int
-    aggregation_id: Optional[int] = None
+    perspective_id: int
+    formula_id: Optional[int] = None
 
 
 class TargetCreate(TargetBase):
@@ -35,8 +39,8 @@ class TargetResponse(BaseModel):
     optimal: Decimal = Field(..., alias="optimo")
     tolerable: Optional[Decimal] = Field(None, alias="tolerable")
     deficient: Optional[Decimal] = Field(None, alias="deficiente")
-    indicator_id: int = Field(..., alias="id_indicadores")
-    aggregation_id: Optional[int] = Field(None, alias="id_agregaciones")
+    perspective_id: int = Field(..., alias="id_perspectivas")
+    formula_id: Optional[int] = Field(None, alias="id_formulas")
     start_date: Optional[datetime] = Field(None, alias="id_fecha_inicio")  # Timestamp
     end_date: Optional[datetime] = Field(None, alias="id_fecha_final")  # Timestamp
     completion_date: Optional[datetime] = Field(None, alias="fecha_culminacion")  # Timestamp
