@@ -29,8 +29,15 @@ class TargetCreate(TargetBase):
     pass
 
 
-class TargetUpdate(TargetBase):
-    title: Optional[str] = None  # Permitir actualización parcial
+class TargetUpdate(BaseModel):
+    title: Optional[str] = None
+    optimal: Optional[float] = None
+    tolerable: Optional[float] = None
+    deficient: Optional[float] = None
+    start_date: Optional[datetime] = Field(default_factory=get_current_datetime)  # Timestamp de inicio
+    end_date: Optional[datetime] = None  # Timestamp de finalización
+    perspective_id: Optional[int] = None
+    formula_id: Optional[int] = None
 
 
 class TargetResponse(BaseModel):

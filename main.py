@@ -14,7 +14,8 @@ origins = [
     "http://localhost:8080",
     "https://inventario-lime.vercel.app/home",
     "https://inventario-lime.vercel.app/auth",
-    "https://inventario-lime.vercel.app"
+    "https://inventario-lime.vercel.app",
+    "http://localhost:3000/dashboard/finance/update/6"
 ]
 
 # Agrega el middleware CORS
@@ -26,9 +27,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Middleware de autenticación
-def get_current_user(token: str = Depends(verify_jwt_token)):
-    return token
 
 # Montamos los routers
 app.include_router(targets.router)

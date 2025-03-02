@@ -1,6 +1,6 @@
 from asyncpg import Connection
 from typing import Optional
-from schemas.target import TargetCreate
+from schemas.target import TargetCreate, TargetUpdate
 
 
 class TargetRepository:
@@ -75,22 +75,31 @@ class TargetRepository:
         )
 
     @staticmethod
-    async def update_target(db: Connection, target_id: int, **kwargs):
+    async def update_target(db: Connection, target_id: int,  target_data:TargetUpdate):
         """Actualiza un objetivo existente."""
         query = """
             UPDATE objetivos.objetivos 
-            SET titulo = COALESCE($2, titulo), 
-                optimo = COALESCE($3, optimo), 
-                tolerable = COALESCE($4, tolerable), 
-                deficiente = COALESCE($5, deficiente), 
-                fecha_inicio = COALESCE($6, id_fecha_inicio), 
-                fecha_final = COALESCE($7, id_fecha_final), 
-                id_perspectivas = COALESCE($8, id_perspectivas), 
-                id_formulas = COALESCE($9, id_formulas)
+            SET titulo =($2), 
+                optimo = ($3), 
+                tolerable = ($4), 
+                deficiente = ($5), 
+                fecha_inicio = ($6), 
+                fecha_final = ($7), 
+                id_perspectivas = ($8), 
+                id_formulas = ($9)
             WHERE id_objetivos = $1
             RETURNING *;
         """
-        return await db.fetchrow(query, target_id, *kwargs.values())
+        start_date = target_data.start_date.replace(tzinfo=None) if target_data.start_date else None
+        end_date = target_data.end_date.replace(tzinfo=None) if target_data.end_date else None
+
+        return await db.fetchrow(
+            query,
+            target_id,
+            target_data.title, target_data.optimal, target_data.tolerable,
+            target_data.deficient, start_date, end_date,
+            target_data.perspective_id, target_data.formula_id
+        )
 
     @staticmethod
     async def delete_target(db: Connection, target_id: int):

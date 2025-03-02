@@ -1,6 +1,6 @@
 from asyncpg import Connection
 from repositories.target_repo import TargetRepository
-from schemas.target import TargetCreate
+from schemas.target import TargetCreate, TargetUpdate
 from utils.api_response import api_response
 from services.indicator_service import fetch_indicator_value
 from services.formula_service import calc_formula_date
@@ -120,9 +120,9 @@ class TargetService:
         return api_response("Target created successfully", True, dict(row))
 
     @staticmethod
-    async def update_target(db: Connection, target_id: int, update_data: dict):
+    async def update_target(db: Connection, target_id: int, update_data:TargetUpdate):
         """Actualiza un objetivo existente."""
-        row = await TargetRepository.update_target(db, target_id, **update_data)
+        row = await TargetRepository.update_target(db, target_id, update_data)
         if not row:
             return api_response("Target not found", False)
         return api_response("Target updated successfully", True, dict(row))
