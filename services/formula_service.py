@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from asyncpg import Connection
 from utils.api_response import api_response
 from repositories.formula_repo import add_formula_query, get_formula_query, get_by_id_formula_query
-from services.indicator_service import fetch_indicator, fetch_indicator_value, fetch_indicator_str
+from services.indicator_service import fetch_indicator, fetch_indicator_value, fetch_indicator_str, fetch_indicator_grouped
 from schemas.target import FormulaBase
 from sympy.parsing.latex import parse_latex
 from sympy import Symbol
@@ -59,10 +59,7 @@ async def calc_formula_date(db: Connection, formula_id: int, start_date, end_dat
     if not row:
         raise HTTPException(status_code=404, detail="Formula not found")
 
-    formula_latex = row["formula"]  # Se asume que la columna en la BD se llama "formula"
-
-    
-        # Detectar agregaciones (SUM, AVG, COUNT) y las variables asociadas
+    formula_latex = row["formula"] 
     agregaciones = re.findall(r"(SUM|AVG|COUNT)\\left\((\w+)\\right\)", formula_latex)
 
     valores = {}
@@ -91,4 +88,71 @@ async def calc_formula_date(db: Connection, formula_id: int, start_date, end_dat
 
     return api_response("Formula calculated successfully", True, {"formula": row["formula"], "value": resultado})
 
-  
+import pandas as pd
+
+async def calc_formula_grouped(db, formula_id: int, start_date, end_date, optimal):
+    row = await get_by_id_formula_query(db, formula_id)
+    if not row:
+        raise HTTPException(status_code=404, detail="Formula not found")
+
+    formula_latex = row.get("formula", "")  # Evitar errores si 'formula' no existe
+    if not formula_latex:
+        return api_response("Formula not found", False, {"formula": None, "values": []})
+
+    # Buscar funciones agregadas en la fórmula
+    agregaciones = re.findall(r"(SUM|AVG|COUNT)\\left\((\w+)\\right\)", formula_latex)
+    valores = []
+
+    # Obtener los valores agregados desde la base de datos
+    for funcion, variable in agregaciones:
+        print(f"Buscando indicador: función={funcion}, variable={variable}")
+        
+        registros = await fetch_indicator_grouped(db, variable, funcion, start_date, end_date)
+        if not registros:
+            return api_response("Formula calculated none", True, {"formula": formula_latex, "values": []})
+
+        for registro in registros:
+            fecha = registro.get("fecha")
+            valor = registro.get("result", 0)
+            valores.append({"fecha": fecha, "value": valor})
+
+    # Crear DataFrame de Pandas
+    df = pd.DataFrame(valores)
+
+    if df.empty:
+        return api_response("Formula calculated none", True, {"formula": formula_latex, "values": []})
+
+    # Asegurar tipos correctos
+    df["fecha"] = pd.to_datetime(df["fecha"])
+    df["value"] = pd.to_numeric(df["value"], errors="coerce")
+
+    # Evaluar la expresión en cada fecha sin interpolación
+    formula_procesada = formula_latex
+    calculated_values = []
+
+    calculated_values = []
+    num_rows = len(df)
+    optimal_values = [optimal/num_rows * (i + 1) for i in range(num_rows)]  # Genera 100, 200, 300, ...
+
+    for index, row in enumerate(df.iterrows()):
+        _, row_data = row
+        formula_temp = formula_procesada
+
+        for funcion, variable in agregaciones:
+            formula_temp = re.sub(rf"{funcion}\\left\({variable}\\right\)", str(row_data["value"]), formula_temp)
+
+        try:
+            expr = parse_latex(formula_temp)
+            calculated_value = float(expr.evalf())
+        except Exception as e:
+            print(f"Error evaluando fórmula: {e}")
+            calculated_value = None
+
+        calculated_values.append({
+            "date": row_data["fecha"],
+            "value": round(calculated_value,2),
+            "optimal": round(optimal_values[index],2)  # Asigna 100, 200, 300, ...
+        })
+
+    # Respuesta final
+    return calculated_values

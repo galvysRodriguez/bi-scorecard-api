@@ -79,6 +79,36 @@ async def fetch_indicator_str(db: Connection, indicator:str, aggregation: str, s
     print(response)
     return response
 
+async def fetch_indicator_grouped(db: Connection, indicator: str, aggregation: str, start_date, end_date):
+    """
+    Ejecuta la consulta SQL almacenada y aplica la función de agregación.
+    """
+    print(indicator, aggregation, start_date, end_date)
+    row = await get_indicator_string_query(db, indicator)
+
+    if not row:
+        return {"message": "Indicator or aggregation not found", "status": False, "data": None, "error": "Not Found"}
+
+    raw_query = row["consulta"]  
+
+
+    filtered_query = f"""
+        SELECT * FROM ({raw_query}) AS subquery
+        WHERE subquery.fecha BETWEEN $1 AND $2
+    """
+
+    final_query = f"""
+        SELECT subquery.fecha, {aggregation}(subquery.value) AS result
+        FROM ({filtered_query}) AS subquery
+        GROUP BY subquery.fecha
+        ORDER BY subquery.fecha ASC
+    """
+
+    response = await db.fetch(final_query, start_date, end_date)
+    return response
+    
+
+
 async def get_indicators(db: Connection):
     row = await get_indicators_query(db)
     if not row:

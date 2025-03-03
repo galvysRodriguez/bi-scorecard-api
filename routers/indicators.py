@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from datetime import datetime
 from asyncpg import Connection
-from services.indicator_service import fetch_indicator_value, get_indicators, fetch_indicator_str, get_indicators_with_perspective
+from services.indicator_service import fetch_indicator_value, get_indicators, fetch_indicator_str, get_indicators_with_perspective, fetch_indicator_grouped
 from db.database import get_db
 
 router = APIRouter(prefix="/indicators", tags=["indicators"])
@@ -21,6 +21,15 @@ async def get_indicator_value_string(indicator: str, aggregation: str, start_dat
     """
     response = await fetch_indicator_str(db, indicator, aggregation, start_date, end_date)
     return response
+
+@router.get("/indicators/grouped")
+async def get_indicator_value_string(indicator: str, aggregation: str, start_date:datetime, end_date:datetime, db: Connection = Depends(get_db)):
+    """
+    API para obtener el valor de un indicador con una agregación específica.
+    """
+    response = await fetch_indicator_grouped(db, indicator, aggregation, start_date, end_date)
+    return response
+
 
 
 @router.get("/")
