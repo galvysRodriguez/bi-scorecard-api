@@ -61,7 +61,14 @@ class TargetService:
         min_daily = round(row["optimal"] / len(df),2)
         df = df.tail(10)
         result = df.to_dict(orient="records")
-        total_value = sum(map(lambda x: x["value"], indicator_value))
+
+        #valor total
+        value = await calc_formula_date(
+            db, 
+            row["indicator_id"], 
+            row["start_date"],
+            row["end_date"])
+        total_value = round(value.get("data", {}).get("value"),2)
 
         start_date = row["start_date"]
         end_date = row["end_date"]

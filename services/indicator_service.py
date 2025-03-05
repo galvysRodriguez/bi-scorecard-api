@@ -64,20 +64,42 @@ async def fetch_indicator_str(db: Connection, indicator:str, aggregation: str, s
     print(indicator, aggregation, start_date, end_date)
     row = await get_indicator_string_query(db, indicator)
     print(row)
-    if not row:
+    if not row["consulta"]:
         return {"message": "Indicator or aggregation not found", "status": False, "data": None, "error": "Not Found"}
 
     raw_query = row["consulta"]  # Consulta SQL base
+    filtered = row["filtro"]
 
+    if(filtered ==2):
+        filtered_query = f"""
+            SELECT {aggregation}(subquery.value) as value FROM ({raw_query}) AS subquery
+            WHERE subquery.fecha <= $1
+            GROUP BY id
+        """
+        final_query = f"SELECT {aggregation}(subquery.value) AS result FROM ({filtered_query}) AS subquery"
+        response = await db.fetchrow(final_query, start_date)
+        return response
+
+    if(filtered ==3):
+        filtered_query = f"""
+            SELECT {aggregation}(subquery.value) as value FROM ({raw_query}) AS subquery
+            WHERE subquery.fecha <= $1
+            GROUP BY id
+        """
+        final_query = f"SELECT {aggregation}(subquery.value) AS result FROM ({filtered_query}) AS subquery"
+        response = await db.fetchrow(final_query, end_date)
+        return response
+    
     filtered_query = f"""
-        SELECT * FROM ({raw_query}) AS subquery
-        WHERE subquery.fecha BETWEEN $1 AND $2
-    """
-
+            SELECT {aggregation}(subquery.value) as value FROM ({raw_query}) AS subquery
+            WHERE subquery.fecha BETWEEN $1 AND $2
+            GROUP BY id
+        """
     final_query = f"SELECT {aggregation}(subquery.value) AS result FROM ({filtered_query}) AS subquery"
     response = await db.fetchrow(final_query, start_date, end_date)
     print(response)
     return response
+    
 
 async def fetch_indicator_grouped(db: Connection, indicator: str, aggregation: str, start_date, end_date):
     """
@@ -128,7 +150,8 @@ async def get_indicators_with_perspective(db: Connection):
         perspective_name = row["perspective"]
         indicator = {
             "id": row["id"],
-            "name": row["indicator"]
+            "name": row["indicator"],
+            "description": row["description"]
         }
         
         # Si la perspectiva no existe en el diccionario, la agregamos

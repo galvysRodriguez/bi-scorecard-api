@@ -18,7 +18,7 @@ async def get_indicator_string_query(db: Connection, indicator: str):
     Obtiene la consulta SQL base del indicador y la función de agregación correspondiente.
     """
     query = """
-        SELECT i.consulta
+        SELECT i.consulta, i.filtro
         FROM objetivos.indicadores i
         WHERE i.indicador = $1
     """
@@ -30,8 +30,10 @@ async def get_indicator_string_query(db: Connection, indicator: str):
 async def get_indicators_query(db: Connection):
     query = """SELECT 
                     id_indicadores as id, 
-                    indicador as indicator 
-                FROM objetivos.indicadores"""
+                    indicador as indicator,
+                    descripcion as description 
+                FROM objetivos.indicadores
+                WHERE visible = true"""
 
     return await db.fetch(query)
 
@@ -41,7 +43,8 @@ async def get_indicators_with_perspective_query(db: Connection):
                     i.id_indicadores as id, 
                     i.indicador as indicator,
                     p.perspectiva as perspective,
-                    p.id_perspectivas as perspective_id
+                    p.id_perspectivas as perspective_id,
+                    i.descripcion as description
                 FROM objetivos.indicadores i
                 INNER JOIN objetivos.perspectivas p ON p.id_perspectivas = i.id_perspectivas
                 ORDER BY i.id_perspectivas"""
@@ -51,7 +54,7 @@ async def get_indicators_with_perspective_query(db: Connection):
 async def get_indicators_perspective_query(db: Connection, perspective_id: int):
     query = """SELECT 
                     id_indicadores as id, 
-                    indicador as indicator 
+                    indicador as indicator,
                 FROM objetivos.indicadores
                 WHERE id_perspectivas = $1"""
 

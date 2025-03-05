@@ -5,7 +5,8 @@ async def get_formula_query(db: Connection):
     query = """SELECT 
                     id_formulas as id, 
                     titulo as title
-                FROM objetivos.formulas"""
+                FROM objetivos.formulas
+                WHERE visible = True"""
 
     return await db.fetch(query)
 
