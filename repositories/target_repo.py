@@ -98,7 +98,7 @@ class TargetRepository:
             target_id,
             target_data.title, target_data.optimal, target_data.tolerable,
             target_data.deficient, start_date, end_date,
-            target_data.perspective_id, target_data.formula_id
+            target_data.perspective_id, target_data.indicator_id
         )
 
     @staticmethod

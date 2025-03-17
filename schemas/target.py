@@ -37,7 +37,7 @@ class TargetUpdate(BaseModel):
     start_date: Optional[datetime] = Field(default_factory=get_current_datetime)  # Timestamp de inicio
     end_date: Optional[datetime] = None  # Timestamp de finalización
     perspective_id: Optional[int] = None
-    formula_id: Optional[int] = None
+    indicator_id: Optional[int] = None
 
 
 class TargetResponse(BaseModel):
