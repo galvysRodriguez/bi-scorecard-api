@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  fastapi:
+    image: python
+    ports:
+      - "8000:8000"
+    volumes:
+      - fastapi-data:/app/data
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: fastapi_db
+    volumes:
+      - fastapi-data:/var/lib/postgresql/data
+volumes:
+  fastapi-data:

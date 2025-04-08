@@ -14,6 +14,27 @@ class FormulaBase(BaseModel):
     title: str
     formula: str
 
+class FormulaCreate(FormulaBase):
+    tag: int
+
+class TagBase(BaseModel):
+    title: str
+
+class UserBase(BaseModel):
+    user: str
+    password: str
+
+class PerspectiveBase(BaseModel):
+    title: str
+    icon: Optional[str] = None
+
+class PerspectiveCreate(PerspectiveBase):
+    tags: list[int]
+
+class TagCreate(TagBase):
+    perspectives: list[int]
+    indicators: list[int]
+
 class TargetBase(BaseModel):
     title: str
     optimal: float

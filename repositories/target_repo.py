@@ -50,7 +50,8 @@ class TargetRepository:
                    p.perspectiva AS perspective
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
-            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = o.id_perspectivas 
+            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = o.id_perspectivas
+            ORDER BY  o.fecha_inicio ASC, o.fecha_final ASC
         """
         return await db.fetch(query)
 
