@@ -1,0 +1,31 @@
+from fastapi import APIRouter, Depends
+from asyncpg import Connection
+from db.database import get_db
+from services.perspective_service import global_create_perspective, global_delete_perspective, global_exist_perspective, global_get_perspective, global_get_perspectives, global_update_perspective
+from schemas.target import PerspectiveCreate, PerspectiveBase
+
+router = APIRouter(prefix="/perspectives", perspectives=["Perspectives"])
+
+@router.get("/{perspective_id}")
+async def get_perspective(perspective_id: int, db: Connection = Depends(get_db)):
+    return await global_get_perspective(db, perspective_id)
+
+@router.get("/")
+async def get_perspectives(db: Connection = Depends(get_db)):
+    return await global_get_perspectives(db)
+
+@router.post("/exist")
+async def get_perspective_exist(perspective_data: PerspectiveBase, db: Connection = Depends(get_db)):
+    return await global_exist_perspective(db, perspective_data)
+
+@router.post("/")
+async def create_perspectives(perspective: PerspectiveCreate, db: Connection = Depends(get_db)):
+    return await global_create_perspective(db, perspective)
+
+@router.put("/{perspective_id}")
+async def update_perspective(perspective_id: int, perspective_data: PerspectiveCreate, db: Connection = Depends(get_db)):
+    return await global_update_perspective(db, perspective_id, perspective_data)
+
+@router.delete("/{perspective_id}")
+async def delete_target(perspective_id: int, db: Connection = Depends(get_db)):
+    return await global_delete_perspective(db, perspective_id)

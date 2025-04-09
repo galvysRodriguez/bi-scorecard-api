@@ -1,11 +1,12 @@
 from fastapi import HTTPException
 from asyncpg import Connection
 from utils.api_response import api_response
-from repositories.formula_repo import add_formula_query, get_formula_query, get_by_id_formula_query
+from repositories.formula_repo import add_formula_query, get_formula_query, get_by_id_formula_query, delete_formula_query, update_formula_query, exist_formula_query
 from services.indicator_service import fetch_indicator, fetch_indicator_value, fetch_indicator_str, fetch_indicator_grouped
-from schemas.target import FormulaBase
+from schemas.target import FormulaBase, FormulaCreate
 from sympy.parsing.latex import parse_latex
 from sympy import Symbol
+import pandas as pd
 import re
 
 async def get_formulas(db: Connection):
@@ -14,9 +15,25 @@ async def get_formulas(db: Connection):
         return api_response("Formula not found", False)
     return api_response("Formula retrieved successfully", True, dict(row))
 
-async def add_formula(db: Connection, formula_data: FormulaBase):
+async def add_formula(db: Connection, formula_data: FormulaCreate):
     row = await add_formula_query(db, formula_data)
     return api_response("Formula created successfully", True, dict(row))
+
+async def update_formula(db: Connection, formula: FormulaCreate, formula_id:int):
+    row = await update_formula_query(db, formula_id, formula)
+    if not row:
+        return api_response("Formula not found", False)
+    return api_response("Formula updated successfully", True, dict(row))
+
+async def delete_formula(db: Connection, formula_id: int):
+    row = await delete_formula_query(db, formula_id)
+    if not row:
+        return api_response("Formula not found", False)
+    return api_response("Formula deleted successfully", True, dict(row))
+
+async def exist_formula(db: Connection, formula:FormulaBase):
+    rows = await exist_formula_query(db, formula)
+    return api_response("Etiquetas listadas correctamente", True, rows)
 
 async def calc_formula(db: Connection, formula_id: int):
     row = await get_by_id_formula_query(db, formula_id)
@@ -87,8 +104,6 @@ async def calc_formula_date(db: Connection, formula_id: int, start_date, end_dat
     resultado = float(expr.evalf())
 
     return api_response("Formula calculated successfully", True, {"formula": row["formula"], "value": resultado})
-
-import pandas as pd
 
 async def calc_formula_grouped(db, formula_id: int, start_date, end_date, optimal):
     row = await get_by_id_formula_query(db, formula_id)

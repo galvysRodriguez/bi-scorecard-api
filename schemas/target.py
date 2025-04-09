@@ -12,10 +12,10 @@ def get_current_datetime():
 
 class FormulaBase(BaseModel):
     title: str
-    formula: str
-
+    
 class FormulaCreate(FormulaBase):
     tag: int
+    formula: str
 
 class TagBase(BaseModel):
     title: str
@@ -26,7 +26,7 @@ class UserBase(BaseModel):
 
 class PerspectiveBase(BaseModel):
     title: str
-    icon: Optional[str] = None
+    icon: Optional[int] = None
 
 class PerspectiveCreate(PerspectiveBase):
     tags: list[int]
