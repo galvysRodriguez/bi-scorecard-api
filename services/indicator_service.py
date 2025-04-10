@@ -1,7 +1,6 @@
 from asyncpg import Connection
-from datetime import datetime
 from utils.api_response import api_response
-from repositories.indicator_repo import get_indicator_query, get_indicators_query, get_indicators_with_perspective_query, get_indicators_perspective_query, get_indicator_string_query
+from repositories.indicator_repo import get_indicator_query, get_indicators_query, get_indicators_tag_query, get_indicator_string_query
 
 async def fetch_indicator_value(db: Connection, indicator_id: int, aggregation_id: int, start_date, end_date):
     """
@@ -14,9 +13,6 @@ async def fetch_indicator_value(db: Connection, indicator_id: int, aggregation_i
 
     raw_query = row["consulta"]  # Consulta SQL base
     aggregation_function = row["funcion"]  # Función de agregación (ej. 'SUM')
-
-
-   
 
     filtered_query = f"""
         SELECT * FROM ({raw_query}) AS subquery
@@ -137,42 +133,9 @@ async def get_indicators(db: Connection):
         return api_response("Indicator not found", False)
     return api_response("Indicators retrieved successfully", True, dict(row))
 
-async def get_indicators_with_perspective(db: Connection):
-    rows = await get_indicators_with_perspective_query(db)
-    if not rows:
-        return api_response("Indicator not found", False)
 
-    # Diccionario para agrupar por perspectiva
-    grouped_data = {}
-    
-    for row in rows:
-        perspective_id = row["perspective_id"]
-        perspective_name = row["perspective"]
-        indicator = {
-            "id": row["id"],
-            "name": row["indicator"],
-            "description": row["description"]
-        }
-        
-        # Si la perspectiva no existe en el diccionario, la agregamos
-        if perspective_id not in grouped_data:
-            grouped_data[perspective_id] = {
-                "id": perspective_id,
-                "name": perspective_name,
-                "indicators": []
-            }
-        
-        # Agregar el indicador a la perspectiva correspondiente
-        grouped_data[perspective_id]["indicators"].append(indicator)
-    
-    # Convertir el diccionario a una lista de perspectivas con sus indicadores
-    response_data = list(grouped_data.values())
-    
-    # Devolver la respuesta
-    return api_response("Indicators retrieved successfully", True, response_data)
-
-async def get_indicators_perspective(db: Connection, perspective_id: int):
-    row = await get_indicators_perspective_query(db, perspective_id)
+async def get_indicators_tag(db: Connection, tag_id: int):
+    row = await get_indicators_tag_query(db, tag_id)
     if not row:
         return api_response("Indicator not found", False)
     return api_response("Indicators retrieved successfully", True, dict(row))

@@ -4,9 +4,8 @@ async def get_perspective_tag(db: Connection, perspective_id: int):
         """Consulta todos las perspectiva_etiqueta por perspective_id"""
         query = f"""
             SELECT 
-                e.id_etiquetas as tag_id, 
-                e.id_perspectivas as id,
-                p.perspectiva as perspective
+                e.id_etiquetas as id, 
+                e.eriqueta as tag
             FROM objetivos.perspectiva_etiqueta e
             INNER JOIN objetivos.etiquetas t ON e.id_etiquetas = t.id_etiquetas
             INNER JOIN objetivos.perspectivas p ON p.id_perspectivas = e.id_perspectivas
@@ -18,9 +17,8 @@ async def get_tag_perspective(db: Connection, tag_id: int):
         """Consulta todos las perspectiva_etiqueta por tag_id"""
         query = f"""
              SELECT 
-                e.id_perspectivas as perspective_id, 
-                e.id_etiquetas as id,
-                t.etiqueta as tag
+                e.id_perspectivas as id, 
+                p.perspectiva as perspective
             FROM objetivos.perspectiva_etiqueta e
             INNER JOIN objetivos.etiquetas t ON e.id_etiquetas = t.id_etiquetas
             INNER JOIN objetivos.perspectivas p ON p.id_perspectivas = e.id_perspectivas

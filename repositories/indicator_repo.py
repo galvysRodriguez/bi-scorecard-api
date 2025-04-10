@@ -37,25 +37,23 @@ async def get_indicators_query(db: Connection):
 
     return await db.fetch(query)
 
-
-async def get_indicators_with_perspective_query(db: Connection):
-    query = """SELECT 
-                    i.id_indicadores as id, 
-                    i.indicador as indicator,
-                    p.perspectiva as perspective,
-                    p.id_perspectivas as perspective_id,
-                    i.descripcion as description
-                FROM objetivos.indicadores i
-                INNER JOIN objetivos.perspectivas p ON p.id_perspectivas = i.id_perspectivas
-                ORDER BY i.id_perspectivas"""
-
-    return await db.fetch(query)
-
-async def get_indicators_perspective_query(db: Connection, perspective_id: int):
+async def get_indicator_query(db: Connection, indicator_id: int):
     query = """SELECT 
                     id_indicadores as id, 
                     indicador as indicator,
+                    descripcion as description 
                 FROM objetivos.indicadores
-                WHERE id_perspectivas = $1"""
+                WHERE visible = true AND id_indicadores = $1"""
 
-    return await db.fetch(query, perspective_id)
+    return await db.fetchrow(query, indicator_id)
+
+
+async def get_indicators_tag_query(db: Connection, tag_id: int):
+    query = """SELECT 
+                    i.id_indicadores as id, 
+                    i.indicador as indicator,
+                FROM objetivos.indicadores i
+                INNER JOIN objetivos.etiqueta_indicador ei ON ei.id_indicadores = i.id_indicadores
+                WHERE ei.id_etiquetas = $1"""
+
+    return await db.fetch(query, tag_id)

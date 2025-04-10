@@ -11,12 +11,13 @@ class TargetRepository:
             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
                    o.fecha_final AS end_date, o.id_formulas AS indicator_id,
-                   o.id_perspectivas AS perspective_id,
+                   p.id_perspectivas AS perspective_id,
                    f.titulo AS indicator,
                    p.perspectiva AS perspective
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
-            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = o.id_perspectivas 
+            LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
+            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = pe.id_perspectivas
             WHERE o.id_objetivos = $1
         """
         return await db.fetchrow(query, target_id)
@@ -28,29 +29,31 @@ class TargetRepository:
              SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
                    o.fecha_final AS end_date, o.id_formulas AS indicator_id,
-                   o.id_perspectivas AS perspective_id,
                    f.titulo AS indicator,
+                   p.id_perspectivas AS perspective_id,
                    p.perspectiva AS perspective
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
-            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = o.id_perspectivas 
-            WHERE o.id_perspectivas = $1
+            LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
+            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = pe.id_perspectivas
+            WHERE pe.id_perspectivas = $1
+            ORDER BY  o.fecha_inicio ASC, o.fecha_final ASC
         """
         return await db.fetch(query, perspective_id)
 
     @staticmethod
     async def get_all_targets(db: Connection):
-        """Consulta todos los objetivos."""
+        """Consulta todos los objetivos. no esta en produccion"""
         query = """
             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
                    o.fecha_final AS end_date, o.id_formulas AS indicator_id,
-                   o.id_perspectivas AS perspective_id,
+                   p.id_perspectivas AS perspective_id,
                    f.titulo AS indicator,
-                   p.perspectiva AS perspective
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
-            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = o.id_perspectivas
+            LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
+            LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = pe.id_perspectivas
             ORDER BY  o.fecha_inicio ASC, o.fecha_final ASC
         """
         return await db.fetch(query)

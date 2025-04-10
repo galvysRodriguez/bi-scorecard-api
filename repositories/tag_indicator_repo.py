@@ -4,9 +4,8 @@ async def get_indicator_tag(db: Connection, indicator_id: int):
         """Consulta todos las etiqueta_indicador por perspective_id"""
         query = f"""
             SELECT 
-                e.id_indicadores as id, 
-                i.indicator as indicator,
-                e.id_etiquetas as tag_id
+                e.id_etiquetas as id,
+                e.etiqueta as tag
             FROM objetivos.etiqueta_indicador e
             INNER JOIN objetivos.etiquetas t ON e.id_etiquetas = t.id_etiquetas
             INNER JOIN objetivos.indicadores i ON i.id_indicadores = e.id_indicadores
@@ -18,12 +17,11 @@ async def get_tag_indicator(db: Connection, tag_id: int):
         """Consulta todos las etiqueta_indicador por tag_id"""
         query = f"""
              SELECT 
-                e.id_etiquetas as id, 
-                t.etiqueta as tag,
-                e.id_indicadores as indicator_id
+                i.id_indicadores as id, 
+                i.indicador as indicator
             FROM objetivos.etiqueta_indicador e
             INNER JOIN objetivos.etiquetas t ON e.id_etiquetas = t.id_etiquetas
-            INNER JOIN objetivos.perspectivas p ON p.id_perspectivas = e.id_perspectivas
+            INNER JOIN objetivos.indicadores i ON i.id_indicadores = e.id_indicadores
             WHERE e.id_etiquetas = $1 AND t.visible = true
         """
         return await db.fetch(query, tag_id)
