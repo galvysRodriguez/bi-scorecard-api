@@ -33,7 +33,8 @@ async def delete_formula(db: Connection, formula_id: int):
 
 async def exist_formula(db: Connection, formula:FormulaBase):
     rows = await exist_formula_query(db, formula)
-    return api_response("Etiquetas listadas correctamente", True, rows)
+    value = rows["count"] == 1
+    return api_response("Etiquetas listadas correctamente", True, value)
 
 async def calc_formula(db: Connection, formula_id: int):
     row = await get_by_id_formula_query(db, formula_id)

@@ -4,7 +4,7 @@ from db.database import get_db
 from services.perspective_service import global_create_perspective, global_delete_perspective, global_exist_perspective, global_get_perspective, global_get_perspectives, global_update_perspective
 from schemas.target import PerspectiveCreate, PerspectiveBase
 
-router = APIRouter(prefix="/perspectives", perspectives=["Perspectives"])
+router = APIRouter(prefix="/perspectives", tags=["Perspectives"])
 
 @router.get("/{perspective_id}")
 async def get_perspective(perspective_id: int, db: Connection = Depends(get_db)):

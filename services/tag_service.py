@@ -30,7 +30,7 @@ async def add_tag_indicators(db: Connection, indicators: list[int], tag_id:int):
     results = []
 
     for indicator_id in indicators:
-        result = await add_tag_indicator(db, indicator_id, tag_id)
+        result = await add_tag_indicator(db, tag_id, indicator_id)
         results.append(result)
 
     return results
@@ -40,7 +40,7 @@ async def delete_tag_indicators(db: Connection, indicators: list[int], tag_id:in
     results = []
 
     for indicator_id in indicators:
-        result = await delete_tag_indicator(db, indicator_id, tag_id)
+        result = await delete_tag_indicator(db, tag_id, indicator_id)
         results.append(result)
 
     return results
@@ -105,7 +105,7 @@ async def global_create_tag(db: Connection, tag: TagCreate):
         await add_perspectives_tag(db, tag.perspectives, tag_id)
 
         # guardar indicadores del tag
-        await add_tag_indicators(db, tag_id, tag.indicators)
+        await add_tag_indicators(db, tag.indicators, tag_id)
 
     return api_response("Etiqueta creada correctamente", True, {"tag_id": tag_id})
 
@@ -143,4 +143,5 @@ async def global_get_tags(db: Connection):
 
 async def global_exist_tag(db: Connection, tag:TagBase):
     rows = await exist_tag(db, tag)
-    return api_response("Etiquetas listadas correctamente", True, rows)
+    value = rows["count"] == 1
+    return api_response("Etiquetas listadas correctamente", True, value)

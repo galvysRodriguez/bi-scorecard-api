@@ -26,10 +26,10 @@ class UserBase(BaseModel):
 
 class PerspectiveBase(BaseModel):
     title: str
-    icon: Optional[int] = None
 
 class PerspectiveCreate(PerspectiveBase):
     tags: list[int]
+    icon: Optional[int] = None
 
 class TagCreate(TagBase):
     perspectives: list[int]

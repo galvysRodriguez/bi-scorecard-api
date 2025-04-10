@@ -29,7 +29,7 @@ async def add_tag(db: Connection, tag_data: TagCreate):
         """
 
         row = await db.fetchrow(query, tag_data.title)
-        return row['id'] if row else None
+        return row['id_etiquetas'] if row else None
 
 async def update_tag(db: Connection, tag_id: int,  tag_data:TagCreate):
         """Actualiza una etiqueta existente."""
@@ -40,7 +40,7 @@ async def update_tag(db: Connection, tag_id: int,  tag_data:TagCreate):
             RETURNING *;
         """
         row = await db.fetchrow(query, tag_id, tag_data.title)
-        return row['id'] if row else None
+        return row['id_etiquetas'] if row else None
 
 async def delete_tag(db: Connection, tag_id: int):
         """Elimina un objetivo por ID."""

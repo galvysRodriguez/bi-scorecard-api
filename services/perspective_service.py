@@ -90,4 +90,5 @@ async def global_get_perspectives(db: Connection):
 
 async def global_exist_perspective(db: Connection, perspective:PerspectiveBase):
     rows = await exist_perspective(db, perspective)
-    return api_response("Etiquetas listadas correctamente", True, rows)
+    value = rows["count"] == 1
+    return api_response("Etiquetas listadas correctamente", True, value)
