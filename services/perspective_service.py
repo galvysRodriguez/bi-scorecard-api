@@ -1,6 +1,6 @@
 from asyncpg import Connection
 from repositories.perspective_tag_repo import add_perspective_tag, delete_perspective_tag, get_perspective_tag
-from repositories.perspective_repo import add_perspective, delete_perspective, update_perspective, get_perspective, get_perspectives, exist_perspective
+from repositories.perspective_repo import add_perspective, delete_perspective, update_perspective, get_perspective, get_perspectives, exist_perspective, get_all_perspectives
 from utils.api_response import api_response
 from schemas.target import PerspectiveBase, PerspectiveCreate
 
@@ -86,6 +86,10 @@ async def global_get_perspective(db: Connection, perspective_id: int):
 
 async def global_get_perspectives(db: Connection):
     rows = await get_perspectives(db)
+    return api_response("Perspectivas listadas correctamente", True, rows)
+
+async def global_get_perspectives_with_icon(db: Connection):
+    rows = await get_all_perspectives(db)
     return api_response("Perspectivas listadas correctamente", True, rows)
 
 async def global_exist_perspective(db: Connection, perspective:PerspectiveBase):

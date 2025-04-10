@@ -14,6 +14,10 @@ async def get_target(target_id: int, db: Connection = Depends(get_db)):
 async def get_targets(db: Connection = Depends(get_db)):
     return await TargetService.get_all_targets(db)
 
+@router.get("/perspective/{perspective_id}")
+async def get_targets_perspective(perspective_id: int, db: Connection = Depends(get_db)):
+    return await TargetService.get_targets(db, perspective_id)
+
 @router.post("/")
 async def create_target(target: TargetCreate, db: Connection = Depends(get_db)):
     return await TargetService.add_target(db, target)

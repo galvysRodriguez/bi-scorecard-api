@@ -7,8 +7,9 @@ async def get_perspective(db: Connection, perspective_id: int):
         """Consulta una perspectiva por ID."""
         query = """
             SELECT e.id_perspectivas as id, e.perspectiva as perspective,
-                e.id_iconos as icon_id
+                i.icono as icon
             FROM objetivos.perspectivas e
+            LEFT JOIN objetivos.iconos i ON i.id_iconos = e.id_iconos
             WHERE e.id_perspectivas = $1 AND e.visible = true
         """
         return await db.fetchrow(query, perspective_id)
@@ -25,8 +26,9 @@ async def get_all_perspectives(db: Connection):
         """Consulta todos las perspectivas"""
         query = """
              SELECT e.id_perspectivas as id, e.perspectiva as perspective,
-                e.id_iconos as icon_id
+                 i.icono as icon
                FROM objetivos.perspectivas e
+               LEFT JOIN objetivos.iconos i ON i.id_iconos = e.id_iconos
                WHERE e.visible = true
         """
         return await db.fetch(query)
