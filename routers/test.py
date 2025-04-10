@@ -5,6 +5,7 @@ from datetime import datetime
 from services.target_service import TargetService
 from schemas.target import TargetCreate, TargetUpdate
 from services.indicator_service import fetch_indicator_value, fetch_indicator_str, fetch_indicator_grouped
+from services.formula_service import calc_formula, calc_formula_date, calc_formula_grouped
 
 router = APIRouter(prefix="/test", tags=["test"])
 
@@ -31,3 +32,19 @@ async def get_indicator_value_string(indicator: str, aggregation: str, start_dat
     return response
 
 
+
+@router.get("/formula/general/{formula_id}")
+async def get_formula(formula_id: int, db: Connection = Depends(get_db)):
+    response = await calc_formula(db, formula_id)
+    return response
+
+@router.get("/formula/{formula_id}")
+async def get_formula_date(formula_id: int, start_date:datetime, end_date:datetime, db: Connection = Depends(get_db)):
+    response = await calc_formula_date(db, formula_id, start_date, end_date)
+    return response
+
+
+@router.get("/formula/grouped/{formula_id}")
+async def get_formula_date(formula_id: int, start_date:datetime, end_date:datetime, optimal:int, db: Connection = Depends(get_db)):
+    response = await calc_formula_grouped(db, formula_id, start_date, end_date, optimal)
+    return response
