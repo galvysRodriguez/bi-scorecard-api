@@ -37,17 +37,14 @@ class TagCreate(TagBase):
 
 class TargetBase(BaseModel):
     title: str
-    optimal: float
+
+class TargetCreate(TargetBase):
+    optimal: Optional[float] = None
     tolerable: Optional[float] = None
     deficient: Optional[float] = None
     start_date: Optional[datetime] = Field(default_factory=get_current_datetime)  # Timestamp de inicio
     end_date: Optional[datetime] = None  # Timestamp de finalización
-    perspective_id: int
     formula_id: Optional[int] = None
-
-
-class TargetCreate(TargetBase):
-    pass
 
 
 class TargetUpdate(BaseModel):

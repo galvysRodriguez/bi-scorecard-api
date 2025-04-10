@@ -1,6 +1,6 @@
 from asyncpg import Connection
 from typing import Optional
-from schemas.target import TargetCreate, TargetUpdate
+from schemas.target import TargetCreate, TargetUpdate, TargetBase
 
 
 class TargetRepository:
@@ -63,8 +63,8 @@ class TargetRepository:
         """Inserta un nuevo objetivo."""
         query = """
             INSERT INTO objetivos.objetivos (titulo, optimo, tolerable, deficiente, 
-            fecha_inicio, fecha_final, id_perspectivas, id_formulas)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            fecha_inicio, fecha_final, id_formulas)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING *;
         """
 
@@ -74,8 +74,7 @@ class TargetRepository:
         return await db.fetchrow(
             query,
             target_data.title, target_data.optimal, target_data.tolerable,
-            target_data.deficient, start_date, end_date,
-            target_data.perspective_id, target_data.formula_id
+            target_data.deficient, start_date, end_date, target_data.formula_id
         )
 
     @staticmethod
@@ -89,8 +88,7 @@ class TargetRepository:
                 deficiente = ($5), 
                 fecha_inicio = ($6), 
                 fecha_final = ($7), 
-                id_perspectivas = ($8), 
-                id_formulas = ($9)
+                id_formulas = ($8)
             WHERE id_objetivos = $1
             RETURNING *;
         """
@@ -101,8 +99,7 @@ class TargetRepository:
             query,
             target_id,
             target_data.title, target_data.optimal, target_data.tolerable,
-            target_data.deficient, start_date, end_date,
-            target_data.perspective_id, target_data.indicator_id
+            target_data.deficient, start_date, end_date, target_data.indicator_id
         )
 
     @staticmethod
@@ -114,3 +111,13 @@ class TargetRepository:
             RETURNING *;
         """
         return await db.fetchrow(query, target_id)
+    
+    @staticmethod
+    async def exist_target(db: Connection, target: TargetBase):
+        """Verifica si existe la etiqueta"""
+        query = """
+            SELECT COUNT(*) FROM objetivos.objetivos
+            WHERE titulo = $1
+        """
+        return await db.fetchrow(query, target.title)
+

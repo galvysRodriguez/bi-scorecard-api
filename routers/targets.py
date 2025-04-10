@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from asyncpg import Connection
 from db.database import get_db
 from services.target_service import TargetService
-from schemas.target import TargetCreate, TargetUpdate
+from schemas.target import TargetCreate, TargetUpdate, TargetBase
 
 router = APIRouter(prefix="/targets", tags=["Targets"])
 
@@ -25,3 +25,8 @@ async def update_target(target_id: int, target_data: TargetUpdate, db: Connectio
 @router.delete("/{target_id}")
 async def delete_target(target_id: int, db: Connection = Depends(get_db)):
     return await TargetService.delete_target(db, target_id)
+
+@router.post("/exist")
+async def get_target_exist(target_data: TargetBase, db: Connection = Depends(get_db)):
+    return await TargetService.exist_target(db, target_data)
+

@@ -1,7 +1,7 @@
 from asyncpg import Connection
 from datetime import datetime
 from repositories.target_repo import TargetRepository
-from schemas.target import TargetCreate, TargetUpdate
+from schemas.target import TargetCreate, TargetUpdate, TargetBase
 from utils.api_response import api_response
 from services.indicator_service import fetch_indicator_value
 from services.formula_service import calc_formula_date, calc_formula_grouped
@@ -202,3 +202,10 @@ class TargetService:
         if not row:
             return api_response("Target not found", False)
         return api_response("Target deleted successfully", True, dict(row))
+    
+
+    @staticmethod
+    async def exist_target(db: Connection, target:TargetBase):
+        rows = await TargetRepository.exist_target(db, target)
+        value = rows["count"] == 1
+        return api_response("Etiquetas listadas correctamente", True, value)
