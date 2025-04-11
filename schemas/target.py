@@ -20,6 +20,9 @@ class FormulaCreate(FormulaBase):
 class TagBase(BaseModel):
     title: str
 
+class IconBase(BaseModel):
+    title: str
+
 class UserBase(BaseModel):
     user: str
     password: str
