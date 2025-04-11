@@ -14,7 +14,7 @@ class FormulaBase(BaseModel):
     title: str
     
 class FormulaCreate(FormulaBase):
-    tag: int
+    tag_id: int
     formula: str
 
 class TagBase(BaseModel):
@@ -29,7 +29,7 @@ class PerspectiveBase(BaseModel):
 
 class PerspectiveCreate(PerspectiveBase):
     tags: list[int]
-    icon: Optional[int] = None
+    icon_id: Optional[int] = None
 
 class TagCreate(TagBase):
     perspectives: list[int]

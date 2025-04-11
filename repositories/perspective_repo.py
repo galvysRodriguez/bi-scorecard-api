@@ -40,7 +40,7 @@ async def add_perspective(db: Connection, perspective_data: PerspectiveCreate):
             VALUES ($1, $2)
             RETURNING *;
         """
-        row = await db.fetchrow(query, perspective_data.title, perspective_data.icon)
+        row = await db.fetchrow(query, perspective_data.title, perspective_data.icon_id)
         return row['id_perspectivas'] if row else None
 
 async def update_perspective(db: Connection, perspective_id: int,  perspective_data:PerspectiveCreate):
@@ -52,7 +52,7 @@ async def update_perspective(db: Connection, perspective_id: int,  perspective_d
             WHERE id_perspectivas = $1
             RETURNING *;
         """
-        row = await db.fetchrow(query, perspective_id, perspective_data.title, perspective_data.icon)
+        row = await db.fetchrow(query, perspective_id, perspective_data.title, perspective_data.icon_id)
         return row['id_perspectivas'] if row else None
 
 async def delete_perspective(db: Connection, perspective_id: int):

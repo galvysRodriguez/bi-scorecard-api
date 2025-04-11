@@ -8,6 +8,10 @@ router = APIRouter(prefix="/targets", tags=["Targets"])
 
 @router.get("/{target_id}")
 async def get_target(target_id: int, db: Connection = Depends(get_db)):
+    return await TargetService.get_target_simple(db, target_id)
+
+@router.get("/detail/{target_id}")
+async def get_target(target_id: int, db: Connection = Depends(get_db)):
     return await TargetService.get_detail_target(db, target_id)
 
 @router.get("/")

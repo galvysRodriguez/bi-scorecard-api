@@ -29,17 +29,27 @@ class TargetService:
                 "optimal": row["optimal"],
                 "tolerable": row["tolerable"],
                 "deficient": row["deficient"],
-                "indicator_id": row["indicator_id"],
+                "indicator_id": row["formula_id"],
                 "perspective_id": row["perspective_id"],
                 "start_date": row["start_date"],
                 "end_date": row["end_date"],
-                "indicator": row["indicator"],
+                "indicator": row["formula"],
                 "perspective": row["perspective"],
+                "tag": row["tag"],
+                "tag_id": row["tag_id"],
                 "indicator_value": indicator_value.get("data", {}).get("value")  # Extraer el valor si está disponible
             }
     
 
         return api_response("Target retrieved successfully", True, dict(target_data))
+    
+    async def get_target_simple(db: Connection, target_id: int):
+        """Obtiene un objetivo y lo convierte a respuesta de API."""
+        row = await TargetRepository.get_target(db, target_id)
+        if not row:
+            return api_response("Target not found", False)
+
+        return api_response("Target retrieved successfully", True, row)
 
     async def get_detail_target(db: Connection, target_id: int):
         """Obtiene un objetivo y lo convierte a respuesta de API con desglose por fechas."""
@@ -50,7 +60,7 @@ class TargetService:
         # Obtener los valores calculados según el indicador
         indicator_value = await calc_formula_grouped(
             db, 
-            row["indicator_id"], 
+            row["formula_id"], 
             row["start_date"],
             row["end_date"],
             row["optimal"]
@@ -65,7 +75,7 @@ class TargetService:
         #valor total
         value = await calc_formula_date(
             db, 
-            row["indicator_id"], 
+            row["formula_id"], 
             row["start_date"],
             row["end_date"])
         total_value = round(value.get("data", {}).get("value"),2)
@@ -91,13 +101,13 @@ class TargetService:
             "optimal": row["optimal"],
             "tolerable": row["tolerable"],
             "deficient": row["deficient"],
-            "indicator_id": row["indicator_id"],
+            "indicator_id": row["formula_id"],
             "perspective_id": row["perspective_id"],
             "start_date": row["start_date"],
             "end_date": row["end_date"],
             "elapsed": elapsed,
             "restant": restant,
-            "indicator": row["indicator"],
+            "indicator": row["formula"],
             "perspective": row["perspective"],
             "min_daily": min_daily,
             "indicator_value": total_value, 

@@ -31,7 +31,7 @@ async def add_formula_query(db: Connection, formula_data: FormulaCreate):
 
         return await db.fetchrow(
             query,
-            formula_data.title, formula_data.formula, formula_data.tag
+            formula_data.title, formula_data.formula, formula_data.tag_id
         )
 
 async def update_formula_query(db: Connection, formula_id: int,  formula_data:FormulaCreate):
@@ -44,7 +44,7 @@ async def update_formula_query(db: Connection, formula_id: int,  formula_data:Fo
             WHERE id_etiquetas = $1
             RETURNING *;
         """
-        return await db.fetchrow(query, formula_id, formula_data.title, formula_data.formula, formula_data.tag)
+        return await db.fetchrow(query, formula_id, formula_data.title, formula_data.formula, formula_data.tag_id)
 
 async def delete_formula_query(db: Connection, formula_id: int):
         """Elimina una formula por ID."""

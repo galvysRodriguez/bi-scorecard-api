@@ -10,13 +10,16 @@ class TargetRepository:
         query = """
             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
-                   o.fecha_final AS end_date, o.id_formulas AS indicator_id,
+                   o.fecha_final AS end_date, o.id_formulas AS formula_id,
                    p.id_perspectivas AS perspective_id,
-                   f.titulo AS indicator,
-                   p.perspectiva AS perspective
+                   f.titulo AS formula,
+                   p.perspectiva AS perspective,
+                   e.id_etiquetas AS tag_id,
+                   e.etiqueta AS tag
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
             LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
+            LEFT JOIN objetivos.etiquetas e ON e.id_etiquetas = pe.id_etiquetas
             LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = pe.id_perspectivas
             WHERE o.id_objetivos = $1
         """
