@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from datetime import datetime
 from asyncpg import Connection
-from services.formula_service import add_formula, get_formulas, delete_formula, update_formula, exist_formula, get_formula
+from services.formula_service import add_formula, get_formulas, delete_formula, update_formula, exist_formula, get_formula, get_formula_tag
 from db.database import get_db
 from schemas.target import FormulaBase, FormulaCreate
 
@@ -17,6 +17,11 @@ async def get_all_formula(db: Connection = Depends(get_db)):
     response = await get_formulas(db)
     return response
 
+
+@router.get("/tag/{tag_id}")
+async def get_tag_formula(tag_id: int, db: Connection = Depends(get_db)):
+    response = await get_formula_tag(db, tag_id)
+    return response
 
 @router.get("/{formula_id}")
 async def get_by_id_formula(formula_id: int, db: Connection = Depends(get_db)):

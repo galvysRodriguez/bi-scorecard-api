@@ -16,9 +16,18 @@ async def get_by_id_formula_query(db: Connection, formula_id: int):
                     titulo as title,
                     formula
                 FROM objetivos.formulas
-                WHERE id_formulas = $1"""
+                WHERE id_formulas = $1 AND visible = true"""
 
     return await db.fetchrow(query, formula_id)
+
+async def get_by_tag_formula_query(db: Connection, tag_id: int):
+    query = f"""SELECT 
+                    id_formulas as id, 
+                    titulo as title
+                FROM objetivos.formulas
+                WHERE id_etiquetas = $1 AND visible = true"""
+
+    return await db.fetch(query, tag_id)
 
 async def add_formula_query(db: Connection, formula_data: FormulaCreate):
         """Inserta una nueva formula"""

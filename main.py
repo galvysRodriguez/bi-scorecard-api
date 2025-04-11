@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from routers import indicators, targets, formula, tag, perspective, test
+from routers import indicators, targets, formula, tag, perspective, test, icon
 from routers.target import customer, finance, innovation, process
 
 app = FastAPI()
@@ -33,6 +33,7 @@ app.include_router(indicators.router)
 app.include_router(formula.router)
 app.include_router(tag.router)
 app.include_router(perspective.router)
+app.include_router(icon.router)
 app.include_router(customer.router)
 app.include_router(finance.router)
 app.include_router(innovation.router)

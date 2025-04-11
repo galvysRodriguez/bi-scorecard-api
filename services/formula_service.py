@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from asyncpg import Connection
 from utils.api_response import api_response
-from repositories.formula_repo import add_formula_query, get_formula_query, get_by_id_formula_query, delete_formula_query, update_formula_query, exist_formula_query, get_by_id_formula_query
+from repositories.formula_repo import add_formula_query, get_formula_query, get_by_id_formula_query, delete_formula_query, update_formula_query, exist_formula_query, get_by_id_formula_query, get_by_tag_formula_query
 from services.indicator_service import fetch_indicator, fetch_indicator_value, fetch_indicator_str, fetch_indicator_grouped
 from schemas.target import FormulaBase, FormulaCreate
 from sympy.parsing.latex import parse_latex
@@ -20,6 +20,12 @@ async def get_formula(db: Connection, formula_id: int):
     if not row:
         return api_response("Formula not found", False)
     return api_response("Formula retrieved successfully", True, dict(row))
+
+async def get_formula_tag(db: Connection, tag_id: int):
+    row = await get_by_tag_formula_query(db, tag_id)
+    if not row:
+        return api_response("Formula not found", False)
+    return api_response("Formula retrieved successfully", True, row)
 
 async def add_formula(db: Connection, formula_data: FormulaCreate):
     row = await add_formula_query(db, formula_data)
