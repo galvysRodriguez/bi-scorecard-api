@@ -5,7 +5,7 @@ from schemas.target import TagCreate, TagBase
 
 async def get_tag(db: Connection, tag_id: int):
         """Consulta una etiqueta por ID."""
-        query = """
+        query = f"""
             SELECT e.id_etiquetas as id, e.etiqueta as tag FROM objetivos.etiquetas e
             WHERE e.id_etiquetas = $1 AND e.visible = true
         """
@@ -13,7 +13,7 @@ async def get_tag(db: Connection, tag_id: int):
 
 async def get_tags(db: Connection):
         """Consulta todos las etiquetas"""
-        query = """
+        query = f"""
              SELECT e.id_etiquetas as id, e.etiqueta as tag FROM objetivos.etiquetas e
              WHERE e.visible = true
         """
@@ -22,7 +22,7 @@ async def get_tags(db: Connection):
     
 async def add_tag(db: Connection, tag_data: TagCreate):
         """Inserta una nueva etiqueta."""
-        query = """
+        query = f"""
             INSERT INTO objetivos.etiquetas (etiqueta)
             VALUES ($1)
             RETURNING *;
@@ -33,7 +33,7 @@ async def add_tag(db: Connection, tag_data: TagCreate):
 
 async def update_tag(db: Connection, tag_id: int,  tag_data:TagCreate):
         """Actualiza una etiqueta existente."""
-        query = """
+        query = f"""
             UPDATE objetivos.etiquetas
             SET titulo =($2)
             WHERE id_etiquetas = $1
@@ -44,7 +44,7 @@ async def update_tag(db: Connection, tag_id: int,  tag_data:TagCreate):
 
 async def delete_tag(db: Connection, tag_id: int):
         """Elimina un objetivo por ID."""
-        query = """
+        query = f"""
             UPDATE objetivos.etiquetas
             SET visible = false, 
             WHERE id_etiquetas = $1
@@ -55,8 +55,16 @@ async def delete_tag(db: Connection, tag_id: int):
 
 async def exist_tag(db: Connection, tag: TagBase):
         """Verifica si existe la etiqueta"""
-        query = """
+        query = f"""
             SELECT COUNT(*) FROM objetivos.etiquetas
             WHERE etiqueta = $1
         """
         return await db.fetchrow(query, tag.title)
+
+async def exist_tag_update(db: Connection, tag_id:int, tag: TagBase):
+        """Verifica si existe la etiqueta"""
+        query = f"""
+            SELECT COUNT(*) FROM objetivos.etiquetas
+            WHERE etiqueta = $1 AND id_etiquetas = $2
+        """
+        return await db.fetchrow(query, tag.title, tag_id)

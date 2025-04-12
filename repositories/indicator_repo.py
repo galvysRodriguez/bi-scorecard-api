@@ -4,7 +4,7 @@ async def get_indicator_query(db: Connection, indicator_id: int, aggregation_id:
     """
     Obtiene la consulta SQL base del indicador y la función de agregación correspondiente.
     """
-    query = """
+    query = f"""
         SELECT i.consulta, a.funcion 
         FROM objetivos.objetivos o
         INNER JOIN objetivos.agregaciones a ON a.id_agregaciones = o.id_agregaciones
@@ -17,7 +17,7 @@ async def get_indicator_string_query(db: Connection, indicator: str):
     """
     Obtiene la consulta SQL base del indicador y la función de agregación correspondiente.
     """
-    query = """
+    query = f"""
         SELECT i.consulta, i.filtro
         FROM objetivos.indicadores i
         WHERE i.indicador = $1
@@ -28,7 +28,7 @@ async def get_indicator_string_query(db: Connection, indicator: str):
 
 
 async def get_indicators_query(db: Connection):
-    query = """SELECT 
+    query = f"""SELECT 
                     id_indicadores as id, 
                     indicador as indicator,
                     descripcion as description 
@@ -38,7 +38,7 @@ async def get_indicators_query(db: Connection):
     return await db.fetch(query)
 
 async def get_indicator_query(db: Connection, indicator_id: int):
-    query = """SELECT 
+    query = f"""SELECT 
                     id_indicadores as id, 
                     indicador as indicator,
                     descripcion as description 
@@ -49,7 +49,7 @@ async def get_indicator_query(db: Connection, indicator_id: int):
 
 
 async def get_indicators_tag_query(db: Connection, tag_id: int):
-    query = """SELECT 
+    query = f"""SELECT 
                     i.id_indicadores as id, 
                     i.indicador as indicator,
                 FROM objetivos.indicadores i

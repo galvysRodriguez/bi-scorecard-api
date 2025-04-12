@@ -7,7 +7,7 @@ class TargetRepository:
     @staticmethod
     async def get_target(db: Connection, target_id: int):
         """Consulta un objetivo por ID."""
-        query = """
+        query = f"""
             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
                    o.fecha_final AS end_date, o.id_formulas AS formula_id,
@@ -28,7 +28,7 @@ class TargetRepository:
     @staticmethod
     async def get_targets(db: Connection, perspective_id: int):
         """Consulta todos los objetivos."""
-        query = """
+        query = f"""
              SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
                    o.fecha_final AS end_date, o.id_formulas AS indicator_id,
@@ -47,7 +47,7 @@ class TargetRepository:
     @staticmethod
     async def get_all_targets(db: Connection):
         """Consulta todos los objetivos. no esta en produccion"""
-        query = """
+        query = f"""
             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
                    o.fecha_final AS end_date, o.id_formulas AS indicator_id,
@@ -64,7 +64,7 @@ class TargetRepository:
     @staticmethod
     async def add_target(db: Connection, target_data: TargetCreate):
         """Inserta un nuevo objetivo."""
-        query = """
+        query = f"""
             INSERT INTO objetivos.objetivos (titulo, optimo, tolerable, deficiente, 
             fecha_inicio, fecha_final, id_formulas)
             VALUES ($1, $2, $3, $4, $5, $6, $7)
@@ -83,7 +83,7 @@ class TargetRepository:
     @staticmethod
     async def update_target(db: Connection, target_id: int,  target_data:TargetUpdate):
         """Actualiza un objetivo existente."""
-        query = """
+        query = f"""
             UPDATE objetivos.objetivos 
             SET titulo =($2), 
                 optimo = ($3), 
@@ -108,7 +108,7 @@ class TargetRepository:
     @staticmethod
     async def delete_target(db: Connection, target_id: int):
         """Elimina un objetivo por ID."""
-        query = """
+        query = f"""
             DELETE FROM objetivos.objetivos 
             WHERE id_objetivos = $1 
             RETURNING *;
@@ -118,9 +118,18 @@ class TargetRepository:
     @staticmethod
     async def exist_target(db: Connection, target: TargetBase):
         """Verifica si existe la etiqueta"""
-        query = """
+        query = f"""
             SELECT COUNT(*) FROM objetivos.objetivos
             WHERE titulo = $1
         """
         return await db.fetchrow(query, target.title)
+    
+    @staticmethod
+    async def exist_target_update(db: Connection, target_id:int, target: TargetBase):
+        """Verifica si existe la etiqueta"""
+        query = f"""
+            SELECT COUNT(*) FROM objetivos.objetivos
+            WHERE titulo = $1 AND id_objetivos = $2
+        """
+        return await db.fetchrow(query, target.title, target_id)
 

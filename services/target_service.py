@@ -219,3 +219,9 @@ class TargetService:
         rows = await TargetRepository.exist_target(db, target)
         value = rows["count"] == 1
         return api_response("Etiquetas listadas correctamente", True, value)
+    
+    @staticmethod
+    async def exist_target_update(db: Connection, target_id:int, target:TargetBase):
+        rows = await TargetRepository.exist_target_update(db, target_id, target)
+        value = rows["count"] == 1
+        return api_response("Etiquetas listadas correctamente", True, value)

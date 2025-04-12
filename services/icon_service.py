@@ -1,5 +1,5 @@
 from asyncpg import Connection
-from repositories.icon_repo import add_icon, delete_icon, update_icon, get_icon, get_icons, exist_icon
+from repositories.icon_repo import add_icon, delete_icon, update_icon, get_icon, get_icons, exist_icon, exist_icon_update
 from schemas.target import IconBase
 from utils.api_response import api_response
 
@@ -30,5 +30,10 @@ async def global_get_icons(db: Connection):
 
 async def global_exist_icon(db: Connection, icon:IconBase):
     rows = await exist_icon(db, icon)
+    value = rows["count"] == 1
+    return api_response("Iconos listadas correctamente", True, value)
+
+async def global_exist_icon_update(db: Connection, icon_id:int, icon:IconBase):
+    rows = await exist_icon_update(db, icon_id, icon)
     value = rows["count"] == 1
     return api_response("Iconos listadas correctamente", True, value)

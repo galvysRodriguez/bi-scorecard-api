@@ -1,7 +1,7 @@
 from asyncpg import Connection
 from repositories.perspective_tag_repo import add_perspective_tag, delete_perspective_tag, get_tag_perspective
 from repositories.tag_indicator_repo import add_tag_indicator, delete_tag_indicator, get_tag_indicator
-from repositories.tag_repo import add_tag, delete_tag, update_tag, get_tag, get_tags, exist_tag
+from repositories.tag_repo import add_tag, delete_tag, update_tag, get_tag, get_tags, exist_tag, exist_tag_update
 from schemas.target import TagCreate, TagBase
 from utils.api_response import api_response
 
@@ -143,5 +143,10 @@ async def global_get_tags(db: Connection):
 
 async def global_exist_tag(db: Connection, tag:TagBase):
     rows = await exist_tag(db, tag)
+    value = rows["count"] == 1
+    return api_response("Etiquetas listadas correctamente", True, value)
+
+async def global_exist_tag_update(db: Connection, tag_id:int, tag:TagBase):
+    rows = await exist_tag_update(db, tag)
     value = rows["count"] == 1
     return api_response("Etiquetas listadas correctamente", True, value)

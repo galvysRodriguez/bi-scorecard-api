@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from asyncpg import Connection
 from db.database import get_db
-from services.icon_service import global_create_icon, global_update_icon, global_get_icons, global_delete_icon, global_exist_icon, global_get_icon
+from services.icon_service import global_create_icon, global_update_icon, global_get_icons, global_delete_icon, global_exist_icon, global_get_icon, global_exist_icon_update
 from schemas.target import IconBase
 
 router = APIRouter(prefix="/icons", tags=["icons"])
@@ -17,6 +17,10 @@ async def get_icons(db: Connection = Depends(get_db)):
 @router.post("/exist")
 async def get_icon_exist(icon_data: IconBase, db: Connection = Depends(get_db)):
     return await global_exist_icon(db, icon_data)
+
+@router.post("/exist/update/{icon_id}")
+async def get_icon_exist_update(icon_data: IconBase, icon_id:int, db: Connection = Depends(get_db)):
+    return await global_exist_icon_update(db, icon_id, icon_data)
 
 @router.post("/")
 async def create_icons(icon: IconBase, db: Connection = Depends(get_db)):

@@ -45,7 +45,7 @@ async def add_formula_query(db: Connection, formula_data: FormulaCreate):
 
 async def update_formula_query(db: Connection, formula_id: int,  formula_data:FormulaCreate):
         """Actualiza una etiqueta existente."""
-        query = """
+        query = f"""
             UPDATE objetivos.etiquetas
             SET titulo =($2),
                 formula =($3),
@@ -57,7 +57,7 @@ async def update_formula_query(db: Connection, formula_id: int,  formula_data:Fo
 
 async def delete_formula_query(db: Connection, formula_id: int):
         """Elimina una formula por ID."""
-        query = """
+        query = f"""
             UPDATE objetivos.formulas
             SET visible = false, 
             WHERE id_formulas = $1
@@ -68,8 +68,16 @@ async def delete_formula_query(db: Connection, formula_id: int):
 
 async def exist_formula_query(db: Connection, formula: FormulaBase):
         """Verifica si existe la formula"""
-        query = """
+        query = f"""
             SELECT COUNT(*) as count FROM objetivos.formulas
             WHERE titulo = $1
         """
         return await db.fetchrow(query, formula.title)
+
+async def exist_formula_update_query(db: Connection, formula_id:int, formula: FormulaBase):
+        """Verifica si existe la formula"""
+        query = f"""
+            SELECT COUNT(*) as count FROM objetivos.formulas
+            WHERE titulo = $1 AND id_formulas != $2
+        """
+        return await db.fetchrow(query, formula.title, formula_id)

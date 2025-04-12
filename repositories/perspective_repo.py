@@ -73,3 +73,11 @@ async def exist_perspective(db: Connection, perspective: PerspectiveBase):
             WHERE perspectiva = $1
         """
         return await db.fetchrow(query, perspective.title)
+
+async def exist_perspective_update(db: Connection, perspective_id:int, perspective: PerspectiveBase):
+        """Verifica si existe la perspectiva"""
+        query = """
+            SELECT COUNT(*) FROM objetivos.perspectivas
+            WHERE perspectiva = $1 AND id_perspectivas != $2
+        """
+        return await db.fetchrow(query, perspective.title, perspective_id)

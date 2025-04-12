@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from datetime import datetime
 from asyncpg import Connection
-from services.formula_service import add_formula, get_formulas, delete_formula, update_formula, exist_formula, get_formula, get_formula_tag
+from services.formula_service import add_formula, get_formulas, delete_formula, update_formula, exist_formula, get_formula, get_formula_tag, exist_formula_update
 from db.database import get_db
 from schemas.target import FormulaBase, FormulaCreate
 
@@ -39,6 +39,10 @@ async def delete_perspectives(formula_id: int, db: Connection = Depends(get_db))
 @router.post("/exist")
 async def get_formula_exist(formula_data: FormulaBase, db: Connection = Depends(get_db)):
     return await exist_formula(db, formula_data)
+
+@router.post("/exist/update/{formula_id}")
+async def get_formula_exist(formula_data: FormulaBase, formula_id:int, db: Connection = Depends(get_db)):
+    return await exist_formula_update(db, formula_id, formula_data)
 
 
 

@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from asyncpg import Connection
 from utils.api_response import api_response
-from repositories.formula_repo import add_formula_query, get_formula_query, get_by_id_formula_query, delete_formula_query, update_formula_query, exist_formula_query, get_by_id_formula_query, get_by_tag_formula_query
+from repositories.formula_repo import add_formula_query, get_formula_query, get_by_id_formula_query, delete_formula_query, update_formula_query, exist_formula_query, get_by_id_formula_query, get_by_tag_formula_query, exist_formula_update_query
 from services.indicator_service import fetch_indicator, fetch_indicator_value, fetch_indicator_str, fetch_indicator_grouped
 from schemas.target import FormulaBase, FormulaCreate
 from sympy.parsing.latex import parse_latex
@@ -46,7 +46,12 @@ async def delete_formula(db: Connection, formula_id: int):
 async def exist_formula(db: Connection, formula:FormulaBase):
     rows = await exist_formula_query(db, formula)
     value = rows["count"] == 1
-    return api_response("Etiquetas listadas correctamente", True, value)
+    return api_response("Formula listadas correctamente", True, value)
+
+async def exist_formula_update(db: Connection, formula_id:int, formula:FormulaBase):
+    rows = await exist_formula_update_query(db, formula_id, formula)
+    value = rows["count"] == 1
+    return api_response("Formula listadas correctamente", True, value)
 
 async def calc_formula(db: Connection, formula_id: int):
     row = await get_by_id_formula_query(db, formula_id)

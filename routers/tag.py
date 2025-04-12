@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from asyncpg import Connection
 from db.database import get_db
-from services.tag_service import global_create_tag, global_delete_tag, global_exist_tag, global_get_tag, global_get_tags, global_update_tag
+from services.tag_service import global_create_tag, global_delete_tag, global_exist_tag, global_get_tag, global_get_tags, global_update_tag, global_exist_tag_update
 from schemas.target import TagCreate, TagBase
 
 router = APIRouter(prefix="/tags", tags=["Tags"])
@@ -17,6 +17,10 @@ async def get_tags(db: Connection = Depends(get_db)):
 @router.post("/exist")
 async def get_tag_exist(tag_data: TagBase, db: Connection = Depends(get_db)):
     return await global_exist_tag(db, tag_data)
+
+@router.post("/exist/update/{tag_id}")
+async def get_tag_exist_update(tag_data: TagBase, tag_id:int, db: Connection = Depends(get_db)):
+    return await global_exist_tag_update(db, tag_id, tag_data)
 
 @router.post("/")
 async def create_tags(tag: TagCreate, db: Connection = Depends(get_db)):
