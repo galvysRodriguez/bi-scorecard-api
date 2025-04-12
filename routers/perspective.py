@@ -22,7 +22,7 @@ async def get_perspectives_icons(db: Connection = Depends(get_db)):
 async def get_perspective_exist(perspective_data: PerspectiveBase, db: Connection = Depends(get_db)):
     return await global_exist_perspective(db, perspective_data)
 
-@router.post("/exist")
+@router.post("/exist/perspective/{perspective_id}")
 async def get_perspective_exist_update(perspective_data: PerspectiveBase, perspective_id:int, db: Connection = Depends(get_db)):
     return await global_exist_perspective_update(db, perspective_id, perspective_data)
 

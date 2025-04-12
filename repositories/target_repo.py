@@ -129,7 +129,7 @@ class TargetRepository:
         """Verifica si existe la etiqueta"""
         query = f"""
             SELECT COUNT(*) FROM objetivos.objetivos
-            WHERE titulo = $1 AND id_objetivos = $2
+            WHERE titulo = $1 AND id_objetivos != $2
         """
         return await db.fetchrow(query, target.title, target_id)
 
