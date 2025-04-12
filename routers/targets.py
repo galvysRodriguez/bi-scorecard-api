@@ -27,7 +27,7 @@ async def create_target(target: TargetCreate, db: Connection = Depends(get_db)):
     return await TargetService.add_target(db, target)
 
 @router.put("/{target_id}")
-async def update_target(target_id: int, target_data: TargetUpdate, db: Connection = Depends(get_db)):
+async def update_target(target_id: int, target_data: TargetCreate, db: Connection = Depends(get_db)):
     return await TargetService.update_target(db, target_id, target_data)
 
 @router.delete("/{target_id}")

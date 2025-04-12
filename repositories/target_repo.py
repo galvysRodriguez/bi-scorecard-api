@@ -81,7 +81,7 @@ class TargetRepository:
         )
 
     @staticmethod
-    async def update_target(db: Connection, target_id: int,  target_data:TargetUpdate):
+    async def update_target(db: Connection, target_id: int,  target_data:TargetCreate):
         """Actualiza un objetivo existente."""
         query = f"""
             UPDATE objetivos.objetivos 
@@ -102,7 +102,7 @@ class TargetRepository:
             query,
             target_id,
             target_data.title, target_data.optimal, target_data.tolerable,
-            target_data.deficient, start_date, end_date, target_data.indicator_id
+            target_data.deficient, start_date, end_date, target_data.formula_id
         )
 
     @staticmethod

@@ -198,7 +198,7 @@ class TargetService:
         return api_response("Target created successfully", True, dict(row))
 
     @staticmethod
-    async def update_target(db: Connection, target_id: int, update_data:TargetUpdate):
+    async def update_target(db: Connection, target_id: int, update_data:TargetCreate):
         """Actualiza un objetivo existente."""
         row = await TargetRepository.update_target(db, target_id, update_data)
         if not row:
