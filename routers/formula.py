@@ -36,13 +36,10 @@ async def update_perspectives(formula_id: int, formula_data: FormulaCreate, db: 
 async def delete_perspectives(formula_id: int, db: Connection = Depends(get_db)):
     return await delete_formula(db, formula_id)
 
-@router.post("/exist")
-async def get_formula_exist(formula_data: FormulaBase, db: Connection = Depends(get_db)):
-    return await exist_formula(db, formula_data)
-
-@router.post("/exist/update/{formula_id}")
+@router.get("/exist")
 async def get_formula_exist(formula_data: FormulaBase, formula_id:int, db: Connection = Depends(get_db)):
-    return await exist_formula_update(db, formula_id, formula_data)
-
+    if formula_id is not None:
+        return await exist_formula_update(db, formula_id, formula_data)
+    return await exist_formula(db, formula_data)
 
 

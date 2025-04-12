@@ -14,13 +14,11 @@ async def get_tag(tag_id: int, db: Connection = Depends(get_db)):
 async def get_tags(db: Connection = Depends(get_db)):
     return await global_get_tags(db)
 
-@router.post("/exist")
-async def get_tag_exist(tag_data: TagBase, db: Connection = Depends(get_db)):
+@router.get("/exist")
+async def get_tag_exist(tag_data:TagBase, tag_id:str, db: Connection = Depends(get_db)):
+    if id is not None:
+        return await global_exist_tag_update(db, tag_id, tag_data)
     return await global_exist_tag(db, tag_data)
-
-@router.post("/exist/update/{tag_id}")
-async def get_tag_exist_update(tag_data: TagBase, tag_id:int, db: Connection = Depends(get_db)):
-    return await global_exist_tag_update(db, tag_id, tag_data)
 
 @router.post("/")
 async def create_tags(tag: TagCreate, db: Connection = Depends(get_db)):

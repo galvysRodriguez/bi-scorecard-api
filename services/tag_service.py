@@ -147,6 +147,6 @@ async def global_exist_tag(db: Connection, tag:TagBase):
     return api_response("Etiquetas listadas correctamente", True, value)
 
 async def global_exist_tag_update(db: Connection, tag_id:int, tag:TagBase):
-    rows = await exist_tag_update(db, tag)
+    rows = await exist_tag_update(db, tag_id, tag)
     value = rows["count"] == 1
     return api_response("Etiquetas listadas correctamente", True, value)

@@ -34,12 +34,11 @@ async def update_target(target_id: int, target_data: TargetCreate, db: Connectio
 async def delete_target(target_id: int, db: Connection = Depends(get_db)):
     return await TargetService.delete_target(db, target_id)
 
-@router.post("/exist")
-async def get_target_exist(target_data: TargetBase, db: Connection = Depends(get_db)):
-    return await TargetService.exist_target(db, target_data)
-
-@router.post("/exist/update/{target_id}")
+@router.get("/exist")
 async def get_target_exist_update(target_id: int, target_data: TargetBase, db: Connection = Depends(get_db)):
-    return await TargetService.exist_target_update(db, target_id, target_data)
+    if target_id is not None:
+        return await TargetService.exist_target_update(db, target_id, target_data)
+    return await TargetService.exist_target(db, target_data)
+    
 
 
