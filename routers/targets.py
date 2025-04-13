@@ -1,10 +1,18 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from asyncpg import Connection
 from db.database import get_db
 from services.target_service import TargetService
 from schemas.target import TargetCreate, TargetUpdate, TargetBase
+from typing import Optional
 
 router = APIRouter(prefix="/targets", tags=["Targets"])
+
+@router.get("/exist/")
+async def get_target_exist_update(title: str = Query(...), target_id:  Optional[int] = Query(None), db: Connection = Depends(get_db)):
+    target_data = TargetBase(title=title)
+    if target_id is not None:
+        return await TargetService.exist_target_update(db, target_id, target_data)
+    return await TargetService.exist_target(db, target_data)
 
 @router.get("/{target_id}")
 async def get_target(target_id: int, db: Connection = Depends(get_db)):
@@ -34,11 +42,6 @@ async def update_target(target_id: int, target_data: TargetCreate, db: Connectio
 async def delete_target(target_id: int, db: Connection = Depends(get_db)):
     return await TargetService.delete_target(db, target_id)
 
-@router.get("/exist")
-async def get_target_exist_update(target_id: int, target_data: TargetBase, db: Connection = Depends(get_db)):
-    if target_id is not None:
-        return await TargetService.exist_target_update(db, target_id, target_data)
-    return await TargetService.exist_target(db, target_data)
-    
+
 
 

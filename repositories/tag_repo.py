@@ -6,7 +6,7 @@ from schemas.target import TagCreate, TagBase
 async def get_tag(db: Connection, tag_id: int):
         """Consulta una etiqueta por ID."""
         query = f"""
-            SELECT e.id_etiquetas as id, e.etiqueta as tag FROM objetivos.etiquetas e
+            SELECT e.id_etiquetas as id, e.etiqueta as title FROM objetivos.etiquetas e
             WHERE e.id_etiquetas = $1 AND e.visible = true
         """
         return await db.fetchrow(query, tag_id)
@@ -14,7 +14,7 @@ async def get_tag(db: Connection, tag_id: int):
 async def get_tags(db: Connection):
         """Consulta todos las etiquetas"""
         query = f"""
-             SELECT e.id_etiquetas as id, e.etiqueta as tag FROM objetivos.etiquetas e
+             SELECT e.id_etiquetas as id, e.etiqueta as title FROM objetivos.etiquetas e
              WHERE e.visible = true
         """
         return await db.fetch(query)
@@ -65,6 +65,6 @@ async def exist_tag_update(db: Connection, tag_id:int, tag: TagBase):
         """Verifica si existe la etiqueta"""
         query = f"""
             SELECT COUNT(*) FROM objetivos.etiquetas
-            WHERE etiqueta = $1 AND id_etiquetas = $2
+            WHERE etiqueta = $1 AND id_etiquetas != $2
         """
         return await db.fetchrow(query, tag.title, tag_id)

@@ -12,11 +12,14 @@ async def get_formula_query(db: Connection):
 
 async def get_by_id_formula_query(db: Connection, formula_id: int):
     query = f"""SELECT 
-                    id_formulas as id, 
-                    titulo as title,
-                    formula
-                FROM objetivos.formulas
-                WHERE id_formulas = $1 AND visible = true"""
+                    f.id_formulas as id, 
+                    f.titulo as title,
+                    f.formula,
+                    f.id_etiquetas as tag_id,
+                    e.etiqueta as tag
+                FROM objetivos.formulas f
+                INNER JOIN objetivos.etiquetas e ON e.id_etiquetas = f.id_etiquetas
+                WHERE f.id_formulas = $1 AND f.visible = true"""
 
     return await db.fetchrow(query, formula_id)
 

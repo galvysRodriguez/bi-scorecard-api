@@ -8,7 +8,7 @@ from schemas.target import TargetBase, TargetCreate
 async def test_target_perspective_len():
     db = await get_db()  
     result = await TargetRepository.get_targets(db, 1)
-    assert len(result) == 17
+    assert len(result) == 18
     await db.close()  
 
 @pytest.mark.asyncio
@@ -32,6 +32,14 @@ async def test_target_exist_update_false():
     target = TargetBase(title="vida util nn")
     result = await TargetRepository.exist_target_update(db, 35, target)
     assert result["count"] == 0, "Debería encontrar 0 registro existente"
+    await db.close()  
+
+@pytest.mark.asyncio
+async def test_target_exist_update_true():
+    db = await get_db()  
+    target = TargetBase(title="vida util nn")
+    result = await TargetRepository.exist_target_update(db, 38, target)
+    assert result["count"] == 1, "Debería encontrar 0 registro existente"
     await db.close()  
 
 @pytest.mark.asyncio

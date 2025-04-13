@@ -6,8 +6,8 @@ from schemas.target import PerspectiveCreate, PerspectiveBase
 async def get_perspective(db: Connection, perspective_id: int):
         """Consulta una perspectiva por ID."""
         query = """
-            SELECT e.id_perspectivas as id, e.perspectiva as perspective,
-                i.icono as icon
+            SELECT e.id_perspectivas as id, e.perspectiva as title,
+                i.icono as icon, i.id_iconos as icon_id
             FROM objetivos.perspectivas e
             LEFT JOIN objetivos.iconos i ON i.id_iconos = e.id_iconos
             WHERE e.id_perspectivas = $1 AND e.visible = true
@@ -17,7 +17,7 @@ async def get_perspective(db: Connection, perspective_id: int):
 async def get_perspectives(db: Connection):
         """Consulta todos las perspectivas"""
         query = """
-             SELECT e.id_perspectivas as id, e.perspectiva as perspective FROM objetivos.perspectivas e
+             SELECT e.id_perspectivas as id, e.perspectiva as title FROM objetivos.perspectivas e
              WHERE e.visible = true
         """
         return await db.fetch(query)
@@ -26,7 +26,7 @@ async def get_all_perspectives(db: Connection):
         """Consulta todos las perspectivas"""
         query = """
              SELECT e.id_perspectivas as id, e.perspectiva as perspective,
-                 i.icono as icon
+                 i.icono as icon, i.id_iconos as icon_id
                FROM objetivos.perspectivas e
                LEFT JOIN objetivos.iconos i ON i.id_iconos = e.id_iconos
                WHERE e.visible = true

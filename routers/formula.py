@@ -1,22 +1,24 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from datetime import datetime
 from asyncpg import Connection
 from services.formula_service import add_formula, get_formulas, delete_formula, update_formula, exist_formula, get_formula, get_formula_tag, exist_formula_update
 from db.database import get_db
 from schemas.target import FormulaBase, FormulaCreate
+from typing import Optional
 
 router = APIRouter(prefix="/formula", tags=["formula"])
 
-@router.post("/")
-async def create_formula(formula_data: FormulaCreate, db: Connection = Depends(get_db)):
-    response = await add_formula(db, formula_data)
-    return response
+@router.get("/exist")
+async def get_formula_exist(title: str = Query(...), formula_id:Optional[int] = Query(None), db: Connection = Depends(get_db)):
+    formula_data = FormulaBase(title=title)
+    if formula_id is not None:
+        return await exist_formula_update(db, formula_id, formula_data)
+    return await exist_formula(db, formula_data)
 
 @router.get("/")
 async def get_all_formula(db: Connection = Depends(get_db)):
     response = await get_formulas(db)
     return response
-
 
 @router.get("/tag/{tag_id}")
 async def get_tag_formula(tag_id: int, db: Connection = Depends(get_db)):
@@ -28,6 +30,11 @@ async def get_by_id_formula(formula_id: int, db: Connection = Depends(get_db)):
     response = await get_formula(db, formula_id)
     return response
 
+@router.post("/")
+async def create_formula(formula_data: FormulaCreate, db: Connection = Depends(get_db)):
+    response = await add_formula(db, formula_data)
+    return response
+
 @router.put("/{formula_id}")
 async def update_perspectives(formula_id: int, formula_data: FormulaCreate, db: Connection = Depends(get_db)):
     return await update_formula(db, formula_id, formula_data)
@@ -35,11 +42,4 @@ async def update_perspectives(formula_id: int, formula_data: FormulaCreate, db: 
 @router.delete("/{formula_id}")
 async def delete_perspectives(formula_id: int, db: Connection = Depends(get_db)):
     return await delete_formula(db, formula_id)
-
-@router.get("/exist")
-async def get_formula_exist(formula_data: FormulaBase, formula_id:int, db: Connection = Depends(get_db)):
-    if formula_id is not None:
-        return await exist_formula_update(db, formula_id, formula_data)
-    return await exist_formula(db, formula_data)
-
 

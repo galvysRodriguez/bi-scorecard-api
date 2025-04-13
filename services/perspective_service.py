@@ -80,7 +80,7 @@ async def global_get_perspective(db: Connection, perspective_id: int):
     perspectives = await get_perspective_tag(db, perspective_id)
 
     tag_data = dict(row)
-    tag_data["perspectives"] = perspectives
+    tag_data["tags"] = perspectives
 
     return api_response("Perspectiva listada correctamente", True, tag_data)
 
