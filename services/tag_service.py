@@ -51,7 +51,7 @@ async def sync_tag_perspectives(db: Connection, tag_id: int, new_perspectives: l
 
     # Obtener los IDs actuales desde la base de datos
     current_rows = await get_tag_perspective(db, tag_id)
-    current_ids = set(row["id_perspectivas"] for row in current_rows)
+    current_ids = set(row["id"] for row in current_rows)
     new_ids = set(new_perspectives)
 
     to_add = new_ids - current_ids
@@ -110,12 +110,12 @@ async def global_create_tag(db: Connection, tag: TagCreate):
     return api_response("Etiqueta creada correctamente", True, {"tag_id": tag_id})
 
 
-async def global_update_tag(db: Connection, tag: TagCreate, tag_id:int):
+async def global_update_tag(db: Connection, tag_id:int, tag: TagCreate):
     async with db.transaction():
         # guardar la información del tag
         await update_tag(db, tag_id, tag)  
-        await sync_tag_perspectives(db, tag.perspectives, tag_id)
-        await sync_tag_indicators(db, tag.indicators, tag_id)
+        await sync_tag_perspectives(db, tag_id, tag.perspectives)
+        await sync_tag_indicators(db, tag_id, tag.indicators)
         
     return api_response("Etiqueta actualizada correctamente", True, {"tag_id": tag_id})
 
