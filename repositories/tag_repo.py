@@ -35,7 +35,7 @@ async def update_tag(db: Connection, tag_id: int,  tag_data:TagCreate):
         """Actualiza una etiqueta existente."""
         query = f"""
             UPDATE objetivos.etiquetas
-            SET titulo =($2)
+            SET etiqueta =($2)
             WHERE id_etiquetas = $1
             RETURNING *;
         """

@@ -4,7 +4,7 @@ from repositories.perspective_repo import add_perspective, delete_perspective, u
 from utils.api_response import api_response
 from schemas.target import PerspectiveBase, PerspectiveCreate
 
-async def add_perspective_tags(db: Connection, perspective_id: int, tags: list[int]):
+async def add_perspective_tags(db: Connection, tags: list[int], perspective_id: int):
     """Inserta múltiples Perspectivas usando la función de una en una."""
     results = []
 
@@ -29,7 +29,7 @@ async def sync_tag_perspectives(db: Connection, perspective_id: int, new_perspec
 
     # Obtener los IDs actuales desde la base de datos
     current_rows = await get_perspective_tag(db, perspective_id)
-    current_ids = set(row["id_perspectivas"] for row in current_rows)
+    current_ids = set(row["id"] for row in current_rows)
     new_ids = set(new_perspectives)
 
     to_add = new_ids - current_ids
@@ -60,9 +60,9 @@ async def global_create_perspective(db: Connection, perspective: PerspectiveCrea
     return api_response("Perspectiva creada correctamente", True, {"perspective_id": perspective_id})
 
 
-async def global_update_perspective(db: Connection, perspective: PerspectiveCreate, perspective_id:int):
+async def global_update_perspective(db: Connection, perspective_id:int, perspective: PerspectiveCreate):
     async with db.transaction():
-        # guardar la información del tag
+        # guardar la información del perspective
         await update_perspective(db, perspective_id, perspective)  
         await sync_tag_perspectives(db, perspective_id, perspective.tags)
         

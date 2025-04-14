@@ -47,7 +47,7 @@ async def update_perspective(db: Connection, perspective_id: int,  perspective_d
         """Actualiza una perspectiva existente."""
         query = """
             UPDATE objetivos.perspectivas
-            SET titulo =($2),
+            SET perspectiva =($2),
                 id_iconos = ($3)
             WHERE id_perspectivas = $1
             RETURNING *;

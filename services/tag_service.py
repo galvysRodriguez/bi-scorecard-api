@@ -75,7 +75,7 @@ async def sync_tag_indicators(db: Connection, tag_id: int, new_indicators: list[
 
     # Obtener los IDs actuales desde la base de datos
     current_rows = await get_tag_indicator(db, tag_id)
-    current_ids = set(row["id_perspectivas"] for row in current_rows)
+    current_ids = set(row["id"] for row in current_rows)
     new_ids = set(new_indicators)
 
     to_add = new_ids - current_ids
