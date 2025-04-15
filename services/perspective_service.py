@@ -55,7 +55,7 @@ async def global_create_perspective(db: Connection, perspective: PerspectiveCrea
         perspective_id = await add_perspective(db, perspective)  
 
         # guardar indicadores del perspective
-        await add_perspective_tags(db, perspective_id, perspective.tags)
+        await add_perspective_tags(db, perspective.tags, perspective_id)
 
     return api_response("Perspectiva creada correctamente", True, {"perspective_id": perspective_id})
 

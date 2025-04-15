@@ -46,7 +46,7 @@ async def delete_tag(db: Connection, tag_id: int):
         """Elimina un objetivo por ID."""
         query = f"""
             UPDATE objetivos.etiquetas
-            SET visible = false, 
+            SET visible = false
             WHERE id_etiquetas = $1
             RETURNING *;
         """

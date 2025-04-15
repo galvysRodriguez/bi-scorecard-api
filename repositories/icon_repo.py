@@ -50,7 +50,7 @@ async def delete_icon(db: Connection, icon_id: int):
         """Elimina un objetivo por ID."""
         query = f"""
             UPDATE objetivos.iconos
-            SET visible = false, 
+            SET visible = false
             WHERE id_etiquetas = $1
             RETURNING *;
         """

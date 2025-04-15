@@ -59,7 +59,7 @@ async def delete_perspective(db: Connection, perspective_id: int):
         """Elimina un objetivo por ID."""
         query = """
             UPDATE objetivos.perspectivas
-            SET visible = false, 
+            SET visible = false
             WHERE id_perspectivas = $1
             RETURNING *;
         """

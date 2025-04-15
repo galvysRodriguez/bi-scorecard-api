@@ -74,7 +74,7 @@ async def delete_formula_query(db: Connection, formula_id: int):
         """Elimina una formula por ID."""
         query = f"""
             UPDATE objetivos.formulas
-            SET visible = false, 
+            SET visible = false
             WHERE id_formulas = $1
             RETURNING *;
         """
