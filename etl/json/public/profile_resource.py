@@ -6,7 +6,7 @@ PROFILE_RESOURCE ={
                         rp.recurso_id as id_permisos,
                         rp.perfil_id as id_roles
                             FROM recurso_perfil rp
-                    INNER JOIN recursos r ON r.id = rp.perfil_id
+                    INNER JOIN recurso r ON r.id = rp.recurso_id
                     WHERE r.modulo = 'BI' or r.modulo = '*'
                     """
 }

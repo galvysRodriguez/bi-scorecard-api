@@ -1,4 +1,4 @@
-import jwt
+from jose import jwt, JWTError, ExpiredSignatureError
 from datetime import datetime, timedelta
 
 SECRET_KEY = "tu_clave_secreta"
@@ -19,7 +19,7 @@ def decode_access_token(token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return payload
-    except jwt.ExpiredSignatureError:
+    except ExpiredSignatureError:
         raise Exception("Token expired")
-    except jwt.JWTError:
+    except JWTError:
         raise Exception("Invalid token")

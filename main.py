@@ -1,9 +1,11 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from routers import indicators, targets, formula, tag, perspective, test, icon, etl, task, user
 from routers.target import customer, finance, innovation, process
 from middleware.permission import check_access
 from contextlib import asynccontextmanager
+from config.exception_handlers import http_exception_handler, unhandled_exception_handler
+from config.openapi_config import custom_openapi
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -37,6 +39,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Configurar OpenAPI personalizado
+app.openapi = lambda: custom_openapi(app)
 
 # Montamos los routers
 app.include_router(targets.router)
@@ -53,5 +57,3 @@ app.include_router(user.router)
 app.include_router(etl.router)
 app.include_router(task.router)
 app.include_router(test.router)
-
-

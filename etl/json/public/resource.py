@@ -1,6 +1,6 @@
 RESOURCE = {
-        "source_table": "pefil",
-        "target_table": "roles",
+        "source_table": "recurso",
+        "target_table": "permisos",
         "schema": "public",
         "query": """SELECT 
                         r.id as id_permisos,

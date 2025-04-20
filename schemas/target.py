@@ -95,3 +95,9 @@ class User(BaseModel):
     username: str
     email: str
     hashed_password: str
+
+class TableProcessSchema(BaseModel):
+    source_table: str
+    target_table: str
+    schema: str
+    query: str

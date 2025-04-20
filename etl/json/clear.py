@@ -31,6 +31,7 @@ query = """
     delete from public.roles;
     delete from public.role_permiso;
     delete from public.tipo_facturas;
+    delete from public.usuarios;
 
     delete from productos.detalle_productos; 
     delete from productos.presentaciones;
@@ -43,7 +44,7 @@ query = """
     delete from almacenes.depositos;
 """
 
-def clear_destination_db(destination_engine):
+async def clear_destination_db(destination_engine):
     try:
         with destination_engine.begin() as conn:  
             conn.execute(text(query))

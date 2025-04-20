@@ -9,6 +9,7 @@ async def check_access(request: Request, call_next, db: Connection = Depends(get
     if request.url.path.startswith("/docs") \
         or request.url.path.startswith("/openapi") \
         or request.url.path.startswith("/users") \
+        or request.url.path.startswith("/etl") \
         or request.url.path.startswith("/login"):
         return await call_next(request)
 
@@ -25,7 +26,7 @@ async def check_access(request: Request, call_next, db: Connection = Depends(get
     #if not permission:
         #raise HTTPException(status_code=403, detail="Permission not registered")
 
-    user_permission = verify_permission_role_query(db, current_user['id_usuarios'])
+    user_permission = verify_permission_role_query(db, current_user['id_usuarios'], resource, action)
     if not user_permission:
         raise HTTPException(status_code=403, detail="Access denied")
 

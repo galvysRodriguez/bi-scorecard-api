@@ -52,7 +52,7 @@ class TargetRepository:
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
                    o.fecha_final AS end_date, o.id_formulas AS indicator_id,
                    p.id_perspectivas AS perspective_id,
-                   f.titulo AS indicator,
+                   f.titulo AS indicator
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
             LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
