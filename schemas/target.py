@@ -45,8 +45,8 @@ class TargetCreate(TargetBase):
     optimal: Optional[float] = None
     tolerable: Optional[float] = None
     deficient: Optional[float] = None
-    start_date: Optional[datetime] = Field(default_factory=get_current_datetime)  # Timestamp de inicio
-    end_date: Optional[datetime] = None  # Timestamp de finalización
+    start_date: Optional[datetime] = Field(default_factory=get_current_datetime) 
+    end_date: Optional[datetime] = None  
     formula_id: Optional[int] = None
 
 
@@ -55,8 +55,8 @@ class TargetUpdate(BaseModel):
     optimal: Optional[float] = None
     tolerable: Optional[float] = None
     deficient: Optional[float] = None
-    start_date: Optional[datetime] = Field(default_factory=get_current_datetime)  # Timestamp de inicio
-    end_date: Optional[datetime] = None  # Timestamp de finalización
+    start_date: Optional[datetime] = Field(default_factory=get_current_datetime)  
+    end_date: Optional[datetime] = None  
     perspective_id: Optional[int] = None
     indicator_id: Optional[int] = None
 
@@ -69,10 +69,29 @@ class TargetResponse(BaseModel):
     deficient: Optional[Decimal] = Field(None, alias="deficiente")
     perspective_id: int = Field(..., alias="id_perspectivas")
     formula_id: Optional[int] = Field(None, alias="id_formulas")
-    start_date: Optional[datetime] = Field(None, alias="id_fecha_inicio")  # Timestamp
-    end_date: Optional[datetime] = Field(None, alias="id_fecha_final")  # Timestamp
-    completion_date: Optional[datetime] = Field(None, alias="fecha_culminacion")  # Timestamp
+    start_date: Optional[datetime] = Field(None, alias="id_fecha_inicio") 
+    end_date: Optional[datetime] = Field(None, alias="id_fecha_final")  
+    completion_date: Optional[datetime] = Field(None, alias="fecha_culminacion")  
 
     class Config:
         from_attributes = True
         populate_by_name = True
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class UserBase(BaseModel):
+    username: str
+    hashed_password: Optional[str] = None
+
+class PermissionBase(BaseModel):
+    resource: str
+    action: str 
+
+class User(BaseModel):
+    id: int
+    username: str
+    email: str
+    hashed_password: str
