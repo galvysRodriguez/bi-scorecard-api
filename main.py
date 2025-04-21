@@ -16,11 +16,12 @@ async def lifespan(app: FastAPI):
     print("Scheduler detenido.")
 
 app = FastAPI(lifespan=lifespan)
-app.middleware("http")(check_access)
+#app.middleware("http")(check_access)
 
 origins = [
     "http://localhost:3000",
     "http://localhost:3000/home",
+    "http://localhost:3000/login"
     "http://localhost:3000/",
     "http://localhost",
     "http://localhost:8080",

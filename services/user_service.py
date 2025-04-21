@@ -2,7 +2,7 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from asyncpg import Connection
 import jwt
-from repositories.user_repo import login_query
+from repositories.user_repo import login_query, get_permissions_by_role
 from schemas.target import UserBase
 import hashlib
 from auth.jwt_handler import create_access_token
@@ -16,8 +16,25 @@ def verify_password(plain_password, hashed_password):
 
 async def login_service(db: Connection, user:UserBase):
     result = await login_query(db, user)
-    if not result or not verify_password(user.hashed_password, result['contraseña']):
+    if not result or not verify_password(user.hashed_password, result['password']):
         return False
 
-    access_token = create_access_token(data={"sub": result['nombre_usuario']})
-    return access_token
+    access_token = create_access_token(data={"sub": result['username']})
+    role_id = result["role_id"]
+
+    permissions = await get_permissions_by_role(db, role_id)
+
+    permissions_result = [dict(record) for record in permissions]
+
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user": {
+            "name": result['name'],
+            "role": result['role'],
+            "lastname": result['lastname'],
+            "username": result['username'],
+            "email": result['email'],
+            "permissions": permissions_result
+        },
+}

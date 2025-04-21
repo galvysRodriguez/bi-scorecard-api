@@ -23,7 +23,7 @@ async def create_triggers_logs(tables: Optional[List[str]] = None):
     return api_response_etl("Creacion de triggers ha sido completada", start, end, tables_to_process)
 
 @router.post("/extract")
-async def extract_table_all(table_process: Optional[List[TableProcessSchema]] = None):
+async def extract_table_all(table_process: Optional[TableProcessSchema] = None):
     end = datetime.now()
     tables_to_process = table_process or TABLE_PROCESS
     await run_extract_table(source_engine, destination_engine, tables_to_process)
@@ -31,7 +31,7 @@ async def extract_table_all(table_process: Optional[List[TableProcessSchema]] = 
     return api_response_etl("La extraccion ha sido completada", start, end, tables_to_process)
 
 @router.post("/sync")
-async def sync_table_logs(table_process: Optional[List[TableProcessSchema]] = None):
+async def sync_table_logs(table_process: Optional[TableProcessSchema] = None):
     end = datetime.now()
     tables_to_process = table_process or TABLE_PROCESS
     await run_sync_table(source_engine, destination_engine, tables_to_process)

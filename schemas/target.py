@@ -99,5 +99,5 @@ class User(BaseModel):
 class TableProcessSchema(BaseModel):
     source_table: str
     target_table: str
-    schema: str
+    schema_name: str
     query: str
