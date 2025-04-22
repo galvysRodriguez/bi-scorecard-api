@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Body
 from datetime import datetime, timedelta
-from typing import Optional, List
+from typing import Optional, List, Literal
 from etl.db.erp import source_engine
 from etl.db.bi import destination_engine
 from etl.table_config import TABLE_PROCESS
@@ -9,8 +9,9 @@ from etl.logs.tables import TABLES
 from utils.api_response_etl import api_response_etl
 from etl.main import run_extract_table, run_sync_table
 from etl.json.clear import clear_destination_db
-from etl.json.resources import create_resources_db
+from etl.json.resources import create_resources_db, delete_resources_db
 from schemas.target import TableProcessSchema
+from etl.backup.backup import backup_mysql, backup_postgresql
 
 router = APIRouter(prefix="/etl", tags=["etl"])
 
@@ -51,3 +52,21 @@ async def create_resources_all(tables: Optional[List[str]] = None):
     await create_resources_db(source_engine)
     start = end - timedelta(days=1)
     return api_response_etl("La creacion de recursos ha sido completada", start, end, tables or [])
+
+@router.post("/resource/delete")
+async def delete_resources_bi():
+    end = datetime.now()
+    await delete_resources_db(source_engine)
+    start = end - timedelta(days=1)
+    return api_response_etl("La eliminacion de recursos ha sido completada", start, end)
+
+@router.post("/backup")
+async def create_backup_engine(engine: Literal["source", "destination", "all"] = Body(..., embed=True)):
+    end = datetime.now()
+    if engine == "source":
+        await backup_mysql()
+        start = end - timedelta(days=1)
+        return api_response_etl("La creacion de recursos ha sido completada", start, end)
+    await backup_postgresql()
+    start = end - timedelta(days=1)
+    return api_response_etl("La creacion de recursos ha sido completada", start, end)
