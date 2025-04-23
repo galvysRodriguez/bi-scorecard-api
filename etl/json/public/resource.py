@@ -7,7 +7,11 @@ RESOURCE = {
                         r.controlador, 
                         r.accion,
                         r.recurso,
-                        r.modulo
+                        r.modulo,
+                        CASE 
+                            WHEN r.activo = 1 THEN true
+                            ELSE false
+                        END as activo
                     FROM recurso r
                     WHERE r.modulo = 'BI' or r.modulo = '*'
                     """,

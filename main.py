@@ -1,7 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from routers import indicators, targets, formula, tag, perspective, test, icon, etl, task, user
-from routers.target import customer, finance, innovation, process
+from routers import indicators, targets, formula, tag, perspective, test, icon, etl, task, user, seed
 from middleware.permission import check_access
 from contextlib import asynccontextmanager
 from config.exception_handlers import http_exception_handler, unhandled_exception_handler
@@ -50,11 +49,8 @@ app.include_router(formula.router)
 app.include_router(tag.router)
 app.include_router(perspective.router)
 app.include_router(icon.router)
-app.include_router(customer.router)
-app.include_router(finance.router)
-app.include_router(innovation.router)
-app.include_router(process.router)
 app.include_router(user.router)
 app.include_router(etl.router)
+app.include_router(seed.router)
 app.include_router(task.router)
 app.include_router(test.router)

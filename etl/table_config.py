@@ -30,11 +30,11 @@ from etl.json.warehouse.move import MOVE
 
 TABLE_PROCESS = [
     CUSTOMER_GROUP,
+    STATE,
+    CITY,
     PERSON,
     SELLER,
     WAREHOUSE,
-    CITY,
-    STATE,
     INVOICE_TYPE,
     PROFILE,
     USER,

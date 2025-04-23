@@ -11,6 +11,9 @@ query = """
     (1505, 'BI', 'targets', 'get', '/targets', 1, 1, 'Obtener todos los targets'),
     (1506, 'BI', 'targets', 'post', '/targets', 1, 1, 'Crear un nuevo target'),
     (1507, 'BI', 'targets', 'get', '/targets/perspective/:id', 1, 1, 'Obtener targets por perspectiva'),
+    (1557, 'BI', 'targets', 'get', '/targets/perspective/7', 1, 1, 'Obtener targets por venta'),
+    (1558, 'BI', 'targets', 'get', '/targets/perspective/8', 1, 1, 'Obtener targets por almacen'),
+    (1559, 'BI', 'targets', 'get', '/targets/perspective/11', 1, 1, 'Obtener targets por compras'),
 
     -- Indicators
     (1508, 'BI', 'indicators', 'get', '/indicators', 1, 1, 'Obtener todos los indicadores'),
@@ -72,7 +75,9 @@ query = """
     (1550, 'BI', 'etl', 'post', '/etl/extract', 1, 1, 'Ejecutar proceso de extracción de datos'),
     (1551, 'BI', 'etl', 'post', '/etl/sync', 1, 1, 'Sincronizar datos en el proceso ETL'),
     (1552, 'BI', 'etl', 'post', '/etl/resource', 1, 1, 'Crear recursos en la bdd del ERP'),
-    (1553, 'BI', 'etl', 'post', '/etl/clear', 1, 1, 'Limpiar datos en el proceso ETL');
+    (1553, 'BI', 'etl', 'post', '/etl/clear', 1, 1, 'Limpiar datos en el proceso ETL'),
+
+    (1554, 'BI', 'dashboard', '*', '*', 1, 1, 'Acceso a todo el dashboard');
 """
 
 async def create_resources_db(source_engine):

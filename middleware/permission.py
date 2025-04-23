@@ -22,9 +22,9 @@ async def check_access(request: Request, call_next, db: Connection = Depends(get
     action = request.method.lower()
     #permission_data = PermissionBase(resource=resource, action=action)
     #permission = verify_permission_query(db, permission_data)
-
-    #if not permission:
-        #raise HTTPException(status_code=403, detail="Permission not registered")
+    print(current_user)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="No autorizado")
 
     user_permission = verify_permission_role_query(db, current_user['id_usuarios'], resource, action)
     if not user_permission:

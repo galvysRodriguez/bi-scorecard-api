@@ -9,4 +9,9 @@ def adjust_quantity_column(df):
         df['acceso'] = df['acceso'].astype(bool)
     else:
         print("Columna 'acceso' no encontrada. No se realizó conversión a booleano.")
+    if 'activo' in df.columns:
+        print("Columna 'acceso' encontrada. Convirtiendo valores a booleano...")
+        df['activo'] = df['activo'].astype(bool)
+    else:
+        print("Columna 'acceso' no encontrada. No se realizó conversión a booleano.")
     return df

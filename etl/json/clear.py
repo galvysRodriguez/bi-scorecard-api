@@ -27,11 +27,14 @@ query = """
     delete from public.personas;
     delete from public.ciudades;
     delete from public.estados;
-    delete from public.permisos;
-    delete from public.roles;
+    
     delete from public.role_permiso;
-    delete from public.tipo_facturas;
+    delete from public.permisos;
     delete from public.usuarios;
+    delete from public.roles;
+    
+    delete from public.tipo_facturas;
+    
 
     delete from productos.detalle_productos; 
     delete from productos.presentaciones;
