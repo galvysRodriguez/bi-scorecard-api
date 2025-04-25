@@ -5,7 +5,7 @@ from db.database import get_db
 from repositories.user_repo import verify_permission_query, verify_permission_role_query
 from schemas.target import PermissionBase
 
-async def check_access(request: Request, call_next, db: Connection = Depends(get_db)):
+async def check_access(request: Request, call_next):
     if request.url.path.startswith("/docs") \
         or request.url.path.startswith("/openapi") \
         or request.url.path.startswith("/users") \
@@ -25,8 +25,9 @@ async def check_access(request: Request, call_next, db: Connection = Depends(get
     print(current_user)
     if not current_user:
         raise HTTPException(status_code=401, detail="No autorizado")
-
-    user_permission = verify_permission_role_query(db, current_user['id_usuarios'], resource, action)
+    
+    db = await get_db()
+    user_permission = await verify_permission_role_query(db, current_user['id_user'], resource, action)
     if not user_permission:
         raise HTTPException(status_code=403, detail="Access denied")
 

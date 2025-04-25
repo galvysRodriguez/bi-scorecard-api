@@ -14,7 +14,7 @@ async def add_perspective_tags(db: Connection, tags: list[int], perspective_id: 
 
     return results
 
-async def delete_perspective_tags(db: Connection, perspective_id: int, tags: list[int]):
+async def delete_perspective_tags(db: Connection, tags: list[int], perspective_id: int):
     """Inserta múltiples Perspectivas usando la función de una en una."""
     results = []
 

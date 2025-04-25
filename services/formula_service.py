@@ -35,7 +35,7 @@ async def add_formula(db: Connection, formula_data: FormulaCreate):
     row = await add_formula_query(db, formula_data)
     return api_response("Formula created successfully", True, dict(row))
 
-async def update_formula(db: Connection, formula: FormulaCreate, formula_id:int):
+async def update_formula(db: Connection, formula_id:int, formula: FormulaCreate):
     row = await update_formula_query(db, formula_id, formula)
     if not row:
         return api_response("Formula not found", False)

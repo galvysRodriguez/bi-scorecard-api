@@ -61,7 +61,7 @@ async def add_formula_query(db: Connection, formula_data: FormulaCreate):
 async def update_formula_query(db: Connection, formula_id: int,  formula_data:FormulaCreate):
         """Actualiza una etiqueta existente."""
         query = f"""
-            UPDATE objetivos.etiquetas
+            UPDATE objetivos.formulas
             SET titulo =($2),
                 formula =($3),
                 id_etiquetas =($4)

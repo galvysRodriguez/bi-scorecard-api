@@ -6,7 +6,8 @@ query_user = """
         (201, 'Gerente', 'Venta', 'venta', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'gerentev@gmail.com',201),
         (202, 'Gerente', 'Compra', 'compra', '7c4a8d09ca3762af61e59520943dc26494f8941b','gerentec@gmail.com', 202),
         (203, 'Gerente', 'Almacen', 'almacen', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'gerentea@gmail.com',203),
-        (204, 'Analista', 'General', 'analista', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'analistag@gmail.com',204);
+        (204, 'Analista', 'General', 'analista', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'analistag@gmail.com',204),
+        (205, 'Operador', 'BI', 'operador', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'operadorBI@gmail.com',205);
 """
 query_state = """
      INSERT INTO estado_usuario (id, usuario_id, descripcion, estado_usuario) VALUES
@@ -14,7 +15,8 @@ query_state = """
         (201, 201, 'registrado BI', 1),
         (202, 202, 'registrado BI', 1),
         (203, 203, 'registrado BI', 1),
-        (204, 204, 'registrado BI', 1);
+        (204, 204, 'registrado BI', 1),
+        (205, 205, 'registrado BI', 1);
 """
 async def create_users_db(source_engine):
     try:

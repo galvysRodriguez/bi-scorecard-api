@@ -72,8 +72,23 @@ query = """
     (102048, 204, 1541),
     (102049, 204, 1542),
     (102050, 204, 1543),
-    (102110, 204, 1554);
-    
+    (102110, 204, 1554),
+
+     #operador BI
+     #ver objetivos, editar perspectivas, y todo con etiquetas y formulas
+     (102111, 205, 1554),
+     (102051, 205, 1505),
+     (102052, 205, 1507),
+     (102053, 205, 1539),
+     (102054, 205, 1540),
+     (102055, 205, 1541),
+     (102056, 205, 1543),
+     (102057, 205, 1524),
+     (102058, 205, 1525),
+     (102059, 205, 1527),
+     (102060, 205, 1528),
+     (102061, 205, 1529),
+     (102062, 205, 1530);
     
 """
 
@@ -81,9 +96,9 @@ async def create_profile_resource_db(source_engine):
     try:
         with source_engine.begin() as conn:
             conn.execute(text(query))
-            print("✅ Creación de perfiles correctamente en la base de datos de fuente")
+            print("✅ Creación de perfil_recurso correctamente en la base de datos de fuente")
     except Exception as e:
-        print(f"❌ Error creando perfiles: {e}")
+        print(f"❌ Error creando perfil_recurso: {e}")
 
 
 query_delete = """
