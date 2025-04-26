@@ -101,3 +101,17 @@ class TableProcessSchema(BaseModel):
     target_table: str
     schema_name: str
     query: str
+
+class WarehouseFilter(BaseModel):
+    warehouse: Optional[str] = None
+    type: Optional[str] = None
+    product: Optional[str] = None
+    date: Optional[str] = None
+    quantity_min: Optional[int] = None
+    quantity_max: Optional[int] = None
+
+class ReportBase(BaseModel):
+    order_by: Optional[str] = None
+    order_dir: Optional[str] = None
+    limit: Optional[int] = None
+    offset: Optional[int] = None

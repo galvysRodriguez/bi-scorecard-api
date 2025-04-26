@@ -8,7 +8,7 @@ async def test_exist_user_true():
     db = await get_db()  
     user = UserBase(username="admin", hashed_password="123456")
     result = await login_query(db, user)
-    assert result["nombre"] == "Super", "Debería encontrar 1 registro existente"
+    assert result["name"] == "Super", "Debería encontrar 1 registro existente"
     await db.close()  
 
 @pytest.mark.asyncio
@@ -46,7 +46,6 @@ async def test_user_verify_permission_not_permission():
 async def test_user_get_permissions_super():
     db = await get_db()  
     result = await get_permissions_by_role(db, 1)
-    print(result)
-    assert result[0]["modulo"] == "*","El super usuario tiene el todos los modulos"
-    assert result[0]["recurso"] == "*","El super usuario tiene el todos los recursos"
+    assert result[0]["module"] == "*","El super usuario tiene el todos los modulos"
+    assert result[0]["resource"] == "*","El super usuario tiene el todos los recursos"
     await db.close()  
