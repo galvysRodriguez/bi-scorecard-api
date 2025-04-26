@@ -31,9 +31,15 @@ async def get_filtered_moves_ids_by_columns(
         args.append(f"%{warehouse_data.product}%")
         index += 1
 
-    if warehouse_data.date:
-        date_obj = datetime.strptime(warehouse_data.date, "%Y-%m-%d").date()
-        conditions.append(f"DATE(m.fecha) = ${index}")
+    if warehouse_data.date_min:
+        date_obj = datetime.strptime(warehouse_data.date_min, "%Y-%m-%d").date()
+        conditions.append(f"DATE(m.fecha) >= ${index}")
+        args.append(date_obj)
+        index += 1
+
+    if warehouse_data.date_max:
+        date_obj = datetime.strptime(warehouse_data.date_max, "%Y-%m-%d").date()
+        conditions.append(f"DATE(m.fecha) <= ${index}")
         args.append(date_obj)
         index += 1
 

@@ -1,7 +1,7 @@
 import pytest
 from asyncpg import Connection
 from repositories.target_repo import TargetRepository
-from db.database import get_db
+from db.test_database import get_db
 from schemas.target import TargetBase, TargetCreate
 
 @pytest.mark.asyncio

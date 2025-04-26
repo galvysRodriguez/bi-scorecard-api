@@ -2,7 +2,7 @@ import pytest
 from asyncpg import Connection
 from schemas.target import FormulaBase
 from repositories.formula_repo import exist_formula_query, exist_formula_update_query
-from db.database import get_db
+from db.test_database import get_db
 
 @pytest.mark.asyncio
 async def test_exist_formula_true():

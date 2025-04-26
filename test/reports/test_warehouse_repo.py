@@ -2,7 +2,7 @@ import pytest
 from asyncpg import Connection
 from schemas.target import ReportBase, WarehouseFilter
 from repositories.reports.warehouse_repo import get_filtered_moves_ids_by_columns, get_grouped_data, get_moves_ids_by_general_search, get_simple_ids
-from db.database import get_db
+from db.test_database import get_db
 
 @pytest.mark.asyncio
 async def test_get_grouped_data():
@@ -52,7 +52,7 @@ async def test_get_filter_ids_max():
 async def test_get_filter_ids_date():
     db = await get_db()  
     report = ReportBase(limit=10, offset=0, order_by="id_movimientos", order_dir="ASC")
-    filter = WarehouseFilter(quantity_max=10, warehouse="DEPOSITO DISTRIBUIDOR", date="2024-06-10")
+    filter = WarehouseFilter(quantity_max=10, warehouse="DEPOSITO DISTRIBUIDOR", date_min="2024-06-10", date_max="2024-06-10")
     result = await get_filtered_moves_ids_by_columns(db, filter, report)
     assert len(result) == 6
     await db.close()  

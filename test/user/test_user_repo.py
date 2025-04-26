@@ -1,7 +1,7 @@
 import pytest
 from schemas.target import UserBase
 from repositories.user_repo import login_query, verify_permission_role_query, get_permissions_by_role
-from db.database import get_db
+from db.test_database import get_db
 
 @pytest.mark.asyncio
 async def test_exist_user_true():

@@ -13,7 +13,8 @@ async def obtener_movimientos_grouped(
     warehouse: Optional[str] = None,
     type: Optional[str] = None,
     product: Optional[str] = None,
-    date: Optional[str] = None,
+    date_min: Optional[str] = None,
+    date_max: Optional[str] = None,
     quantity_min: Optional[int] = None,
     quantity_max: Optional[int] = None,
     order_by: Optional[str] = "id",
@@ -37,12 +38,13 @@ async def obtener_movimientos_grouped(
         limit=limit,
         offset=offset
     )
-    if warehouse or type or product or date or quantity_min or quantity_max:
+    if warehouse or type or product or date_min or date_max or quantity_min or quantity_max:
         filters = WarehouseFilter(
             warehouse=warehouse, 
             type=type, 
             product=product, 
-            date=date,
+            date_min=date_min,
+            date_max=date_max,
             quantity_min=quantity_min,
             quantity_max=quantity_max
             )

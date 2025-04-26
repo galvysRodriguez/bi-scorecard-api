@@ -106,7 +106,8 @@ class WarehouseFilter(BaseModel):
     warehouse: Optional[str] = None
     type: Optional[str] = None
     product: Optional[str] = None
-    date: Optional[str] = None
+    date_min: Optional[str] = None
+    date_max: Optional[str] = None
     quantity_min: Optional[int] = None
     quantity_max: Optional[int] = None
 
