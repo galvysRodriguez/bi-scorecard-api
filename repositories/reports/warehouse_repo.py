@@ -22,7 +22,7 @@ async def get_filtered_moves_ids_by_columns(
         index += 1
 
     if warehouse_data.type:
-        conditions.append(f"tm.tipo ILIKE ${index}")
+        conditions.append(f"tm.movimiento ILIKE ${index}")
         args.append(f"%{warehouse_data.type}%")
         index += 1
 
@@ -80,34 +80,16 @@ async def get_grouped_data(db: Connection, ids: List[int]):
         WHERE id_movimientos = ANY($1)
     )
     SELECT 
-      m.id_movimientos,
-      d.deposito,
-      tm.tipo,
-      p.titulo,
-      COUNT(*) AS total_movimientos,
-      SUM(m.cantidad) AS cantidad,
-      m.fecha
+      m.id_movimientos as id,
+      d.deposito as warehouse,
+      tm.movimiento as type, 
+      p.titulo as product,
+      m.cantidad AS quantity,
+      m.fecha as date
     FROM movimientos_filtrados m
     INNER JOIN almacenes.depositos d ON d.id_depositos = m.id_depositos 
     INNER JOIN almacenes.tipo_movimientos tm ON tm.id_tipo_movimientos = m.id_tipo_movimientos 
     INNER JOIN productos.productos p ON p.id_productos = m.id_productos 
-    GROUP BY GROUPING SETS (
-      (p.titulo),
-      (d.deposito),
-      (tm.tipo),
-      (p.titulo, d.deposito),
-      (p.titulo, tm.tipo),
-      (d.deposito, tm.tipo),
-      (d.deposito, tm.tipo, p.titulo),
-      (p.titulo, m.fecha),
-      (d.deposito, m.fecha),
-      (tm.tipo, m.fecha),
-      (p.titulo, d.deposito, m.fecha),
-      (p.titulo, tm.tipo, m.fecha),
-      (d.deposito, tm.tipo, m.fecha),
-      (d.deposito, tm.tipo, p.titulo, m.fecha),
-      (m.id_movimientos, d.deposito, tm.tipo, p.titulo, m.fecha)
-    )
     """
     return await db.fetch(query, ids)
 
@@ -128,7 +110,7 @@ async def get_moves_ids_by_general_search(db: Connection, search: str, report_ba
     {query_base_warehouse}
     WHERE 
         d.deposito ILIKE $1 OR 
-        tm.tipo ILIKE $1 OR 
+        tm.movimiento ILIKE $1 OR 
         p.titulo ILIKE $1
     ORDER BY {report_base.order_by} {report_base.order_dir.upper()}
     LIMIT $2 OFFSET $3
@@ -136,3 +118,12 @@ async def get_moves_ids_by_general_search(db: Connection, search: str, report_ba
     
     rows = await db.fetch(query, search_pattern, report_base.limit, report_base.offset)
     return [row["id_movimientos"] for row in rows]
+
+
+async def get_count_moves(db: Connection):
+    query = f"""
+    SELECT COUNT(*) as count
+    FROM almacenes.movimientos
+    """
+    row = await db.fetchrow(query)
+    return row["count"] if row else 0

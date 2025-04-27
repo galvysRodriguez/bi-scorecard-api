@@ -1,7 +1,7 @@
 from typing import Optional, List, Dict, Any
 from fastapi import Depends
 from asyncpg import Connection
-from repositories.reports.warehouse_repo import get_simple_ids, get_grouped_data, get_filtered_moves_ids_by_columns, get_moves_ids_by_general_search
+from repositories.reports.warehouse_repo import get_simple_ids, get_grouped_data, get_filtered_moves_ids_by_columns, get_moves_ids_by_general_search, get_count_moves
 from schemas.target import WarehouseFilter, ReportBase
 from utils.api_response import api_response
 
@@ -9,8 +9,14 @@ async def get_respose_warehouse(db: Connection, ids: Optional[List[int]]):
     if not ids:
         return api_response("Movimientos en depositos no conseguidos", False)
     grouped_data = await get_grouped_data(db, ids)
-    normalize_data = normalize_grouped_data(grouped_data)
-    return api_response("Movimientos listados", True, normalize_data)
+    count_moves = await get_count_moves(db)
+
+    response = {
+        "data": grouped_data,  
+        "total": count_moves,  
+    }
+    #normalize_data = normalize_grouped_data(grouped_data)
+    return api_response("Movimientos listados", True, response)
 
 async def get_simple_warehouse(db: Connection, report_base: ReportBase):
     ids = await get_simple_ids(db, report_base)
@@ -55,10 +61,10 @@ def normalize_grouped_data(rows: List[Dict[str, Any]]):
     grouped_result = []
 
     for row in rows:
-        group_keys = {k: v for k, v in row.items() if v is not None and k not in ["total_movimientos", "cantidad"]}
+        group_keys = {k: v for k, v in row.items() if v is not None and k not in ["total", "quantity"]}
         aggregate_values = {
-            "total_movimientos": row.get("total_movimientos", 0),
-            "cantidad": row.get("cantidad", 0)
+            "total_movimientos": row.get("total", 0),
+            "cantidad": row.get("quantity", 0)
         }
 
         grouped_result.append({
