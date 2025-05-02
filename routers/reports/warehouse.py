@@ -19,7 +19,7 @@ async def obtener_movimientos_grouped(
     quantity_max: Optional[int] = None,
     order_by: Optional[str] = "id",
     order_dir: Optional[str] = "asc",
-    limit: int = Query(10, ge=1, le=100),  
+    limit: int = Query(10, ge=1, le=10000),  
     offset: int = Query(0, ge=0),          
     search: Optional[str] = None,
     db: Connection = Depends(get_db)

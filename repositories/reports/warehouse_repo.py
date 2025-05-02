@@ -95,8 +95,7 @@ async def get_grouped_data(db: Connection, ids: List[int]):
 
 async def get_simple_ids(db: Connection, report_base: ReportBase):
     query = f"""
-        SELECT id_movimientos
-        FROM almacenes.movimientos
+        {query_base_warehouse}
         ORDER BY {report_base.order_by} {report_base.order_dir.upper()}
         LIMIT $1 OFFSET $2
     """
