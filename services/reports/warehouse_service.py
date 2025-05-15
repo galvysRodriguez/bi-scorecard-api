@@ -6,10 +6,13 @@ from schemas.target import WarehouseFilter, ReportBase
 from utils.api_response import api_response
 
 async def get_respose_warehouse(db: Connection, ids: Optional[List[int]]):
+    print(ids, "...............")
     if not ids:
         return api_response("Movimientos en depositos no conseguidos", False)
+    print(ids, "...............")
     grouped_data = await get_grouped_data(db, ids)
     count_moves = await get_count_moves(db)
+
 
     response = {
         "data": grouped_data,  
@@ -42,14 +45,36 @@ async def get_search_column_warehouse(db: Connection, search:str, report_base: R
     
 def validation_order_by(order:str):
     valid_order_fields_map = {
-        "id": "id_movimientos",
-        "date": "fecha",
-        "quantity": "cantidad",
-        "type": "tipo",
-        "warehouse": "deposito",
-        "product": "titulo"
+        "id": "id",
+        "warehouse": "warehouse",
+        "movement_type": "movement_type",
+        "product_id": "product_id",
+        "product_name": "product_name",
+        "product_code": "product_code",
+        "category": "category",
+        "subcategory": "subcategory",
+        "product_type": "product_type",
+        "unit": "unit",
+        "brand": "brand",
+        "product_details": "product_details",
+        "product_presentations": "product_presentations",
+        "quantity": "quantity",
+        "date": "date",
+        "day": "day",
+        "weekday_number": "weekday_number",
+        "weekday_name": "weekday_name",
+        "week_of_year": "week_of_year",
+        "week_of_month": "week_of_month",
+        "fortnight": "fortnight",
+        "month": "month",
+        "month_name": "month_name",
+        "quarter": "quarter",
+        "semester": "semester",
+        "year": "year",
+        "is_weekend": "is_weekend"
     }
-    order_by = valid_order_fields_map.get(order) 
+
+    order_by = valid_order_fields_map.get(order)
     return order_by
 
 def validation_order_dir(order:str):

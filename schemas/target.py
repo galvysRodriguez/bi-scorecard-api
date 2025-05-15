@@ -102,14 +102,39 @@ class TableProcessSchema(BaseModel):
     schema_name: str
     query: str
 
-class WarehouseFilter(BaseModel):
-    warehouse: Optional[str] = None
-    type: Optional[str] = None
-    product: Optional[str] = None
+class DateFilter(BaseModel):
     date_min: Optional[str] = None
     date_max: Optional[str] = None
+    day: Optional[int] = None
+    weekday_number: Optional[int] = None
+    weekday_name: Optional[str] = None
+    week_of_year: Optional[int] = None
+    week_of_month: Optional[int] = None
+    fortnight: Optional[int] = None
+    month: Optional[int] = None
+    month_name: Optional[str] = None
+    quarter: Optional[int] = None
+    semester: Optional[int] = None
+    year: Optional[int] = None
+    is_weekend: Optional[bool] = None
+
+class QuantityFilter(BaseModel):
     quantity_min: Optional[int] = None
     quantity_max: Optional[int] = None
+
+class ProductFilter(BaseModel):
+    product_id: Optional[int] = None
+    product_name: Optional[str] = None
+    product_code: Optional[str] = None
+    category: Optional[str] = None
+    subcategory: Optional[str] = None
+    product_type: Optional[str] = None
+    unit: Optional[str] = None
+    brand: Optional[str] = None
+
+class WarehouseFilter(ProductFilter, QuantityFilter, DateFilter):
+    warehouse: Optional[str] = None
+    movement_type: Optional[str] = None
 
 class ReportBase(BaseModel):
     order_by: Optional[str] = None

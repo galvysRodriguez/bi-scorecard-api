@@ -1,5 +1,5 @@
 query_base_warehouse = """
-    SELECT m.id_movimientos FROM almacenes.movimientos m
+    SELECT m.id_movimientos as id FROM almacenes.movimientos m
     INNER JOIN almacenes.depositos d ON d.id_depositos = m.id_depositos 
     INNER JOIN almacenes.tipo_movimientos tm ON tm.id_tipo_movimientos = m.id_tipo_movimientos 
     INNER JOIN productos.productos p ON p.id_productos = m.id_productos 
@@ -23,4 +23,222 @@ query_base_sale = """
     left join finanzas.cajas c2 on vv.id_cajas = c2.id_cajas 
     left join public.personas p3 on vv.id_personas = p3.id_personas 
     left join ventas.vendedores v on vv.id_vendedores = v.id_vendedores 
+"""
+
+query_base_sale_view = """
+    SELECT
+        id_det_venta AS id,
+        cantidad AS quantity,
+        descuento AS discount,
+        devuelto AS returned,
+        
+        num_control AS control_number,
+        num_factura AS invoice_number,
+        tasa AS tax_rate,
+        
+        nombre AS seller_name,
+        porcentaje AS seller_percentage,
+        
+        ciudad AS city,
+        estado AS state,
+        
+        id_productos AS product_id,
+        titulo AS product_name,
+        codigo AS product_code,
+        categoria AS category,
+        subcategoria AS subcategory,
+        tipo AS product_type,
+        unidad AS unit,
+        marca AS brand,
+        
+        detalles AS product_details,
+        presentaciones AS product_presentations,
+        
+        deposito AS warehouse,
+        caja AS cash_register,
+        presentacion AS main_presentation,
+        
+        tipo_factura AS invoice_type,
+
+        fecha AS _date,
+        dia AS day,
+        dia_semana AS weekday_number,
+        nombre_dia AS weekday_name,
+        semana_anio AS week_of_year,
+        semana_mes AS week_of_month,
+        quincena AS fortnight,
+        mes AS month,
+        nombre_mes AS month_name,
+        trimestre AS quarter,
+        semestre AS semester,
+        anio AS year,
+        es_fin_de_semana AS is_weekend
+    FROM
+        ventas.vw_ventas;
+
+"""
+
+query_base_order_view = """
+    SELECT 
+        id_det_orden_compra AS id,
+        cantidad AS quantity,
+        costo AS cost,
+        descuento AS discount,
+        deposito AS warehouse,
+        
+        proveedor AS supplier,
+        tipo_proveedor AS supplier_type,
+        tasa AS tax_rate,
+        
+        fecha AS date,
+        dia AS day,
+        dia_semana AS weekday_number,
+        nombre_dia AS weekday_name,
+        semana_anio AS week_of_year,
+        semana_mes AS week_of_month,
+        quincena AS fortnight,
+        mes AS month,
+        nombre_mes AS month_name,
+        trimestre AS quarter,
+        semestre AS semester,
+        anio AS year,
+        es_fin_de_semana AS is_weekend,
+
+        id_productos AS product_id,
+        titulo AS product_name,
+        codigo AS product_code,
+        categoria AS category,
+        subcategoria AS subcategory,
+        tipo_producto AS product_type,
+        unidad AS unit,
+        marca AS brand,
+        detalles AS product_details,
+        presentaciones AS product_presentations,
+        presentacion AS main_presentation
+    FROM compras.vw_ordenes
+"""
+
+query_base_purchase_view = """
+    SELECT 
+        id_det_compra AS id,
+        cantidad AS quantity,
+        costo AS cost,
+        descuento AS discount,
+        deposito AS warehouse,
+        
+        proveedor AS supplier,
+        tipo_proveedor AS supplier_type,
+        num_control AS control_number,
+        num_factura AS invoice_number,
+        tipo_factura AS invoice_type,
+        tasa AS tax_rate,
+        
+        fecha AS date,
+        dia AS day,
+        dia_semana AS weekday_number,
+        nombre_dia AS weekday_name,
+        semana_anio AS week_of_year,
+        semana_mes AS week_of_month,
+        quincena AS fortnight,
+        mes AS month,
+        nombre_mes AS month_name,
+        trimestre AS quarter,
+        semestre AS semester,
+        anio AS year,
+        es_fin_de_semana AS is_weekend,
+        
+        -- Product breakdown
+        id_productos AS product_id,
+        titulo AS product_name,
+        codigo AS product_code,
+        categoria AS category,
+        subcategoria AS subcategory,
+        tipo_producto AS product_type,
+        unidad AS unit,
+        marca AS brand,
+        detalles AS product_details,
+        presentaciones AS product_presentations,
+        presentacion AS main_presentation
+    FROM compras.vw_compras
+"""
+
+query_base_quote_view = """
+    SELECT 
+        id_det_cotizacion AS id,
+        cantidad AS quantity,
+        descuento AS discount,
+
+        num_control AS control_number,
+        tasa AS tax_rate,
+
+        nombre AS seller_name,
+        porcentaje AS seller_percentage,
+
+        ciudad AS city,
+        estado AS state,
+
+        id_productos AS product_id,
+        titulo AS product_name,
+        codigo AS product_code,
+        categoria AS category,
+        subcategoria AS subcategory,
+        tipo_producto AS product_type,
+        unidad AS unit,
+        marca AS brand,
+        detalles AS product_details,
+        presentaciones AS product_presentations,
+        presentacion AS main_presentation,
+
+        deposito AS warehouse,
+
+        fecha AS date,
+        dia AS day,
+        dia_semana AS weekday_number,
+        nombre_dia AS weekday_name,
+        semana_anio AS week_of_year,
+        semana_mes AS week_of_month,
+        quincena AS fortnight,
+        mes AS month,
+        nombre_mes AS month_name,
+        trimestre AS quarter,
+        semestre AS semester,
+        anio AS year,
+        es_fin_de_semana AS is_weekend
+    FROM ventas.vw_cotizaciones
+"""
+
+
+query_base_warehouse_view = """
+    SELECT 
+        id,
+        deposito AS warehouse,
+        tipo_movimiento AS movement_type,
+
+        id_productos AS product_id,
+        producto AS product_name,
+        codigo AS product_code,
+        categoria AS category,
+        subcategoria AS subcategory,
+        tipo_producto AS product_type,
+        unidad AS unit,
+        marca AS brand,
+        detalles AS product_details,
+        presentaciones AS product_presentations,
+
+        cantidad AS quantity,
+
+        fecha AS date,
+        dia AS day,
+        dia_semana AS weekday_number,
+        nombre_dia AS weekday_name,
+        semana_anio AS week_of_year,
+        semana_mes AS week_of_month,
+        quincena AS fortnight,
+        mes AS month,
+        nombre_mes AS month_name,
+        trimestre AS quarter,
+        semestre AS semester,
+        anio AS year,
+        es_fin_de_semana AS is_weekend
+    FROM almacenes.vw_almacenes
 """
