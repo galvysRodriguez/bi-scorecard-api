@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from routers import indicators, targets, formula, tag, perspective, test, icon, etl, task, user, seed
+from routers import indicators, targets, formula, tag, perspective, test, icon, etl, task, user, seed, view
 from routers.reports import warehouse
 from middleware.permission import check_access
 from contextlib import asynccontextmanager
@@ -53,6 +53,7 @@ app.include_router(icon.router)
 app.include_router(warehouse.router)
 app.include_router(user.router)
 app.include_router(etl.router)
+app.include_router(view.router)
 app.include_router(seed.router)
 app.include_router(task.router)
 app.include_router(test.router)

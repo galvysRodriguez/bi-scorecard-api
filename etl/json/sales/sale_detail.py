@@ -10,7 +10,7 @@ SALE_DETAIL = {
                             adf.precio_dolar AS precio,
                             adf.descuentoDol_par AS descuento,
                             adf.cantidad,
-                            adf.adm_vendedor_id AS id_empleados,
+                            adf.adm_vendedor_id AS id_vendedores,
                             adf.adm_enc_facturas_id AS id_ventas,
                             (	
                                 SELECT ap.id FROM adm_det_facturas adf2 
