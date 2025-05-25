@@ -5,25 +5,22 @@ from repositories.reports.warehouse_repo import get_simple_ids, get_grouped_data
 from schemas.target import WarehouseFilter, ReportBase
 from utils.api_response import api_response
 
-async def get_respose_warehouse(db: Connection, ids: Optional[List[int]]):
-    print(ids, "...............")
+async def get_response_warehouse(db: Connection, ids: Optional[List[int]], count: int = 0):
     if not ids:
         return api_response("Movimientos en depositos no conseguidos", False)
-    print(ids, "...............")
     grouped_data = await get_grouped_data(db, ids)
-    count_moves = await get_count_moves(db)
-
+    
 
     response = {
         "data": grouped_data,  
-        "total": count_moves,  
+        "total": count,  
     }
     #normalize_data = normalize_grouped_data(grouped_data)
     return api_response("Movimientos listados", True, response)
 
 async def get_simple_warehouse(db: Connection, report_base: ReportBase):
-    ids = await get_simple_ids(db, report_base)
-    return await get_respose_warehouse(db, ids)
+    ids, count = await get_simple_ids(db, report_base)
+    return await get_response_warehouse(db, ids, count)
     
 async def get_filter_column_warehouse(
         db: Connection, 
@@ -35,43 +32,43 @@ async def get_filter_column_warehouse(
     if search:
         id = await get_moves_ids_by_general_search(db, search, report_base)
     
-    ids = await get_filtered_moves_ids_by_columns(db, warehouse_filter, report_base, id)
-    return await get_respose_warehouse(db, ids)
+    ids, count = await get_filtered_moves_ids_by_columns(db, warehouse_filter, report_base, id)
+    return await get_response_warehouse(db, ids, count)
     
 
 async def get_search_column_warehouse(db: Connection, search:str, report_base: ReportBase):
-    ids = await get_moves_ids_by_general_search(db, search, report_base)
-    return await get_respose_warehouse(db, ids)
+    ids, count = await get_moves_ids_by_general_search(db, search, report_base)
+    return await get_response_warehouse(db, ids, count)
     
 def validation_order_by(order:str):
     valid_order_fields_map = {
         "id": "id",
-        "warehouse": "warehouse",
-        "movement_type": "movement_type",
-        "product_id": "product_id",
-        "product_name": "product_name",
-        "product_code": "product_code",
-        "category": "category",
-        "subcategory": "subcategory",
-        "product_type": "product_type",
-        "unit": "unit",
-        "brand": "brand",
-        "product_details": "product_details",
-        "product_presentations": "product_presentations",
-        "quantity": "quantity",
-        "date": "date",
-        "day": "day",
-        "weekday_number": "weekday_number",
-        "weekday_name": "weekday_name",
-        "week_of_year": "week_of_year",
-        "week_of_month": "week_of_month",
-        "fortnight": "fortnight",
-        "month": "month",
-        "month_name": "month_name",
-        "quarter": "quarter",
-        "semester": "semester",
-        "year": "year",
-        "is_weekend": "is_weekend"
+        "warehouse": "deposito",
+        "movement_type": "tipo_movimiento",
+        "product_id": "id_productos",
+        "product_name": "producto",
+        "product_code": "codigo",
+        "category": "categoria",
+        "subcategory": "subcategoria",
+        "product_type": "tipo_producto",
+        "unit": "unidad",
+        "brand": "marca",
+        "product_details": "detalles",
+        "product_presentations": "presentaciones",
+        "quantity": "cantidad",
+        "date": "fecha",
+        "day": "dia",
+        "weekday_number": "dia_semana",
+        "weekday_name": "nombre_dia",
+        "week_of_year": "semana_anio",
+        "week_of_month": "semana_mes",
+        "fortnight": "quincena",
+        "month": "mes",
+        "month_name": "nombre_mes",
+        "quarter": "trimestre",
+        "semester": "semestre",
+        "year": "anio",
+        "is_weekend": "es_fin_de_semana"
     }
 
     order_by = valid_order_fields_map.get(order)

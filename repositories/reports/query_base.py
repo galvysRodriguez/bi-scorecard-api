@@ -27,7 +27,7 @@ query_base_sale = """
 
 query_base_sale_view = """
     SELECT
-        id_det_venta AS id,
+        id,
         cantidad AS quantity,
         descuento AS discount,
         devuelto AS returned,
@@ -35,32 +35,38 @@ query_base_sale_view = """
         num_control AS control_number,
         num_factura AS invoice_number,
         tasa AS tax_rate,
+
+        cliente_direccion as customer_address,
+        cliente_comercial as customer_commercial,
+        cliente as customer_name,
+        tipo_cliente as customer_type,
         
-        nombre AS seller_name,
-        porcentaje AS seller_percentage,
+        vendedor AS seller_name,
+        porcentaje_vendedor AS seller_percentage,
         
         ciudad AS city,
         estado AS state,
         
         id_productos AS product_id,
-        titulo AS product_name,
+        producto AS product_name,
         codigo AS product_code,
         categoria AS category,
         subcategoria AS subcategory,
-        tipo AS product_type,
+        tipo_producto AS product_type,
         unidad AS unit,
         marca AS brand,
         
         detalles AS product_details,
         presentaciones AS product_presentations,
+        presentacion as presentation,
+        modificador as modificator,
         
         deposito AS warehouse,
         caja AS cash_register,
-        presentacion AS main_presentation,
         
         tipo_factura AS invoice_type,
 
-        fecha AS _date,
+        fecha AS date,
         dia AS day,
         dia_semana AS weekday_number,
         nombre_dia AS weekday_name,
@@ -74,13 +80,13 @@ query_base_sale_view = """
         anio AS year,
         es_fin_de_semana AS is_weekend
     FROM
-        ventas.vw_ventas;
+        ventas.vw_ventas
 
 """
 
 query_base_order_view = """
     SELECT 
-        id_det_orden_compra AS id,
+        id,
         cantidad AS quantity,
         costo AS cost,
         descuento AS discount,
@@ -105,7 +111,7 @@ query_base_order_view = """
         es_fin_de_semana AS is_weekend,
 
         id_productos AS product_id,
-        titulo AS product_name,
+        producto AS product_name,
         codigo AS product_code,
         categoria AS category,
         subcategoria AS subcategory,
@@ -113,14 +119,13 @@ query_base_order_view = """
         unidad AS unit,
         marca AS brand,
         detalles AS product_details,
-        presentaciones AS product_presentations,
-        presentacion AS main_presentation
+        presentaciones AS product_presentations
     FROM compras.vw_ordenes
 """
 
 query_base_purchase_view = """
     SELECT 
-        id_det_compra AS id,
+        id,
         cantidad AS quantity,
         costo AS cost,
         descuento AS discount,
@@ -149,7 +154,7 @@ query_base_purchase_view = """
         
         -- Product breakdown
         id_productos AS product_id,
-        titulo AS product_name,
+        producto AS product_name,
         codigo AS product_code,
         categoria AS category,
         subcategoria AS subcategory,
@@ -158,27 +163,28 @@ query_base_purchase_view = """
         marca AS brand,
         detalles AS product_details,
         presentaciones AS product_presentations,
-        presentacion AS main_presentation
+        presentacion as presentation,
+        modificador as modificator
     FROM compras.vw_compras
 """
 
 query_base_quote_view = """
     SELECT 
-        id_det_cotizacion AS id,
+        id,
         cantidad AS quantity,
         descuento AS discount,
 
         num_control AS control_number,
         tasa AS tax_rate,
 
-        nombre AS seller_name,
-        porcentaje AS seller_percentage,
+        vendedor AS seller_name,
+        porcentaje_vendedor AS seller_percentage,
 
         ciudad AS city,
         estado AS state,
 
         id_productos AS product_id,
-        titulo AS product_name,
+        producto AS product_name,
         codigo AS product_code,
         categoria AS category,
         subcategoria AS subcategory,
@@ -186,8 +192,6 @@ query_base_quote_view = """
         unidad AS unit,
         marca AS brand,
         detalles AS product_details,
-        presentaciones AS product_presentations,
-        presentacion AS main_presentation,
 
         deposito AS warehouse,
 
@@ -223,7 +227,7 @@ query_base_warehouse_view = """
         unidad AS unit,
         marca AS brand,
         detalles AS product_details,
-        presentaciones AS product_presentations,
+        presentaciones AS presentaciones,
 
         cantidad AS quantity,
 
@@ -242,3 +246,42 @@ query_base_warehouse_view = """
         es_fin_de_semana AS is_weekend
     FROM almacenes.vw_almacenes
 """
+
+where_clause_warehouse_general = """
+    WHERE 
+        deposito ILIKE $1 OR 
+        tipo_movimiento ILIKE $1 OR 
+        producto ILIKE $1 OR
+        codigo ILIKE $1 OR
+        marca ILIKE $1 OR
+        categoria ILIKE $1 OR
+        subcategoria ILIKE $1 OR
+        nombre_dia ILIKE $1 OR
+        nombre_mes ILIKE $1
+"""
+
+
+where_clause_purchase_general = """
+    WHERE 
+        deposito ILIKE $1 OR 
+        producto ILIKE $1 OR
+        codigo ILIKE $1 OR
+        marca ILIKE $1 OR
+        categoria ILIKE $1 OR
+        subcategoria ILIKE $1 OR
+        nombre_dia ILIKE $1 OR
+        nombre_mes ILIKE $1
+"""
+
+where_clause_sale_general = """
+    WHERE 
+        deposito ILIKE $1 OR 
+        producto ILIKE $1 OR
+        codigo ILIKE $1 OR
+        marca ILIKE $1 OR
+        categoria ILIKE $1 OR
+        subcategoria ILIKE $1 OR
+        nombre_dia ILIKE $1 OR
+        nombre_mes ILIKE $1
+"""
+

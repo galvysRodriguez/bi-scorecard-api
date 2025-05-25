@@ -5,6 +5,8 @@ CREATE MATERIALIZED VIEW ventas.vw_ventas AS
 select
     dv.id_det_venta as id,
 	dv.cantidad,
+    dv.precio,
+    dv.precio * v.tasa as precio_bs,
 	dv.descuento,
 	dv.devuelto,
 	v.num_control,
@@ -14,13 +16,17 @@ select
 	v2.porcentaje as porcentaje_vendedor,
 	c.ciudad,
 	e.estado,
-	p.*,
+	p.nombre as cliente,
+    p.direccion as cliente_direccion,
+    p.nombre_comercial as cliente_comercial,
 	d.deposito,
 	c2.caja,
-	p2.presentacion,
     tf.tipo as tipo_factura,
 	f.*,
-    vp.*
+    vp.*,
+    tc.tipo as tipo_cliente,
+    p2.presentacion, 
+    p2.modificador
 from ventas.det_venta dv 
 inner join ventas.ventas v on v.id_ventas = dv.id_ventas 
 left join ventas.vendedores v2 on v2.id_vendedores = dv.id_vendedores 
@@ -29,9 +35,10 @@ left join public.estados e on e.id_estados = v.id_estados
 left join public.personas p on p.id_personas = v.id_personas 
 left join productos.presentaciones p2 on p2.id_presentaciones = dv.id_presentaciones 
 left join productos.vw_productos vp on vp.id_productos = dv.id_productos 
-left join public.fechas f on f.fecha = v.fecha 
+left join public.fechas f on DATE(f.fecha) = DATE(v.fecha)
 left join finanzas.cajas c2 on c2.id_cajas = v.id_cajas 
 left join public.tipo_facturas tf on tf.id_tipo_facturas = v.id_tipo_facturas 
+left join ventas.tipo_clientes tc on tc.id_tipo_clientes = v.id_tipo_clientes
 left join almacenes.depositos d on d.id_depositos = dv.id_depositos 
 WITH DATA;
 """

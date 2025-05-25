@@ -15,7 +15,9 @@ select
     tf.tipo as tipo_factura,
 	c.tasa,
     f.*,
-    vp.*
+    vp.*,
+    pr.presentacion, 
+    pr.modificador
 from compras.det_compra dc 
 inner join compras.compras c on c.id_compras = dc.id_compras 
 left join compras.proveedores p on p.id_proveedores = c.id_proveedores 
@@ -24,6 +26,7 @@ left join public.tipo_facturas tf on tf.id_tipo_facturas = c.id_tipo_facturas
 left join almacenes.depositos d on d.id_depositos = dc.id_depositos 
 left join productos.vw_productos vp on vp.id_productos = dc.id_productos 
 left join public.fechas f on f.fecha = c.fecha 
+left join productos.presentaciones pr on pr.id_presentaciones = dc.id_presentaciones
 WITH DATA;
 """
 

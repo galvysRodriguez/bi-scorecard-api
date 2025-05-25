@@ -136,6 +136,39 @@ class WarehouseFilter(ProductFilter, QuantityFilter, DateFilter):
     warehouse: Optional[str] = None
     movement_type: Optional[str] = None
 
+class OrderFilter(ProductFilter, QuantityFilter, DateFilter):
+    warehouse: Optional[str] = None
+    supplier: Optional[str] = None
+    supplier_type: Optional[str] = None
+    cost: Optional[Decimal] = None
+    tax_rate: Optional[Decimal] = None
+    discount: Optional[Decimal] = None
+
+class QuoteFilter(ProductFilter, QuantityFilter, DateFilter):
+    customer_name: Optional[str] = None
+    customer_type: Optional[str] = None
+    customer_commercial: Optional[str] = None
+    customer_address: Optional[str] = None
+    warehouse: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    seller_name: Optional[str] = None
+    seller_percetage: Optional[Decimal] = None
+    price: Optional[Decimal] = None
+    tax_rate: Optional[Decimal] = None
+    discount: Optional[Decimal] = None
+    control_number: Optional[str] = None
+
+class SaleFilter(QuoteFilter):
+    invoice_number: Optional[str] = None
+    invoice_type: Optional[str] = None
+    returned: Optional[Decimal] = None
+
+class PurchaseFilter(OrderFilter):
+    control_number: Optional[str] = None
+    invoice_number: Optional[str] = None
+    invoice_type: Optional[str] = None
+
 class ReportBase(BaseModel):
     order_by: Optional[str] = None
     order_dir: Optional[str] = None

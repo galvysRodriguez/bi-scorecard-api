@@ -12,7 +12,15 @@ select
 	tp.tipo as tipo_proveedor,
 	c.tasa,
     f.*,
-    vp.*
+    vp.*,
+    CASE 
+        WHEN (
+                select COUNT(*) from compras.compras c
+                where c.id_ordenes_compras = dc.id_ordenes_compras
+            ) >= 1 THEN 
+                    true
+        ELSE false
+    END AS comprado
 from compras.det_orden_compra dc 
 inner join compras.ordenes_compras c on c.id_ordenes_compras = dc.id_ordenes_compras
 left join compras.proveedores p on p.id_proveedores = c.id_proveedores 
