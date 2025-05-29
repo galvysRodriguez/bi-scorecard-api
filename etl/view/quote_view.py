@@ -5,7 +5,16 @@ CREATE MATERIALIZED VIEW ventas.vw_cotizaciones AS
 select
     dv.id_det_cotizacion as id,
 	dv.cantidad,
-	dv.descuento,
+    dv.precio,
+    round(dv.precio * v.tasa, 2) as precio_bs,
+    dv.precio * dv.cantidad as subtotal,
+    round(dv.precio * v.tasa * dv.cantidad, 2) as subtotal_bs,
+	dv.descuento as descuento_porcentaje,
+	round(dv.precio * dv.descuento* v.tasa * dv.cantidad/100, 2) as descuento,
+	round(dv.precio * dv.descuento * v.tasa * dv.cantidad/100, 2) as descuento_bs,
+	dv.precio * dv.cantidad - round(dv.precio * dv.descuento* v.tasa * dv.cantidad/100, 2) as total,
+	round(dv.precio * v.tasa * dv.cantidad, 2) - round(dv.precio * dv.descuento * v.tasa * dv.cantidad/100, 2) as total_bs,
+
 	v.num_control,
 	v.tasa,
 	v2.nombre as vendedor,

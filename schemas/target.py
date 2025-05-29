@@ -132,19 +132,37 @@ class ProductFilter(BaseModel):
     unit: Optional[str] = None
     brand: Optional[str] = None
 
+class TotalFilter():
+    total_min: Optional[Decimal] = None
+    total_max: Optional[Decimal] = None
+    total_bs_min: Optional[Decimal] = None
+    total_bs_max: Optional[Decimal] = None
+    discount_percentage_min: Optional[Decimal] = None
+    discount_percentage_max: Optional[Decimal] = None
+    discount_bs_min: Optional[Decimal] = None
+    discount_bs_max: Optional[Decimal] = None
+    discount_min: Optional[Decimal] = None
+    discount_max: Optional[Decimal] = None
+    subtotal_min: Optional[Decimal] = None
+    subtotal_max: Optional[Decimal] = None
+    subtotal_bs_min: Optional[Decimal] = None
+    subtotal_bs_max: Optional[Decimal] = None
+
 class WarehouseFilter(ProductFilter, QuantityFilter, DateFilter):
     warehouse: Optional[str] = None
     movement_type: Optional[str] = None
 
-class OrderFilter(ProductFilter, QuantityFilter, DateFilter):
+class OrderFilter(ProductFilter, QuantityFilter, DateFilter, TotalFilter):
     warehouse: Optional[str] = None
     supplier: Optional[str] = None
     supplier_type: Optional[str] = None
-    cost: Optional[Decimal] = None
+    cost_min: Optional[Decimal] = None
+    cost_bs_min: Optional[Decimal] = None
+    cost_max: Optional[Decimal] = None
+    cost_bs_max: Optional[Decimal] = None
     tax_rate: Optional[Decimal] = None
-    discount: Optional[Decimal] = None
 
-class QuoteFilter(ProductFilter, QuantityFilter, DateFilter):
+class QuoteFilter(ProductFilter, QuantityFilter, DateFilter, TotalFilter):
     customer_name: Optional[str] = None
     customer_type: Optional[str] = None
     customer_commercial: Optional[str] = None
@@ -154,9 +172,11 @@ class QuoteFilter(ProductFilter, QuantityFilter, DateFilter):
     state: Optional[str] = None
     seller_name: Optional[str] = None
     seller_percetage: Optional[Decimal] = None
-    price: Optional[Decimal] = None
+    price_min: Optional[Decimal] = None
+    price_max: Optional[Decimal] = None
+    price_bs_min: Optional[Decimal] = None
+    price_bs_max: Optional[Decimal] = None
     tax_rate: Optional[Decimal] = None
-    discount: Optional[Decimal] = None
     control_number: Optional[str] = None
 
 class SaleFilter(QuoteFilter):

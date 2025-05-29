@@ -69,6 +69,8 @@ query = """
     (1546, 'BI', 'reports', 'get', '/reports/sale', 1, 1, 'Obtener reporte de ventas'),
     (1547, 'BI', 'reports', 'get', '/reports/purchase', 1, 1, 'Obtener reporte de compras'),
     (1548, 'BI', 'reports', 'get', '/reports/warehouse', 1, 1, 'Obtener reporte de almacén'),
+    (1558, 'BI', 'reports', 'get', '/reports/order', 1, 1, 'Obtener reporte de ordenes de compras'),
+    (1559, 'BI', 'reports', 'get', '/reports/quote', 1, 1, 'Obtener reporte de cotizaciones'),
     
     -- ETL
     (1549, 'BI', 'etl', 'post', '/etl/logs', 1, 1, 'Registrar logs del proceso ETL'),

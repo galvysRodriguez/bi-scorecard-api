@@ -21,9 +21,25 @@ async def get_sale_grouped(
     customer_commercial: Optional[str] = None,
     seller_name: Optional[str] = None,
     seller_percetage: Optional[Decimal] = None,
-    price: Optional[Decimal] = None,
+    price_min: Optional[Decimal] = None,
+    price_bs_min: Optional[Decimal] = None,
+    discount_bs_min: Optional[Decimal] = None,
+    discount_percentage_min: Optional[Decimal] = None,
+    subtotal_min: Optional[Decimal] = None,
+    subtotal_bs_min: Optional[Decimal] = None,
+    total_min: Optional[Decimal] = None,
+    total_bs_min: Optional[Decimal] = None,
+    discount_min: Optional[Decimal] = None,
+    price_max: Optional[Decimal] = None,
+    price_bs_max: Optional[Decimal] = None,
+    discount_bs_max: Optional[Decimal] = None,
+    discount_percentage_max: Optional[Decimal] = None,
+    subtotal_max: Optional[Decimal] = None,
+    subtotal_bs_max: Optional[Decimal] = None,
+    total_max: Optional[Decimal] = None,
+    total_bs_max: Optional[Decimal] = None,
+    discount_max: Optional[Decimal] = None,
     tax_rate: Optional[Decimal] = None,
-    discount: Optional[Decimal] = None,
     control_number: Optional[str] = None,
     invoice_number: Optional[str] = None,
     invoice_type: Optional[str] = None,
@@ -78,9 +94,9 @@ async def get_sale_grouped(
         customer_commercial=customer_commercial,
         seller_name=seller_name,
         seller_percetage=seller_percetage,
-        price=price,
         tax_rate=tax_rate,
-        discount=discount,
+        discount_min=discount_min,
+        discount_max=discount_max,
         control_number=control_number,
         invoice_number=invoice_number,
         invoice_type=invoice_type,
@@ -92,8 +108,34 @@ async def get_sale_grouped(
         product_type=product_type,
         unit=unit,
         brand=brand,
+
         quantity_min=quantity_min,
         quantity_max=quantity_max,
+
+        price_min=price_min,
+        price_max=price_max,
+
+        price_bs_min=price_bs_min,
+        price_bs_max=price_bs_max,
+
+        discount_bs_min=discount_bs_min,
+        discount_bs_max=discount_bs_max,
+
+        discount_percentage_min=discount_percentage_min,
+        discount_percentage_max=discount_percentage_max,
+
+        subtotal_min=subtotal_min,
+        subtotal_max=subtotal_max,
+
+        subtotal_bs_min=subtotal_bs_min,
+        subtotal_bs_max=subtotal_bs_max,
+
+        total_min=total_min,
+        total_max=total_max,
+
+        total_bs_min=total_bs_min,
+        total_bs_max=total_bs_max,
+
         date_min=date_min,
         date_max=date_max,
         day=day,
@@ -109,6 +151,7 @@ async def get_sale_grouped(
         year=year,
         is_weekend=is_weekend
     )
+
 
     def has_filters(filter_obj: SaleFilter) -> bool:
         return any(value is not None for value in filter_obj.dict(exclude_none=True).values())

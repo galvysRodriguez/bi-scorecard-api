@@ -131,18 +131,61 @@ def build_sale_filters(sales_data, ids=None, initial_index=1) -> Tuple[str, List
         add_condition("nombre ILIKE {}", f"%{sales_data.seller_name}%")
     if sales_data.seller_percetage is not None:
         add_condition("porcentaje = {}", sales_data.seller_percetage)
-    if sales_data.price is not None:
-        add_condition("precio = {}", sales_data.price)
     if sales_data.tax_rate is not None:
         add_condition("tasa = {}", sales_data.tax_rate)
-    if sales_data.discount is not None:
-        add_condition("descuento = {}", sales_data.discount)
+
+
+    if sales_data.discount_min is not None:
+        add_condition("descuento >= {}", sales_data.discount_min)
+    if sales_data.discount_max is not None:
+        add_condition("descuento <= {}", sales_data.discount_max)
+
+    if sales_data.discount_bs_min is not None:
+        add_condition("descuento_bs >= {}", sales_data.discount_bs_min)
+    if sales_data.discount_bs_max is not None:
+        add_condition("descuento_bs <= {}", sales_data.discount_bs_max)
+
+    if sales_data.discount_percentage_min is not None:
+        add_condition("descuento_porcentaje >= {}", sales_data.discount_percentage_min)
+    if sales_data.discount_percentage_max is not None:
+        add_condition("descuento_porcentaje <= {}", sales_data.discount_percentage_max)
 
     # Rango de cantidad
-    if sales_data.quantity_min is not None:
-        add_condition("cantidad >= {}", sales_data.quantity_min)
-    if sales_data.quantity_max is not None:
-        add_condition("cantidad <= {}", sales_data.quantity_max)
+    if sales_data.discount_percentage_min is not None:
+        add_condition("cantidad >= {}", sales_data.discount_percentage_min)
+    if sales_data.discount_percentage_max is not None:
+        add_condition("cantidad <= {}", sales_data.discount_percentage_max)
+
+      # Rango de cantidad
+    if sales_data.price_min is not None:
+        add_condition("precio >= {}", sales_data.price_min)
+    if sales_data.price_max is not None:
+        add_condition("precio <= {}", sales_data.price_max)
+
+    if sales_data.price_bs_min is not None:
+        add_condition("precio_bs >= {}", sales_data.price_bs_min)
+    if sales_data.price_bs_max is not None:
+        add_condition("precio_bs <= {}", sales_data.price_bs_max)
+
+    if sales_data.subtotal_min is not None:
+        add_condition("subtotal >= {}", sales_data.subtotal_min)
+    if sales_data.subtotal_max is not None:
+        add_condition("subtotal <= {}", sales_data.subtotal_max)
+
+    if sales_data.subtotal_bs_min is not None:
+        add_condition("subtotal_bs >= {}", sales_data.subtotal_bs_min)
+    if sales_data.subtotal_bs_max is not None:
+        add_condition("subtotal_bs <= {}", sales_data.subtotal_bs_max)
+
+    if sales_data.total_bs_min is not None:
+        add_condition("total_bs >= {}", sales_data.total_bs_min)
+    if sales_data.total_bs_max is not None:
+        add_condition("total_bs <= {}", sales_data.total_bs_max)
+
+    if sales_data.total_min is not None:
+        add_condition("total >= {}", sales_data.total_min)
+    if sales_data.total_max is not None:
+        add_condition("total <= {}", sales_data.total_max)
 
     # Fechas
     if sales_data.date_min:
@@ -228,18 +271,61 @@ def build_purchase_filters(purchase_data, ids=None, initial_index=1) -> Tuple[st
         add_condition("proveedor ILIKE {}", f"%{purchase_data.supplier}%")
     if purchase_data.supplier_type:
         add_condition("tipo_proveedor ILIKE {}", f"%{purchase_data.supplier_type}%")
-    if purchase_data.cost is not None:
-        add_condition("costo = {}", purchase_data.cost)
+
     if purchase_data.tax_rate is not None:
         add_condition("tasa = {}", purchase_data.tax_rate)
-    if purchase_data.discount is not None:
-        add_condition("descuento = {}", purchase_data.discount)
+
+    if purchase_data.discount_min is not None:
+        add_condition("descuento >= {}", purchase_data.discount_min)
+    if purchase_data.discount_max is not None:
+        add_condition("descuento <= {}", purchase_data.discount_max)
+
+    if purchase_data.discount_bs_min is not None:
+        add_condition("descuento_bs >= {}", purchase_data.discount_bs_min)
+    if purchase_data.discount_bs_max is not None:
+        add_condition("descuento_bs <= {}", purchase_data.discount_bs_max)
+
+    if purchase_data.discount_percentage_min is not None:
+        add_condition("descuento_porcentaje >= {}", purchase_data.discount_percentage_min)
+    if purchase_data.discount_percentage_max is not None:
+        add_condition("descuento_porcentaje <= {}", purchase_data.discount_percentage_max)
 
     # Rango de cantidad
-    if purchase_data.quantity_min is not None:
-        add_condition("cantidad >= {}", purchase_data.quantity_min)
-    if purchase_data.quantity_max is not None:
-        add_condition("cantidad <= {}", purchase_data.quantity_max)
+    if purchase_data.discount_percentage_min is not None:
+        add_condition("cantidad >= {}", purchase_data.discount_percentage_min)
+    if purchase_data.discount_percentage_max is not None:
+        add_condition("cantidad <= {}", purchase_data.discount_percentage_max)
+
+      # Rango de cantidad
+    if purchase_data.cost_min is not None:
+        add_condition("costo >= {}", purchase_data.cost_min)
+    if purchase_data.cost_max is not None:
+        add_condition("costo <= {}", purchase_data.cost_max)
+
+    if purchase_data.cost_bs_min is not None:
+        add_condition("costo_bs >= {}", purchase_data.cost_bs_min)
+    if purchase_data.cost_bs_max is not None:
+        add_condition("costo_bs <= {}", purchase_data.cost_bs_max)
+
+    if purchase_data.subtotal_min is not None:
+        add_condition("subtotal >= {}", purchase_data.subtotal_min)
+    if purchase_data.subtotal_max is not None:
+        add_condition("subtotal <= {}", purchase_data.subtotal_max)
+
+    if purchase_data.subtotal_bs_min is not None:
+        add_condition("subtotal_bs >= {}", purchase_data.subtotal_bs_min)
+    if purchase_data.subtotal_bs_max is not None:
+        add_condition("subtotal_bs <= {}", purchase_data.subtotal_bs_max)
+
+    if purchase_data.total_bs_min is not None:
+        add_condition("total_bs >= {}", purchase_data.total_bs_min)
+    if purchase_data.total_bs_max is not None:
+        add_condition("total_bs <= {}", purchase_data.total_bs_max)
+
+    if purchase_data.total_min is not None:
+        add_condition("total >= {}", purchase_data.total_min)
+    if purchase_data.total_max is not None:
+        add_condition("total <= {}", purchase_data.total_max)
 
     # Fechas
     if purchase_data.date_min:
@@ -274,6 +360,274 @@ def build_purchase_filters(purchase_data, ids=None, initial_index=1) -> Tuple[st
         add_condition("anio = {}", purchase_data.year)
     if purchase_data.is_weekend is not None:
         add_condition("es_fin_de_semana = {}", purchase_data.is_weekend)
+
+    if ids:
+        add_condition("id = ANY({})", ids)
+
+    where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
+    return where_clause, args, index
+
+
+def build_order_filters(order_data, ids=None, initial_index=1) -> Tuple[str, List[Any], int]:
+    conditions = []
+    args = []
+    index = initial_index
+
+    def add_condition(condition: str, value):
+        nonlocal index
+        conditions.append(condition.replace("{}", f"${index}"))
+        args.append(value)
+        index += 1
+
+    # Filtros generales
+    if order_data.warehouse:
+        add_condition("deposito ILIKE {}", f"%{order_data.warehouse}%")
+    if order_data.product_name:
+        add_condition("producto ILIKE {}", f"%{order_data.product_name}%")
+    if order_data.product_code:
+        add_condition("codigo ILIKE {}", f"%{order_data.product_code}%")
+    if order_data.category:
+        add_condition("categoria ILIKE {}", f"%{order_data.category}%")
+    if order_data.subcategory:
+        add_condition("subcategoria ILIKE {}", f"%{order_data.subcategory}%")
+    if order_data.product_type:
+        add_condition("tipo_producto ILIKE {}", f"%{order_data.product_type}%")
+    if order_data.unit:
+        add_condition("unidad ILIKE {}", f"%{order_data.unit}%")
+    if order_data.brand:
+        add_condition("marca ILIKE {}", f"%{order_data.brand}%")
+    if order_data.product_id:
+        add_condition("id_productos = {}", order_data.product_id)
+
+    if order_data.supplier:
+        add_condition("proveedor ILIKE {}", f"%{order_data.supplier}%")
+    if order_data.supplier_type:
+        add_condition("tipo_proveedor ILIKE {}", f"%{order_data.supplier_type}%")
+
+    if order_data.tax_rate is not None:
+        add_condition("tasa = {}", order_data.tax_rate)
+
+    if order_data.discount_min is not None:
+        add_condition("descuento >= {}", order_data.discount_min)
+    if order_data.discount_max is not None:
+        add_condition("descuento <= {}", order_data.discount_max)
+
+    if order_data.discount_bs_min is not None:
+        add_condition("descuento_bs >= {}", order_data.discount_bs_min)
+    if order_data.discount_bs_max is not None:
+        add_condition("descuento_bs <= {}", order_data.discount_bs_max)
+
+    if order_data.discount_percentage_min is not None:
+        add_condition("descuento_porcentaje >= {}", order_data.discount_percentage_min)
+    if order_data.discount_percentage_max is not None:
+        add_condition("descuento_porcentaje <= {}", order_data.discount_percentage_max)
+
+    # Rango de cantidad
+    if order_data.discount_percentage_min is not None:
+        add_condition("cantidad >= {}", order_data.discount_percentage_min)
+    if order_data.discount_percentage_max is not None:
+        add_condition("cantidad <= {}", order_data.discount_percentage_max)
+
+      # Rango de cantidad
+    if order_data.cost_min is not None:
+        add_condition("costo >= {}", order_data.cost_min)
+    if order_data.cost_max is not None:
+        add_condition("costo <= {}", order_data.cost_max)
+
+    if order_data.cost_bs_min is not None:
+        add_condition("costo_bs >= {}", order_data.cost_bs_min)
+    if order_data.cost_bs_max is not None:
+        add_condition("costo_bs <= {}", order_data.cost_bs_max)
+
+    if order_data.subtotal_min is not None:
+        add_condition("subtotal >= {}", order_data.subtotal_min)
+    if order_data.subtotal_max is not None:
+        add_condition("subtotal <= {}", order_data.subtotal_max)
+
+    if order_data.subtotal_bs_min is not None:
+        add_condition("subtotal_bs >= {}", order_data.subtotal_bs_min)
+    if order_data.subtotal_bs_max is not None:
+        add_condition("subtotal_bs <= {}", order_data.subtotal_bs_max)
+
+    if order_data.total_bs_min is not None:
+        add_condition("total_bs >= {}", order_data.total_bs_min)
+    if order_data.total_bs_max is not None:
+        add_condition("total_bs <= {}", order_data.total_bs_max)
+
+    if order_data.total_min is not None:
+        add_condition("total >= {}", order_data.total_min)
+    if order_data.total_max is not None:
+        add_condition("total <= {}", order_data.total_max)
+
+    # Fechas
+    if order_data.date_min:
+        date_obj = datetime.strptime(order_data.date_min, "%Y-%m-%d").date()
+        add_condition("DATE(fecha) >= {}", date_obj)
+    if order_data.date_max:
+        date_obj = datetime.strptime(order_data.date_max, "%Y-%m-%d").date()
+        add_condition("DATE(fecha) <= {}", date_obj)
+
+    # Calendario
+    if order_data.day:
+        add_condition("dia = {}", order_data.day)
+    if order_data.weekday_number:
+        add_condition("dia_semana = {}", order_data.weekday_number)
+    if order_data.weekday_name:
+        add_condition("nombre_dia ILIKE {}", f"%{order_data.weekday_name}%")
+    if order_data.week_of_year:
+        add_condition("semana_anio = {}", order_data.week_of_year)
+    if order_data.week_of_month:
+        add_condition("semana_mes = {}", order_data.week_of_month)
+    if order_data.fortnight:
+        add_condition("quincena = {}", order_data.fortnight)
+    if order_data.month:
+        add_condition("mes = {}", order_data.month)
+    if order_data.month_name:
+        add_condition("nombre_mes ILIKE {}", f"%{order_data.month_name}%")
+    if order_data.quarter:
+        add_condition("trimestre = {}", order_data.quarter)
+    if order_data.semester:
+        add_condition("semestre = {}", order_data.semester)
+    if order_data.year:
+        add_condition("anio = {}", order_data.year)
+    if order_data.is_weekend is not None:
+        add_condition("es_fin_de_semana = {}", order_data.is_weekend)
+
+    if ids:
+        add_condition("id = ANY({})", ids)
+
+    where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
+    return where_clause, args, index
+
+
+def build_quote_filters(quote_data, ids=None, initial_index=1) -> Tuple[str, List[Any], int]:
+    conditions = []
+    args = []
+    index = initial_index
+
+    def add_condition(condition: str, value):
+        nonlocal index
+        conditions.append(condition.replace("{}", f"${index}"))
+        args.append(value)
+        index += 1
+
+    # Filtros generales
+    if quote_data.warehouse:
+        add_condition("deposito ILIKE {}", f"%{quote_data.warehouse}%")
+    if quote_data.product_name:
+        add_condition("producto ILIKE {}", f"%{quote_data.product_name}%")
+    if quote_data.product_code:
+        add_condition("codigo ILIKE {}", f"%{quote_data.product_code}%")
+    if quote_data.category:
+        add_condition("categoria ILIKE {}", f"%{quote_data.category}%")
+    if quote_data.subcategory:
+        add_condition("subcategoria ILIKE {}", f"%{quote_data.subcategory}%")
+    if quote_data.product_type:
+        add_condition("tipo ILIKE {}", f"%{quote_data.product_type}%")
+    if quote_data.unit:
+        add_condition("unidad ILIKE {}", f"%{quote_data.unit}%")
+    if quote_data.brand:
+        add_condition("marca ILIKE {}", f"%{quote_data.brand}%")
+    if quote_data.product_id:
+        add_condition("id_productos = {}", quote_data.product_id)
+
+    if quote_data.city:
+        add_condition("ciudad ILIKE {}", f"%{quote_data.city}%")
+    if quote_data.state:
+        add_condition("estado ILIKE {}", f"%{quote_data.state}%")
+    if quote_data.seller_name:
+        add_condition("nombre ILIKE {}", f"%{quote_data.seller_name}%")
+    if quote_data.seller_percetage is not None:
+        add_condition("porcentaje = {}", quote_data.seller_percetage)
+    if quote_data.tax_rate is not None:
+        add_condition("tasa = {}", quote_data.tax_rate)
+
+
+    if quote_data.discount_min is not None:
+        add_condition("descuento >= {}", quote_data.discount_min)
+    if quote_data.discount_max is not None:
+        add_condition("descuento <= {}", quote_data.discount_max)
+
+    if quote_data.discount_bs_min is not None:
+        add_condition("descuento_bs >= {}", quote_data.discount_bs_min)
+    if quote_data.discount_bs_max is not None:
+        add_condition("descuento_bs <= {}", quote_data.discount_bs_max)
+
+    if quote_data.discount_percentage_min is not None:
+        add_condition("descuento_porcentaje >= {}", quote_data.discount_percentage_min)
+    if quote_data.discount_percentage_max is not None:
+        add_condition("descuento_porcentaje <= {}", quote_data.discount_percentage_max)
+
+    # Rango de cantidad
+    if quote_data.discount_percentage_min is not None:
+        add_condition("cantidad >= {}", quote_data.discount_percentage_min)
+    if quote_data.discount_percentage_max is not None:
+        add_condition("cantidad <= {}", quote_data.discount_percentage_max)
+
+      # Rango de cantidad
+    if quote_data.price_min is not None:
+        add_condition("precio >= {}", quote_data.price_min)
+    if quote_data.price_max is not None:
+        add_condition("precio <= {}", quote_data.price_max)
+
+    if quote_data.price_bs_min is not None:
+        add_condition("precio_bs >= {}", quote_data.price_bs_min)
+    if quote_data.price_bs_max is not None:
+        add_condition("precio_bs <= {}", quote_data.price_bs_max)
+
+    if quote_data.subtotal_min is not None:
+        add_condition("subtotal >= {}", quote_data.subtotal_min)
+    if quote_data.subtotal_max is not None:
+        add_condition("subtotal <= {}", quote_data.subtotal_max)
+
+    if quote_data.subtotal_bs_min is not None:
+        add_condition("subtotal_bs >= {}", quote_data.subtotal_bs_min)
+    if quote_data.subtotal_bs_max is not None:
+        add_condition("subtotal_bs <= {}", quote_data.subtotal_bs_max)
+
+    if quote_data.total_bs_min is not None:
+        add_condition("total_bs >= {}", quote_data.total_bs_min)
+    if quote_data.total_bs_max is not None:
+        add_condition("total_bs <= {}", quote_data.total_bs_max)
+
+    if quote_data.total_min is not None:
+        add_condition("total >= {}", quote_data.total_min)
+    if quote_data.total_max is not None:
+        add_condition("total <= {}", quote_data.total_max)
+
+    # Fechas
+    if quote_data.date_min:
+        date_obj = datetime.strptime(quote_data.date_min, "%Y-%m-%d").date()
+        add_condition("DATE(fecha) >= {}", date_obj)
+    if quote_data.date_max:
+        date_obj = datetime.strptime(quote_data.date_max, "%Y-%m-%d").date()
+        add_condition("DATE(fecha) <= {}", date_obj)
+
+    # Calendario
+    if quote_data.day:
+        add_condition("dia = {}", quote_data.day)
+    if quote_data.weekday_number:
+        add_condition("dia_semana = {}", quote_data.weekday_number)
+    if quote_data.weekday_name:
+        add_condition("nombre_dia ILIKE {}", f"%{quote_data.weekday_name}%")
+    if quote_data.week_of_year:
+        add_condition("semana_anio = {}", quote_data.week_of_year)
+    if quote_data.week_of_month:
+        add_condition("semana_mes = {}", quote_data.week_of_month)
+    if quote_data.fortnight:
+        add_condition("quincena = {}", quote_data.fortnight)
+    if quote_data.month:
+        add_condition("mes = {}", quote_data.month)
+    if quote_data.month_name:
+        add_condition("nombre_mes ILIKE {}", f"%{quote_data.month_name}%")
+    if quote_data.quarter:
+        add_condition("trimestre = {}", quote_data.quarter)
+    if quote_data.semester:
+        add_condition("semestre = {}", quote_data.semester)
+    if quote_data.year:
+        add_condition("anio = {}", quote_data.year)
+    if quote_data.is_weekend is not None:
+        add_condition("es_fin_de_semana = {}", quote_data.is_weekend)
 
     if ids:
         add_condition("id = ANY({})", ids)

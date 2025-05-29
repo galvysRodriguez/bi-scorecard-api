@@ -29,8 +29,17 @@ query_base_sale_view = """
     SELECT
         id,
         cantidad AS quantity,
-        descuento AS discount,
         devuelto AS returned,
+        precio as price,
+        precio_bs as price_bs,
+        subtotal as subtotal,
+        subtotal_bs as subtotal_bs,
+        total as total,
+        total_bs as total,
+        descuento as discount,
+        descuento_bs as discount_bs,
+        descuento_porcentaje as discount_percentage,
+
         
         num_control AS control_number,
         num_factura AS invoice_number,
@@ -88,8 +97,15 @@ query_base_order_view = """
     SELECT 
         id,
         cantidad AS quantity,
-        costo AS cost,
-        descuento AS discount,
+        costo as cost,
+        costo_bs as cost_bs,
+        subtotal as subtotal,
+        subtotal_bs as subtotal_bs,
+        total as total,
+        total_bs as total,
+        descuento as discount,
+        descuento_bs as discount_bs,
+        descuento_porcentaje as discount_percentage,
         deposito AS warehouse,
         
         proveedor AS supplier,
@@ -127,8 +143,15 @@ query_base_purchase_view = """
     SELECT 
         id,
         cantidad AS quantity,
-        costo AS cost,
-        descuento AS discount,
+        costo as cost,
+        costo_bs as cost_bs,
+        subtotal as subtotal,
+        subtotal_bs as subtotal_bs,
+        total as total,
+        total_bs as total,
+        descuento as discount,
+        descuento_bs as discount_bs,
+        descuento_porcentaje as discount_percentage,
         deposito AS warehouse,
         
         proveedor AS supplier,
@@ -172,10 +195,24 @@ query_base_quote_view = """
     SELECT 
         id,
         cantidad AS quantity,
-        descuento AS discount,
+        precio as price,
+        precio_bs as price_bs,
+        subtotal as subtotal,
+        subtotal_bs as subtotal_bs,
+        total as total,
+        total_bs as total,
+        descuento as discount,
+        descuento_bs as discount_bs,
+        descuento_porcentaje as discount_percentage,
 
         num_control AS control_number,
         tasa AS tax_rate,
+
+        
+        cliente_direccion as customer_address,
+        cliente_comercial as customer_commercial,
+        cliente as customer_name,
+        tipo_cliente as customer_type,
 
         vendedor AS seller_name,
         porcentaje_vendedor AS seller_percentage,
@@ -284,4 +321,29 @@ where_clause_sale_general = """
         nombre_dia ILIKE $1 OR
         nombre_mes ILIKE $1
 """
+
+where_clause_order_general = """
+    WHERE 
+        deposito ILIKE $1 OR 
+        producto ILIKE $1 OR
+        codigo ILIKE $1 OR
+        marca ILIKE $1 OR
+        categoria ILIKE $1 OR
+        subcategoria ILIKE $1 OR
+        nombre_dia ILIKE $1 OR
+        nombre_mes ILIKE $1
+"""
+
+where_clause_quote_general = """
+    WHERE 
+        deposito ILIKE $1 OR 
+        producto ILIKE $1 OR
+        codigo ILIKE $1 OR
+        marca ILIKE $1 OR
+        categoria ILIKE $1 OR
+        subcategoria ILIKE $1 OR
+        nombre_dia ILIKE $1 OR
+        nombre_mes ILIKE $1
+"""
+
 

@@ -49,7 +49,14 @@ def validation_order_by(order:str):
         "invoice_type": "tipo_factura",
 
         "cost": "costo",
+        "cost_bs": "costo_bs",
         "discount": "descuento",
+        "discount_bs": "descuento_bs",
+        "discount_percentage": "descuento_porcentaje",
+        "subtotal": "subtotal",
+        "subtotal_bs": "subtotal_bs",
+        "total": "total",
+        "total_bs": "total_bs",
         "tax_rate": "tasa",
         
         "supplier": "proveedor",
