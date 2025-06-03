@@ -5,10 +5,10 @@ from repositories.reports.sale_repo import get_simple_ids, get_grouped_data, get
 from schemas.target import SaleFilter, ReportBase
 from utils.api_response import api_response
 
-async def get_response_sale(db: Connection, ids: Optional[List[int]], count: int = 0):
+async def get_response_sale(db: Connection, ids: Optional[List[int]],report_base:ReportBase, count: int = 0):
     if not ids:
         return api_response("Movimientos en depositos no conseguidos", False)
-    grouped_data = await get_grouped_data(db, ids)
+    grouped_data = await get_grouped_data(db, ids, report_base)
     
 
     response = {
@@ -20,7 +20,7 @@ async def get_response_sale(db: Connection, ids: Optional[List[int]], count: int
 
 async def get_simple_sale(db: Connection, report_base: ReportBase):
     ids, count = await get_simple_ids(db, report_base)
-    return await get_response_sale(db, ids, count)
+    return await get_response_sale(db, ids, report_base, count)
     
 async def get_filter_column_sale(
         db: Connection, 
@@ -33,12 +33,12 @@ async def get_filter_column_sale(
         id = await get_sale_ids_by_general_search(db, search, report_base)
     
     ids, count = await get_filtered_sale_ids_by_columns(db, sale_filter, report_base, id)
-    return await get_response_sale(db, ids, count)
+    return await get_response_sale(db, ids, report_base, count)
     
 
 async def get_search_column_sale(db: Connection, search:str, report_base: ReportBase):
     ids, count = await get_sale_ids_by_general_search(db, search, report_base)
-    return await get_response_sale(db, ids, count)
+    return await get_response_sale(db, ids, report_base, count)
     
 def validation_order_by(order:str):
     valid_order_fields_map = {

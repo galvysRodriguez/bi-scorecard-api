@@ -33,11 +33,12 @@ async def get_filtered_quote_ids_by_columns(
     count = await db.fetchrow(query_count, *values[:-2])
     return [row["id"] for row in rows], count["count"]
 
-async def get_grouped_data(db: Connection, ids: List[int]):
+async def get_grouped_data(db: Connection, ids: List[int], report_base:ReportBase):
     query = f"""
     WITH movimientos_filtrados AS (
         {query_base_quote_view}
         WHERE id = ANY($1)
+        ORDER BY {report_base.order_by} {report_base.order_dir.upper()}
     )
     SELECT 
       *

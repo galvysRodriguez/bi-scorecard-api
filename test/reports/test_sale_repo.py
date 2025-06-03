@@ -7,10 +7,11 @@ from db.test_database import get_db
 @pytest.mark.asyncio
 async def test_get_grouped_data():
     db = await get_db()  
-    result = await get_grouped_data(db, [1,2,3])
+    report = ReportBase(limit=10, offset=0, order_by="id", order_dir="ASC")
+    result = await get_grouped_data(db, [1,2,3], report)
     assert len(result) == 3
-    assert result[2]["quantity"] == 10
-    assert result[0]["quantity"] == 5
+    assert result[2]["quantity"] == 5
+    assert result[0]["quantity"] == 10
     await db.close()  
 
 @pytest.mark.asyncio

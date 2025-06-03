@@ -301,6 +301,10 @@ where_clause_warehouse_general = """
 where_clause_purchase_general = """
     WHERE 
         deposito ILIKE $1 OR 
+        proveedor ILIKE $1 OR
+        tipo_proveedor ILIKE $1 OR
+        num_control ILIKE $1 OR
+        num_factura ILIKE $1 OR
         producto ILIKE $1 OR
         codigo ILIKE $1 OR
         marca ILIKE $1 OR
@@ -313,6 +317,15 @@ where_clause_purchase_general = """
 where_clause_sale_general = """
     WHERE 
         deposito ILIKE $1 OR 
+        num_control ILIKE $1 OR
+        num_factura ILIKE $1 OR
+        vendedor ILIKE $1 OR
+        ciudad ILIKE $1 OR
+        estado ILIKE $1 OR
+        cliente ILIKE $1 OR
+        cliente_direccion ILIKE $1 OR
+        cliente_comercial ILIKE $1 OR
+        tipo_cliente ILIKE $1 OR
         producto ILIKE $1 OR
         codigo ILIKE $1 OR
         marca ILIKE $1 OR
@@ -325,6 +338,8 @@ where_clause_sale_general = """
 where_clause_order_general = """
     WHERE 
         deposito ILIKE $1 OR 
+        proveedor ILIKE $1 OR
+        tipo_proveedor ILIKE $1 OR
         producto ILIKE $1 OR
         codigo ILIKE $1 OR
         marca ILIKE $1 OR
@@ -337,6 +352,14 @@ where_clause_order_general = """
 where_clause_quote_general = """
     WHERE 
         deposito ILIKE $1 OR 
+        num_control ILIKE $1 OR
+        vendedor ILIKE $1 OR
+        ciudad ILIKE $1 OR
+        estado ILIKE $1 OR
+        cliente ILIKE $1 OR
+        cliente_direccion ILIKE $1 OR
+        cliente_comercial ILIKE $1 OR
+        tipo_cliente ILIKE $1 OR
         producto ILIKE $1 OR
         codigo ILIKE $1 OR
         marca ILIKE $1 OR

@@ -5,10 +5,10 @@ from repositories.reports.order_repo import get_simple_ids, get_grouped_data, ge
 from schemas.target import OrderFilter, ReportBase
 from utils.api_response import api_response
 
-async def get_response_order(db: Connection, ids: Optional[List[int]], count: int = 0):
+async def get_response_order(db: Connection, ids: Optional[List[int]],report_base:ReportBase, count: int = 0):
     if not ids:
         return api_response("Movimientos en depositos no conseguidos", False)
-    grouped_data = await get_grouped_data(db, ids)
+    grouped_data = await get_grouped_data(db, ids, report_base)
     
 
     response = {
@@ -20,7 +20,7 @@ async def get_response_order(db: Connection, ids: Optional[List[int]], count: in
 
 async def get_simple_order(db: Connection, report_base: ReportBase):
     ids, count = await get_simple_ids(db, report_base)
-    return await get_response_order(db, ids, count)
+    return await get_response_order(db, ids, report_base, count)
     
 async def get_filter_column_order(
         db: Connection, 
@@ -33,12 +33,12 @@ async def get_filter_column_order(
         id = await get_order_ids_by_general_search(db, search, report_base)
     
     ids, count = await get_filtered_order_ids_by_columns(db, order_filter, report_base, id)
-    return await get_response_order(db, ids, count)
+    return await get_response_order(db, ids, report_base, count)
     
 
 async def get_search_column_order(db: Connection, search:str, report_base: ReportBase):
-    ids, count = await get_order_ids_by_general_search(db, search, report_base)
-    return await get_response_order(db, ids, count)
+    ids,  count = await get_order_ids_by_general_search(db, search, report_base)
+    return await get_response_order(db, ids, report_base, count)
     
 def validation_order_by(order:str):
     valid_order_fields_map = {
