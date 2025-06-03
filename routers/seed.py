@@ -18,7 +18,7 @@ async def create_resources_all():
     start = end - timedelta(days=1)
     return api_response_etl("La creacion de recursos ha sido completada", start, end,  [])
 
-@router.post("/resource/delete")
+@router.delete("/resource/delete")
 async def delete_resources_bi():
     end = datetime.now()
     await delete_resources_db(source_engine)
@@ -32,7 +32,7 @@ async def create_users_all():
     start = end - timedelta(days=1)
     return api_response_etl("La creacion de usuarios ha sido completada", start, end, [])
 
-@router.post("/users/delete")
+@router.delete("/users/delete")
 async def delete_users_bi():
     end = datetime.now()
     await delete_users_db(source_engine)
@@ -47,7 +47,7 @@ async def create_profiles_all():
     start = end - timedelta(days=1)
     return api_response_etl("La creacion de perfiles ha sido completada", start, end, [])
 
-@router.post("/profile/delete")
+@router.delete("/profile/delete")
 async def delete_profiles_bi():
     end = datetime.now()
     await delete_profiles_db(source_engine)
@@ -62,7 +62,7 @@ async def create_profile_resource_all():
     start = end - timedelta(days=1)
     return api_response_etl("La creacion de recurso_perfil ha sido completada", start, end, [])
 
-@router.post("/resource_profile/delete")
+@router.delete("/resource_profile/delete")
 async def delete_profile_resource_bi():
     end = datetime.now()
     await delete_profile_resource_db(source_engine)

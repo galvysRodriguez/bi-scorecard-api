@@ -38,7 +38,7 @@ async def sync_table_logs():
     start = end - timedelta(days=1)
     return api_response_etl("La sincronizacion ha sido completada", start, end, tables_to_process)
 
-@router.post("/clear")
+@router.delete("/clear")
 async def delete_table_all():
     end = datetime.now()
     await clear_destination_db(destination_engine)

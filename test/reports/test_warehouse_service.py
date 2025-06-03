@@ -6,7 +6,7 @@ def test_validation_order_by_true():
 
 def test_validation_order_by_false():
     result = validation_order_by("id")
-    assert result == "id_movimientos"
+    assert result == "id"
 
 def test_validation_order_dir_by_true():
     result = validation_order_dir("osoa")

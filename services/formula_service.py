@@ -169,7 +169,7 @@ async def calc_formula_grouped(db, formula_id: int, start_date, end_date, optima
 
     calculated_values = []
     num_rows = len(df)
-    optimal_values = [optimal/num_rows * (i + 1) for i in range(num_rows)]  # Genera 100, 200, 300, ...
+    optimal_values = [optimal/num_rows * (i + 1) for i in range(num_rows)]
 
     for index, row in enumerate(df.iterrows()):
         _, row_data = row
@@ -188,7 +188,7 @@ async def calc_formula_grouped(db, formula_id: int, start_date, end_date, optima
         calculated_values.append({
             "date": row_data["fecha"],
             "value": round(calculated_value,2),
-            "optimal": round(optimal_values[index],2)  # Asigna 100, 200, 300, ...
+            "optimal": round(optimal_values[index],2) 
         })
 
     # Respuesta final

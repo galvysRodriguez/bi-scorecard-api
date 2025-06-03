@@ -45,10 +45,10 @@ def build_warehouse_filters(warehouse_data, ids=None, initial_index=1) -> Tuple[
     # Fechas
     if warehouse_data.date_min:
         date_obj = datetime.strptime(warehouse_data.date_min, "%Y-%m-%d").date()
-        add_condition("DATE(m.fecha) >= {}", date_obj)
+        add_condition("DATE(fecha) >= {}", date_obj)
     if warehouse_data.date_max:
         date_obj = datetime.strptime(warehouse_data.date_max, "%Y-%m-%d").date()
-        add_condition("DATE(m.fecha) <= {}", date_obj)
+        add_condition("DATE(fecha) <= {}", date_obj)
 
     # Calendario
     if warehouse_data.day:
@@ -151,10 +151,10 @@ def build_sale_filters(sales_data, ids=None, initial_index=1) -> Tuple[str, List
         add_condition("descuento_porcentaje <= {}", sales_data.discount_percentage_max)
 
     # Rango de cantidad
-    if sales_data.discount_percentage_min is not None:
-        add_condition("cantidad >= {}", sales_data.discount_percentage_min)
-    if sales_data.discount_percentage_max is not None:
-        add_condition("cantidad <= {}", sales_data.discount_percentage_max)
+    if sales_data.quantity_min is not None:
+        add_condition("cantidad >= {}", sales_data.quantity_min)
+    if sales_data.quantity_max is not None:
+        add_condition("cantidad <= {}", sales_data.quantity_max)
 
       # Rango de cantidad
     if sales_data.price_min is not None:
@@ -291,10 +291,10 @@ def build_purchase_filters(purchase_data, ids=None, initial_index=1) -> Tuple[st
         add_condition("descuento_porcentaje <= {}", purchase_data.discount_percentage_max)
 
     # Rango de cantidad
-    if purchase_data.discount_percentage_min is not None:
-        add_condition("cantidad >= {}", purchase_data.discount_percentage_min)
-    if purchase_data.discount_percentage_max is not None:
-        add_condition("cantidad <= {}", purchase_data.discount_percentage_max)
+    if purchase_data.quantity_min is not None:
+        add_condition("cantidad >= {}", purchase_data.quantity_min)
+    if purchase_data.quantity_max is not None:
+        add_condition("cantidad <= {}", purchase_data.quantity_max)
 
       # Rango de cantidad
     if purchase_data.cost_min is not None:
@@ -423,10 +423,10 @@ def build_order_filters(order_data, ids=None, initial_index=1) -> Tuple[str, Lis
         add_condition("descuento_porcentaje <= {}", order_data.discount_percentage_max)
 
     # Rango de cantidad
-    if order_data.discount_percentage_min is not None:
-        add_condition("cantidad >= {}", order_data.discount_percentage_min)
-    if order_data.discount_percentage_max is not None:
-        add_condition("cantidad <= {}", order_data.discount_percentage_max)
+    if order_data.quantity_min is not None:
+        add_condition("cantidad >= {}", order_data.quantity_min)
+    if order_data.quantity_max is not None:
+        add_condition("cantidad <= {}", order_data.quantity_max)
 
       # Rango de cantidad
     if order_data.cost_min is not None:
@@ -559,10 +559,10 @@ def build_quote_filters(quote_data, ids=None, initial_index=1) -> Tuple[str, Lis
         add_condition("descuento_porcentaje <= {}", quote_data.discount_percentage_max)
 
     # Rango de cantidad
-    if quote_data.discount_percentage_min is not None:
-        add_condition("cantidad >= {}", quote_data.discount_percentage_min)
-    if quote_data.discount_percentage_max is not None:
-        add_condition("cantidad <= {}", quote_data.discount_percentage_max)
+    if quote_data.quantity_min is not None:
+        add_condition("cantidad >= {}", quote_data.quantity_min)
+    if quote_data.quantity_max is not None:
+        add_condition("cantidad <= {}", quote_data.quantity_max)
 
       # Rango de cantidad
     if quote_data.price_min is not None:

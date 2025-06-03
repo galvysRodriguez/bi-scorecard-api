@@ -33,7 +33,9 @@ async def get_indicators_query(db: Connection):
                     indicador as indicator,
                     descripcion as description 
                 FROM objetivos.indicadores
-                WHERE visible = true"""
+                WHERE visible = true
+                ORDER BY indicador ASC
+                """
 
     return await db.fetch(query)
 
