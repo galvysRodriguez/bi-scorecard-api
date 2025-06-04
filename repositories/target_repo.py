@@ -34,11 +34,14 @@ class TargetRepository:
                    o.fecha_final AS end_date, o.id_formulas AS indicator_id,
                    f.titulo AS indicator,
                    p.id_perspectivas AS perspective_id,
+                   e.id_etiquetas AS tag_id,
+                   e.etiqueta AS tag,
                    p.perspectiva AS perspective
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
             LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
             LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = pe.id_perspectivas
+            LEFT JOIN objetivos.etiquetas e ON e.id_etiquetas = pe.id_etiquetas
             WHERE pe.id_perspectivas = $1
             ORDER BY  o.fecha_inicio ASC, o.fecha_final ASC
         """
@@ -52,11 +55,14 @@ class TargetRepository:
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
                    o.fecha_final AS end_date, o.id_formulas AS indicator_id,
                    p.id_perspectivas AS perspective_id,
-                   f.titulo AS indicator
+                   f.titulo AS indicator,
+                   e.id_etiquetas AS tag_id,
+                   e.etiqueta AS tag
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
             LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
             LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = pe.id_perspectivas
+            LEFT JOIN objetivos.etiquetas e ON e.id_etiquetas = pe.id_etiquetas
             ORDER BY  o.fecha_inicio ASC, o.fecha_final ASC
         """
         return await db.fetch(query)

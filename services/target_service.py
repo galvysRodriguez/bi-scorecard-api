@@ -52,49 +52,61 @@ class TargetService:
         return api_response("Target retrieved successfully", True, row)
 
     async def get_detail_target(db: Connection, target_id: int):
-        """Obtiene un objetivo y lo convierte a respuesta de API con desglose por fechas."""
         row = await TargetRepository.get_target(db, target_id)
         if not row:
             return api_response("Target not found", False)
 
-        # Obtener los valores calculados según el indicador
-        indicator_value = await calc_formula_grouped(
-            db, 
-            row["formula_id"], 
+        indicator_response = await calc_formula_grouped(
+            db,
+            row["formula_id"],
             row["start_date"],
             row["end_date"],
             row["optimal"]
         )
 
-        df = pd.DataFrame(indicator_value)
-        df["cumulative"] = round(df["value"].cumsum(),2)
-        min_daily = round(row["optimal"] / len(df),2)
+        indicator_values = indicator_response.get("data", {}).get("values", [])
+
+        if not indicator_values:
+            return api_response("No indicator data found", True, {
+                "id": row["id"],
+                "title": row["title"],
+                "optimal": row["optimal"],
+                "tolerable": row["tolerable"],
+                "deficient": row["deficient"],
+                "indicator_id": row["formula_id"],
+                "perspective_id": row["perspective_id"],
+                "start_date": row["start_date"],
+                "tag": row["tag"],
+                "tag_id": row["tag_id"],
+                "end_date": row["end_date"],
+                "elapsed": 0,
+                "restant": 0,
+                "indicator": row["formula"],
+                "perspective": row["perspective"],
+                "min_daily": 0,
+                "indicator_value": 0,
+                "detail": []
+            })
+
+        df = pd.DataFrame(indicator_values)
+        df["cumulative"] = df["value"].cumsum().round(2)
+        min_daily = round(row["optimal"] / len(df), 2)
         df = df.tail(10)
         result = df.to_dict(orient="records")
 
-        #valor total
-        value = await calc_formula_date(
-            db, 
-            row["formula_id"], 
+        value_response = await calc_formula_date(
+            db,
+            row["formula_id"],
             row["start_date"],
-            row["end_date"])
-        total_value = round(value.get("data", {}).get("value"),2)
+            row["end_date"]
+        )
 
-        start_date = row["start_date"]
-        end_date = row["end_date"]
+        total_value = round(value_response.get("data", {}).get("value", 0), 2)
+
         today = datetime.today()
+        elapsed = max((today - row["start_date"]).days, 0)
+        restant = max((row["end_date"] - today).days, 0)
 
-        # Calcular días transcurridos y restantes
-        elapsed = (today - start_date).days
-        restant = (end_date - today).days
-
-        # Asegurar que no haya valores negativos
-        elapsed = max(elapsed, 0)
-        restant = max(restant, 0)
-
-
-
-        # Datos generales del objetivo
         target_data = {
             "id": row["id"],
             "title": row["title"],
@@ -109,8 +121,10 @@ class TargetService:
             "restant": restant,
             "indicator": row["formula"],
             "perspective": row["perspective"],
+            "tag": row["tag"],
+            "tag_id": row["tag_id"],
             "min_daily": min_daily,
-            "indicator_value": total_value, 
+            "indicator_value": total_value,
             "detail": result
         }
 
@@ -145,6 +159,8 @@ class TargetService:
                 "start_date": target["start_date"],
                 "end_date": target["end_date"],
                 "indicator": target["indicator"],
+                "tag": target["tag"],
+                "tag_id": target["tag_id"],
                 "perspective": target["perspective"],
                 "indicator_value": indicator_value.get("data", {}).get("value")  # Extraer el valor si está disponible
             }
@@ -182,6 +198,8 @@ class TargetService:
                 "start_date": target["start_date"],
                 "end_date": target["end_date"],
                 "indicator": target["indicator"],
+                "tag": target["tag"],
+                "tag_id": target["tag_id"],
                 "perspective": target["perspective"],
                 "indicator_value": indicator_value.get("data", {}).get("value")  # Extraer el valor si está disponible
             }
