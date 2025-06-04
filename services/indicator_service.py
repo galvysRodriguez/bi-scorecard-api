@@ -138,4 +138,4 @@ async def get_indicators_tag(db: Connection, tag_id: int):
     row = await get_indicators_tag_query(db, tag_id)
     if not row:
         return api_response("Indicator not found", False)
-    return api_response("Indicators retrieved successfully", True, dict(row))
+    return api_response("Indicators retrieved successfully", True, row)

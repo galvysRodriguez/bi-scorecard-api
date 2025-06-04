@@ -54,6 +54,7 @@ async def get_indicators_tag_query(db: Connection, tag_id: int):
     query = f"""SELECT 
                     i.id_indicadores as id, 
                     i.indicador as indicator,
+                    i.descripcion as description
                 FROM objetivos.indicadores i
                 INNER JOIN objetivos.etiqueta_indicador ei ON ei.id_indicadores = i.id_indicadores
                 WHERE ei.id_etiquetas = $1"""
