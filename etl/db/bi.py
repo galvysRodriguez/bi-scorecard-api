@@ -5,7 +5,7 @@ url_object_postgres = URL.create(
     username="postgres",
     password="olap22",  
     host="localhost",
-    database="postgres",
+    database="production",
 )
 
 destination_engine = create_engine(url_object_postgres)

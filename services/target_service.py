@@ -64,7 +64,8 @@ class TargetService:
             row["optimal"]
         )
 
-        indicator_values = indicator_response.get("data", {}).get("values", [])
+        indicator_prev = {"data": {"values": indicator_response}}
+        indicator_values = indicator_prev.get("data", {}).get("values", [])
 
         if not indicator_values:
             return api_response("No indicator data found", True, {

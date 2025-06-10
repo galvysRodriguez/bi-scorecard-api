@@ -15,7 +15,10 @@ SALE = {
                             ac.adm_estado_id AS id_estados,
                             ac.adm_ciudad_id id_ciudades,
                             aef.fecha_at as fecha,
-                            aef.adm_enc_presupuesto_id as id_cotizaciones
+                            case
+                                when aef.adm_enc_presupuesto_id=0 then null
+                                else aef.adm_enc_presupuesto_id
+                            end as id_cotizaciones
                         FROM adm_enc_facturas aef
                         LEFT JOIN adm_clientes ac ON aef.adm_clientes_id = ac.id
         """,  

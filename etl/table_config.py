@@ -26,6 +26,7 @@ from etl.json.public.profile_resource import PROFILE_RESOURCE
 from etl.json.warehouse.warehouse import WAREHOUSE
 from etl.json.warehouse.move import MOVE
 from etl.json.sales.quote import QUOTE
+from etl.json.sales.box import BOX_SALE
 from etl.json.sales.quote_detail import QUOTE_DETAIL
 
 
@@ -49,6 +50,9 @@ TABLE_PROCESS = [
     PRODUCT,
     PRODUCT_DETAIL,
     PRESENTATION,
+    BOX_SALE,
+    QUOTE,
+    QUOTE_DETAIL,
     SALE,
     SALE_DETAIL,
     GROUP_PROVIDER,
@@ -57,7 +61,5 @@ TABLE_PROCESS = [
     PURCHASE_ORDER_DETAIL,
     PURCHASE,
     PURCHASE_DETAIL,
-    MOVE,
-    QUOTE,
-    QUOTE_DETAIL
+    MOVE
 ]
