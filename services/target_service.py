@@ -5,8 +5,9 @@ from schemas.target import TargetCreate, TargetUpdate, TargetBase
 from utils.api_response import api_response
 from services.indicator_service import fetch_indicator_value
 from services.formula_service import calc_formula_date, calc_formula_grouped
-import pandas as pd
-
+from datetime import datetime, timedelta, date
+from collections import defaultdict
+from decimal import Decimal
 
 class TargetService:
     @staticmethod
@@ -22,6 +23,9 @@ class TargetService:
             row["indicator_id"], 
             row["start_date"],
             row["end_date"])
+        
+        progress, lack = calculate_progress(row, indicator_value)
+        status = get_status(lack, row)
 
         target_data = {
                 "id": row["id"],
@@ -37,11 +41,38 @@ class TargetService:
                 "perspective": row["perspective"],
                 "tag": row["tag"],
                 "tag_id": row["tag_id"],
+                "status": status,
+                "lack": lack,
+                "progress":progress,
                 "indicator_value": indicator_value.get("data", {}).get("value")  # Extraer el valor si está disponible
             }
     
 
         return api_response("Target retrieved successfully", True, dict(target_data))
+    
+    async def get_target_perspectives(db: Connection):
+        """Agrupa los estados de múltiples objetivos por perspectiva."""
+        summary = defaultdict(lambda: {"active": 0, "failed": 0, "completed": 0})
+
+        targets = await TargetRepository.get_all_targets(db)
+
+        for row in targets:
+
+            indicator_value = await calc_formula_date(
+                db,
+                row["indicator_id"],
+                row["start_date"],
+                row["end_date"]
+            )
+
+            progress, lack = calculate_progress(row, indicator_value.get("data", {}).get("value"))
+            status = get_status(lack, row)
+
+            perspective = row["perspective"]  
+            summary[perspective][status] += 1
+
+        return api_response("Resumen por perspectiva", True, summary)
+
     
     async def get_target_simple(db: Connection, target_id: int):
         """Obtiene un objetivo y lo convierte a respuesta de API."""
@@ -56,57 +87,18 @@ class TargetService:
         if not row:
             return api_response("Target not found", False)
 
-        indicator_response = await calc_formula_grouped(
-            db,
-            row["formula_id"],
+
+        indicator_value = await calc_formula_date(
+            db, 
+            row["indicator_id"], 
             row["start_date"],
-            row["end_date"],
-            row["optimal"]
-        )
-
-        indicator_prev = {"data": {"values": indicator_response}}
-        indicator_values = indicator_prev.get("data", {}).get("values", [])
-
-        if not indicator_values:
-            return api_response("No indicator data found", True, {
-                "id": row["id"],
-                "title": row["title"],
-                "optimal": row["optimal"],
-                "tolerable": row["tolerable"],
-                "deficient": row["deficient"],
-                "indicator_id": row["formula_id"],
-                "perspective_id": row["perspective_id"],
-                "start_date": row["start_date"],
-                "tag": row["tag"],
-                "tag_id": row["tag_id"],
-                "end_date": row["end_date"],
-                "elapsed": 0,
-                "restant": 0,
-                "indicator": row["formula"],
-                "perspective": row["perspective"],
-                "min_daily": 0,
-                "indicator_value": 0,
-                "detail": []
-            })
-
-        df = pd.DataFrame(indicator_values)
-        df["cumulative"] = df["value"].cumsum().round(2)
-        min_daily = round(row["optimal"] / len(df), 2)
-        df = df.tail(10)
-        result = df.to_dict(orient="records")
-
-        value_response = await calc_formula_date(
-            db,
-            row["formula_id"],
-            row["start_date"],
-            row["end_date"]
-        )
-
-        total_value = round(value_response.get("data", {}).get("value", 0), 2)
-
+            row["end_date"])
+        
         today = datetime.today()
         elapsed = max((today - row["start_date"]).days, 0)
         restant = max((row["end_date"] - today).days, 0)
+
+        progress = calculate_progress(row, indicator_value)
 
         target_data = {
             "id": row["id"],
@@ -124,13 +116,58 @@ class TargetService:
             "perspective": row["perspective"],
             "tag": row["tag"],
             "tag_id": row["tag_id"],
-            "min_daily": min_daily,
-            "indicator_value": total_value,
-            "detail": result
+            "progress": progress,
+            "indicator_value": indicator_value.get("data", {}).get("value")
+        }
+
+        return api_response("Target detail retrieved successfully", True, target_data)
+    
+    async def get_detail_chart_target(db: Connection, target_id: int, date_from: str, date_to: str):
+        row = await TargetRepository.get_target(db, target_id)
+        if not row:
+            return api_response("Target not found", False)
+
+        try:
+            start = datetime.strptime(date_from, "%Y-%m-%d")
+            end = datetime.strptime(date_to, "%Y-%m-%d")
+        except ValueError:
+            return api_response("Invalid date format. Use YYYY-MM-DD.", False)
+
+        full_days = (end - start).days + 1
+        if full_days > 30:
+            start = end - timedelta(days=29)
+
+        # Iterar por cada día
+        daily_values = []
+        current_day = start
+
+        while current_day <= end:
+            current_date = current_day.date()  # objeto date
+            date_str = current_date.strftime("%Y-%m-%d")
+
+            indicator_response = await calc_formula_date(
+                db,
+                row["formula_id"],
+                start.date(),
+                current_date
+            )
+
+            daily_values.append({
+                "date": date_str,
+                "value": round(indicator_response.get("data", {}).get("value"),2)
+            })
+
+            current_day += timedelta(days=1)
+
+        target_data = {
+            "target_id": row["id"],
+            "optimal": row["optimal"],
+            "tolerable": row["tolerable"],
+            "deficient": row["deficient"],
+            "results": daily_values
         }
 
         return api_response("Target retrieved successfully", True, target_data)
-
 
     @staticmethod
     async def get_targets(db: Connection, perspective_id: int):
@@ -209,7 +246,6 @@ class TargetService:
 
         return api_response("Targets retrieved", True, response_data)
 
-
     @staticmethod
     async def add_target(db: Connection, target_data: TargetCreate):
         """Crea un nuevo objetivo y devuelve su respuesta."""
@@ -232,7 +268,6 @@ class TargetService:
             return api_response("Target not found", False)
         return api_response("Target deleted successfully", True, dict(row))
     
-
     @staticmethod
     async def exist_target(db: Connection, target:TargetBase):
         rows = await TargetRepository.exist_target(db, target)
@@ -244,3 +279,39 @@ class TargetService:
         rows = await TargetRepository.exist_target_update(db, target_id, target)
         value = rows["count"] == 1
         return api_response("Etiquetas listadas correctamente", True, value)
+
+
+def calculate_progress(target_data: TargetBase, total):
+    total = Decimal(str(total)) 
+
+    optimal = Decimal(str(target_data["optimal"]))
+    tolerable = Decimal(str(target_data["tolerable"]))
+
+    if optimal > tolerable:
+        progress = total * Decimal("100") / optimal
+        lack = optimal - total
+    else:
+        progress = optimal * Decimal("100") / total
+        lack = total - optimal
+
+    return progress, lack
+    
+def get_status(lack: Decimal, target_data):
+        today = datetime.today().date()
+        
+        try:
+            if isinstance(target_data["end_date"], datetime):
+                end_date = target_data["end_date"].date()
+            else:
+                end_date = datetime.strptime(target_data["end_date"], "%Y-%m-%d").date()
+        except Exception:
+            return "invalid"
+
+        if end_date >= today:
+            return "active"
+        
+        if lack == 0:
+            return "completed"
+        
+        return "failed"
+

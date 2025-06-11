@@ -28,6 +28,7 @@ from etl.json.warehouse.move import MOVE
 from etl.json.sales.quote import QUOTE
 from etl.json.sales.box import BOX_SALE
 from etl.json.sales.quote_detail import QUOTE_DETAIL
+from etl.json.public.enterprise import ENTERPRISE
 
 
 
@@ -61,5 +62,6 @@ TABLE_PROCESS = [
     PURCHASE_ORDER_DETAIL,
     PURCHASE,
     PURCHASE_DETAIL,
-    MOVE
+    MOVE,
+    ENTERPRISE,
 ]

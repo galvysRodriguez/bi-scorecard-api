@@ -57,7 +57,8 @@ class TargetRepository:
                    p.id_perspectivas AS perspective_id,
                    f.titulo AS indicator,
                    e.id_etiquetas AS tag_id,
-                   e.etiqueta AS tag
+                   e.etiqueta AS tag,
+                   p.perspectiva AS perspective
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
             LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas

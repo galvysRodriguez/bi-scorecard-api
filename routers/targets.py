@@ -22,6 +22,10 @@ async def get_target(target_id: int, db: Connection = Depends(get_db)):
 async def get_target(target_id: int, db: Connection = Depends(get_db)):
     return await TargetService.get_detail_target(db, target_id)
 
+@router.get("/detail/chart/{target_id}")
+async def get_target_chart(target_id: int, date_from: str, date_to: str, db: Connection = Depends(get_db)):
+    return await TargetService.get_detail_chart_target(db, target_id, date_from, date_to)
+
 @router.get("/")
 async def get_targets(db: Connection = Depends(get_db)):
     return await TargetService.get_all_targets(db)
