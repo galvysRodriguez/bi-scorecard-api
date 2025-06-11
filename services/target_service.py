@@ -24,7 +24,7 @@ class TargetService:
             row["start_date"],
             row["end_date"])
         
-        progress, lack = calculate_progress(row, indicator_value)
+        progress, lack = calculate_progress(row, indicator_value.get("data", {}).get("value"))
         status = get_status(lack, row)
 
         target_data = {
@@ -177,6 +177,8 @@ class TargetService:
             return api_response("Targets not found", False)
 
         response_data = []
+
+        
         
         for target in targets:
             indicator_value = await calc_formula_date(
@@ -184,6 +186,9 @@ class TargetService:
                 target["indicator_id"], 
                 target["start_date"],
                 target["end_date"])
+            
+            progress, lack = calculate_progress(target, indicator_value.get("data", {}).get("value"))
+            status = get_status(lack, target)
             
             # Agregar el valor del indicador a la respuesta
             target_data = {
@@ -200,6 +205,9 @@ class TargetService:
                 "tag": target["tag"],
                 "tag_id": target["tag_id"],
                 "perspective": target["perspective"],
+                "status": status,
+                "lack": lack,
+                "progress":progress,
                 "indicator_value": indicator_value.get("data", {}).get("value")  # Extraer el valor si está disponible
             }
             
