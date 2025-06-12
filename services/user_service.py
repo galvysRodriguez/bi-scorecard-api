@@ -32,7 +32,7 @@ async def login_service(db: Connection, user:UserBase):
     return {
         "access_token": access_token,
         "token_type": "bearer",
-        "enterprise":enterprise,
+        "enterprise": dict(enterprise),
         "user": {
             "name": result['name'],
             "role": result['role'],

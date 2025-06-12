@@ -7,20 +7,15 @@ from datetime import datetime, timedelta
 async def get_value_service(db: Connection, date_from: str, date_to: str):
     """Consulta el valor monetario del inventario por fecha"""
 
-    try:
-        start = datetime.strptime(date_from, "%Y-%m-%d")
-        end = datetime.strptime(date_to, "%Y-%m-%d")
-    except ValueError:
-        return api_response("Invalid date format. Use YYYY-MM-DD.", False)
+    print(date_from, date_to)
 
-    full_days = (end - start).days + 1
-    if full_days > 30:
-        start = end - timedelta(days=29)
+    start, end = convert_date(date_from, date_to)
 
-    start = start.date()
-    end = end.date()
+    print(start, end)
 
     value_inventory = await get_value_inventory(db, start, end)
+
+    print(value_inventory)
     value_sale = await get_value_sale(db, start, end)
     value_purchase = await get_value_purchase(db, start, end)
     
@@ -30,3 +25,12 @@ async def get_value_service(db: Connection, date_from: str, date_to: str):
         "value_purchase": value_purchase
     }
     return api_response("metricas obtenidas correctamente", True, rows)
+
+def convert_date(date_from: str, date_to: str):
+    try:
+        start = datetime.strptime(date_from, "%Y-%m-%d").date()
+        end = datetime.strptime(date_to, "%Y-%m-%d").date()
+    except ValueError:
+        return {"error": "Invalid date format. Use YYYY-MM-DD."}
+
+    return start, end 

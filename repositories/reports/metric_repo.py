@@ -1,6 +1,7 @@
 from asyncpg import Connection
+from datetime import date
 
-async def get_value_inventory(db: Connection, date_from:str, date_to:str):
+async def get_value_inventory(db: Connection, date_from:date, date_to:date):
         """Consulta el valor monetario del inventario por fecha"""
         query = f"""
              WITH ultimas_compras AS (
@@ -38,7 +39,7 @@ async def get_value_inventory(db: Connection, date_from:str, date_to:str):
 
                 SELECT 
                     f.fecha as date,
-                    coalesce(round(sum(ps.cantidad * cp.costo_promedio),2),0) as value
+                    round(coalesce(sum(ps.cantidad * cp.costo_promedio),0),2) as value
                 FROM fechas f
                 left join almacenes.movimientos va on va.fecha = f.fecha
                 left JOIN costo_promedio_reciente cp ON cp.id_productos = va.id_productos
@@ -48,14 +49,14 @@ async def get_value_inventory(db: Connection, date_from:str, date_to:str):
         """
         return await db.fetch(query, date_from, date_to)
 
-async def get_value_sale(db: Connection, date_from:str, date_to:str):
+async def get_value_sale(db: Connection, date_from:date, date_to:date):
         """Consulta el valor monetario de las ventas por fecha"""
         query = f"""
             WITH fechas AS (
                 SELECT generate_series($1::date, $2::date, interval '1 day')::date AS fecha
             )
             select 
-                coalesce(round(sum(vv.total),2),0) as value,
+                round(coalesce(sum(vv.total),0),2) as value,
                 f.fecha as date
             from fechas f
             left join ventas.vw_ventas vv on vv.fecha = f.fecha
@@ -64,14 +65,14 @@ async def get_value_sale(db: Connection, date_from:str, date_to:str):
         """
         return await db.fetch(query, date_from, date_to)
 
-async def get_value_purchase(db: Connection, date_from:str, date_to:str):
+async def get_value_purchase(db: Connection, date_from:date, date_to:date):
         """Consulta el valor monetario de las compras por fecha"""
         query = f"""
             WITH fechas AS (
                 SELECT generate_series($1::date, $2::date, interval '1 day')::date AS fecha
             )
              select 
-                coalesce(round(sum(vv.total),2),0) as value,
+                round(coalesce(sum(vv.total),0),2) as value,
                 f.fecha as date
             from fechas f
             left join compras.vw_compras vv on vv.fecha = f.fecha

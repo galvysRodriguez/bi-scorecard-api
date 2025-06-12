@@ -46,6 +46,8 @@ query = """
     delete from productos.subcategorias;
     delete from productos.categorias;
     delete from productos.marcas;
+    
+    delete from public.empresas;
 
     delete from almacenes.depositos;
 """
