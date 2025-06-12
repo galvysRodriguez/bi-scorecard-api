@@ -9,9 +9,9 @@ from typing import Optional
 router = APIRouter(prefix="/dashboard", tags=["dashboard"])
 
 @router.get("/metrics")
-async def get_metrics(warehouse: str, date_from: str, date_to: str,db: Connection = Depends(get_db)):
-    return await get_value_service(db, date_from, date_to, warehouse)
+async def get_metrics(date_from: str, date_to: str,db: Connection = Depends(get_db)):
+    return await get_value_service(db, date_from, date_to)
 
 @router.get("/target")
-async def get_metrics(db: Connection = Depends(get_db)):
-    return await TargetService.get_target_perspectives(db)
+async def get_metrics(date_from: str, date_to: str, db: Connection = Depends(get_db)):
+    return await TargetService.get_target_perspectives(date_from, date_to, db)

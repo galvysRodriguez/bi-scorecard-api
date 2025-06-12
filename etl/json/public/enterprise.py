@@ -8,6 +8,6 @@ ENTERPRISE = {
                         razon_social,
                         rif,
                         logo,
-                        telefono
+                        telefono1 as telefono
         FROM adm_empresa""",
 }

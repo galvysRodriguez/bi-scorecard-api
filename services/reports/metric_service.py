@@ -4,7 +4,7 @@ from utils.api_response import api_response
 from datetime import datetime, timedelta
 
 
-async def get_value_service(db: Connection, date_from: str, date_to: str, warehouse: str):
+async def get_value_service(db: Connection, date_from: str, date_to: str):
     """Consulta el valor monetario del inventario por fecha"""
 
     try:
@@ -20,9 +20,9 @@ async def get_value_service(db: Connection, date_from: str, date_to: str, wareho
     start = start.date()
     end = end.date()
 
-    value_inventory = await get_value_inventory(db, start, end, warehouse)
-    value_sale = await get_value_sale(db, start, end, warehouse)
-    value_purchase = await get_value_purchase(db, start, end, warehouse)
+    value_inventory = await get_value_inventory(db, start, end)
+    value_sale = await get_value_sale(db, start, end)
+    value_purchase = await get_value_purchase(db, start, end)
     
     rows ={
         "value_inventory": value_inventory,

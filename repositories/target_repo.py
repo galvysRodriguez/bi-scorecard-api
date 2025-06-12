@@ -1,6 +1,7 @@
 from asyncpg import Connection
 from typing import Optional
 from schemas.target import TargetCreate, TargetUpdate, TargetBase
+from datetime import datetime
 
 
 class TargetRepository:
@@ -48,8 +49,11 @@ class TargetRepository:
         return await db.fetch(query, perspective_id)
 
     @staticmethod
-    async def get_all_targets(db: Connection):
+    async def get_all_targets(date_from:str, date_to:str, db: Connection):
         """Consulta todos los objetivos. no esta en produccion"""
+        date_from_parsed = datetime.strptime(date_from, "%Y-%m-%d").date()
+        date_to_parsed = datetime.strptime(date_to, "%Y-%m-%d").date()
+
         query = f"""
             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
@@ -64,9 +68,10 @@ class TargetRepository:
             LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
             LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = pe.id_perspectivas
             LEFT JOIN objetivos.etiquetas e ON e.id_etiquetas = pe.id_etiquetas
+            WHERE o.fecha_inicio >= $1 AND o.fecha_final <= $2
             ORDER BY  o.fecha_inicio ASC, o.fecha_final ASC
         """
-        return await db.fetch(query)
+        return await db.fetch(query, date_from_parsed, date_to_parsed)
 
     @staticmethod
     async def add_target(db: Connection, target_data: TargetCreate):

@@ -11,6 +11,15 @@ async def get_tag(db: Connection, tag_id: int):
         """
         return await db.fetchrow(query, tag_id)
 
+async def get_tag_by_perspective(db: Connection, perspective_id: int):
+        """Consulta una etiqueta por ID."""
+        query = f"""
+            SELECT e.id_etiquetas as id, e.etiqueta as title FROM objetivos.etiquetas e
+            INNER JOIN objetivos.perspectiva_etiqueta pe ON e.id_etiquetas = pe.id_etiquetas
+            WHERE pe.id_perspectivas = $1 AND e.visible = true
+        """
+        return await db.fetch(query, perspective_id)
+
 async def get_tags(db: Connection):
         """Consulta todos las etiquetas"""
         query = f"""

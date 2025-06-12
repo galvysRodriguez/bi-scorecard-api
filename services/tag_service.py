@@ -1,7 +1,7 @@
 from asyncpg import Connection
 from repositories.perspective_tag_repo import add_perspective_tag, delete_perspective_tag, get_tag_perspective
 from repositories.tag_indicator_repo import add_tag_indicator, delete_tag_indicator, get_tag_indicator
-from repositories.tag_repo import add_tag, delete_tag, update_tag, get_tag, get_tags, exist_tag, exist_tag_update
+from repositories.tag_repo import add_tag, delete_tag, update_tag, get_tag, get_tags, exist_tag, exist_tag_update, get_tag_by_perspective
 from schemas.target import TagCreate, TagBase
 from utils.api_response import api_response
 
@@ -136,6 +136,13 @@ async def global_get_tag(db: Connection, tag_id: int):
     tag_data["perspectives"] = perspectives
 
     return api_response("Etiqueta listada correctamente", True, tag_data)
+
+async def global_get_tag_by_perspective(db: Connection, perspective_id: int):
+    row = await get_tag_by_perspective(db, perspective_id)
+    if not row:
+        return api_response("Etiqueta no encontrada", False)
+
+    return api_response("Etiqueta listada correctamente", True, row)
 
 async def global_get_tags(db: Connection):
     rows = await get_tags(db)

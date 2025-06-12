@@ -20,7 +20,7 @@ class TargetService:
         
         indicator_value = await calc_formula_date(
             db, 
-            row["indicator_id"], 
+            row["formula_id"], 
             row["start_date"],
             row["end_date"])
         
@@ -50,14 +50,13 @@ class TargetService:
 
         return api_response("Target retrieved successfully", True, dict(target_data))
     
-    async def get_target_perspectives(db: Connection):
+    async def get_target_perspectives(date_from:str, date_to:str, db: Connection):
         """Agrupa los estados de múltiples objetivos por perspectiva."""
         summary = defaultdict(lambda: {"active": 0, "failed": 0, "completed": 0})
-
-        targets = await TargetRepository.get_all_targets(db)
+    
+        targets = await TargetRepository.get_all_targets(date_from, date_to, db)
 
         for row in targets:
-
             indicator_value = await calc_formula_date(
                 db,
                 row["indicator_id"],
@@ -68,10 +67,17 @@ class TargetService:
             progress, lack = calculate_progress(row, indicator_value.get("data", {}).get("value"))
             status = get_status(lack, row)
 
-            perspective = row["perspective"]  
-            summary[perspective][status] += 1
+            perspective_id = row["perspective_id"]  
+            perspective_name = row["perspective"]   
 
-        return api_response("Resumen por perspectiva", True, summary)
+            summary[(perspective_id, perspective_name)][status] += 1
+
+        result = [
+            {"id": pid, "name": pname, **statuses}
+            for (pid, pname), statuses in summary.items()
+        ]
+
+        return api_response("Resumen por perspectiva", True, result)
 
     
     async def get_target_simple(db: Connection, target_id: int):
@@ -90,7 +96,7 @@ class TargetService:
 
         indicator_value = await calc_formula_date(
             db, 
-            row["indicator_id"], 
+            row["formula_id"], 
             row["start_date"],
             row["end_date"])
         
@@ -98,7 +104,7 @@ class TargetService:
         elapsed = max((today - row["start_date"]).days, 0)
         restant = max((row["end_date"] - today).days, 0)
 
-        progress = calculate_progress(row, indicator_value)
+        progress, lack = calculate_progress(row, indicator_value.get("data", {}).get("value"))
 
         target_data = {
             "id": row["id"],
@@ -161,9 +167,6 @@ class TargetService:
 
         target_data = {
             "target_id": row["id"],
-            "optimal": row["optimal"],
-            "tolerable": row["tolerable"],
-            "deficient": row["deficient"],
             "results": daily_values
         }
 
@@ -290,17 +293,20 @@ class TargetService:
 
 
 def calculate_progress(target_data: TargetBase, total):
-    total = Decimal(str(total)) 
+    total = Decimal(total) 
 
-    optimal = Decimal(str(target_data["optimal"]))
-    tolerable = Decimal(str(target_data["tolerable"]))
+    optimal = Decimal(target_data["optimal"])
+    tolerable = Decimal(target_data["tolerable"])
 
     if optimal > tolerable:
         progress = total * Decimal("100") / optimal
-        lack = optimal - total
+        lack = max(optimal - total, 0)
+    elif total == 0:
+        progress = Decimal("0")
+        lack = max(optimal, 0)
     else:
         progress = optimal * Decimal("100") / total
-        lack = total - optimal
+        lack = max(total - optimal,0)
 
     return progress, lack
     

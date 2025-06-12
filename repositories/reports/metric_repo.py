@@ -1,6 +1,6 @@
 from asyncpg import Connection
 
-async def get_value_inventory(db: Connection, date_from:str, date_to:str, warehouse:str):
+async def get_value_inventory(db: Connection, date_from:str, date_to:str):
         """Consulta el valor monetario del inventario por fecha"""
         query = f"""
              WITH ultimas_compras AS (
@@ -25,7 +25,6 @@ async def get_value_inventory(db: Connection, date_from:str, date_to:str, wareho
                     SELECT 
                         va2.id_productos,
                         va2.fecha,
-                        va2.id_depositos,
                             CASE
                                 WHEN va2.entrada = 1 THEN va2.cantidad
                                 ELSE -va2.cantidad
@@ -38,49 +37,45 @@ async def get_value_inventory(db: Connection, date_from:str, date_to:str, wareho
                 )
 
                 SELECT 
-                    f.fecha,
-                    d.deposito,
-                    coalesce(round(sum(ps.cantidad * cp.costo_promedio),2),0) as monto
+                    f.fecha as date,
+                    coalesce(round(sum(ps.cantidad * cp.costo_promedio),2),0) as value
                 FROM fechas f
                 left join almacenes.movimientos va on va.fecha = f.fecha
-                JOIN costo_promedio_reciente cp ON cp.id_productos = va.id_productos
-                join productos_stock ps on ps.id_productos = va.id_productos 
-                join almacenes.depositos d on d.id_depositos = va.id_depositos and d.deposito like $3
-                group by f.fecha, d.deposito
+                left JOIN costo_promedio_reciente cp ON cp.id_productos = va.id_productos
+                left join productos_stock ps on ps.id_productos = va.id_productos 
+                group by f.fecha
                 ORDER BY f.fecha
         """
-        return await db.fetch(query, date_from, date_to, warehouse)
+        return await db.fetch(query, date_from, date_to)
 
-async def get_value_sale(db: Connection, date_from:str, date_to:str, warehouse:str):
+async def get_value_sale(db: Connection, date_from:str, date_to:str):
         """Consulta el valor monetario de las ventas por fecha"""
         query = f"""
             WITH fechas AS (
                 SELECT generate_series($1::date, $2::date, interval '1 day')::date AS fecha
             )
             select 
-                coalesce(round(vv.total,2),0) as monto,
-                f.fecha,
-                vv.deposito
+                coalesce(round(sum(vv.total),2),0) as value,
+                f.fecha as date
             from fechas f
-            left join ventas.vw_ventas vv on vv.fecha = f.fecha and vv.deposito like $3
-            group by f.fecha, vv.total, vv.deposito 
+            left join ventas.vw_ventas vv on vv.fecha = f.fecha
+            group by f.fecha
             order by f.fecha 
         """
-        return await db.fetch(query, date_from, date_to, warehouse)
+        return await db.fetch(query, date_from, date_to)
 
-async def get_value_purchase(db: Connection, date_from:str, date_to:str, warehouse:str):
+async def get_value_purchase(db: Connection, date_from:str, date_to:str):
         """Consulta el valor monetario de las compras por fecha"""
         query = f"""
             WITH fechas AS (
                 SELECT generate_series($1::date, $2::date, interval '1 day')::date AS fecha
             )
              select 
-                coalesce(round(vv.total,2),0) as monto,
-                f.fecha,
-                vv.deposito
+                coalesce(round(sum(vv.total),2),0) as value,
+                f.fecha as date
             from fechas f
-            left join compras.vw_compras vv on vv.fecha = f.fecha and vv.deposito like $3
-            group by f.fecha, vv.total, vv.deposito 
+            left join compras.vw_compras vv on vv.fecha = f.fecha
+            group by f.fecha
             order by f.fecha 
         """
-        return await db.fetch(query, date_from, date_to, warehouse)
+        return await db.fetch(query, date_from, date_to)

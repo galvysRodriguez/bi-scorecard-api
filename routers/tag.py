@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 from asyncpg import Connection
 from db.database import get_db
-from services.tag_service import global_create_tag, global_delete_tag, global_exist_tag, global_get_tag, global_get_tags, global_update_tag, global_exist_tag_update
+from services.tag_service import global_create_tag, global_delete_tag, global_exist_tag, global_get_tag, global_get_tags, global_update_tag, global_exist_tag_update, global_get_tag_by_perspective
 from schemas.target import TagCreate, TagBase
 from typing import Optional
 
@@ -17,6 +17,10 @@ async def get_tag_exist(title: str = Query(...), tag_id:Optional[int] = Query(No
 @router.get("/")
 async def get_tags(db: Connection = Depends(get_db)):
     return await global_get_tags(db)
+
+@router.get("/perspective/{perspective_id}")
+async def get_tags(perspective_id: int, db: Connection = Depends(get_db)):
+    return await global_get_tag_by_perspective(db, perspective_id)
 
 @router.get("/{tag_id}")
 async def get_tag(tag_id: int, db: Connection = Depends(get_db)):
