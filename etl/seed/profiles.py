@@ -8,7 +8,7 @@ query = """
     (203, 'Gerente de almacenes', 1),
     (204, 'Analista', 1),
     (205, 'Operador BI', 1),
-    (206, 'Operador basico', 1)
+    (206, 'Operador', 1)
     ;
 """
 

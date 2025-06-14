@@ -30,7 +30,7 @@ async def get_filter_column_order(
         ):
     id = None
     if search:
-        id = await get_order_ids_by_general_search(db, search, report_base)
+        id, count = await get_order_ids_by_general_search(db, search, report_base)
     
     ids, count = await get_filtered_order_ids_by_columns(db, order_filter, report_base, id)
     return await get_response_order(db, ids, report_base, count)

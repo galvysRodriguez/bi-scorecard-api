@@ -30,7 +30,7 @@ async def get_filter_column_quote(
         ):
     id = None
     if search:
-        id = await get_quote_ids_by_general_search(db, search, report_base)
+        id, count = await get_quote_ids_by_general_search(db, search, report_base)
     
     ids, count = await get_filtered_quote_ids_by_columns(db, quote_filter, report_base, id)
     return await get_response_quote(db, ids, report_base, count)

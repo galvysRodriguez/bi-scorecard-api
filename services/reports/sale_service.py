@@ -30,7 +30,7 @@ async def get_filter_column_sale(
         ):
     id = None
     if search:
-        id = await get_sale_ids_by_general_search(db, search, report_base)
+        id, count = await get_sale_ids_by_general_search(db, search, report_base)
     
     ids, count = await get_filtered_sale_ids_by_columns(db, sale_filter, report_base, id)
     return await get_response_sale(db, ids, report_base, count)

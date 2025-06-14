@@ -30,7 +30,7 @@ async def get_filter_column_warehouse(
         ):
     id = None
     if search:
-        id = await get_moves_ids_by_general_search(db, search, report_base)
+        id, count = await get_moves_ids_by_general_search(db, search, report_base)
     
     ids, count = await get_filtered_moves_ids_by_columns(db, warehouse_filter, report_base, id)
     return await get_response_warehouse(db, ids, report_base, count)

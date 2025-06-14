@@ -68,7 +68,7 @@ class TargetRepository:
             LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
             LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = pe.id_perspectivas
             LEFT JOIN objetivos.etiquetas e ON e.id_etiquetas = pe.id_etiquetas
-            WHERE o.fecha_inicio >= $1 AND o.fecha_final <= $2
+            WHERE o.fecha_inicio >= $1 AND o.fecha_final <= $2 AND p.visible = TRUE
             ORDER BY  o.fecha_inicio ASC, o.fecha_final ASC
         """
         return await db.fetch(query, date_from_parsed, date_to_parsed)
