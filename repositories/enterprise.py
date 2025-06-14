@@ -12,7 +12,8 @@ async def get_enterprise(db: Connection):
             telefono as phone,
             nombre_comercial as business_name,
             razon_social as company_name,
-            direccion as address
+            direccion as address,
+            logo
         FROM public.empresas
         """
     return await db.fetchrow(query)

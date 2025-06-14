@@ -42,10 +42,10 @@ async def create_formula(formula_data: FormulaCreate, db: Connection = Depends(g
     return response
 
 @router.put("/{formula_id}")
-async def update_perspectives(formula_id: int, formula_data: FormulaCreate, db: Connection = Depends(get_db)):
+async def update_formula_router(formula_id: int, formula_data: FormulaCreate, db: Connection = Depends(get_db)):
     return await update_formula(db, formula_id, formula_data)
 
 @router.delete("/{formula_id}")
-async def delete_perspectives(formula_id: int, db: Connection = Depends(get_db)):
+async def delete_formula_router(formula_id: int, db: Connection = Depends(get_db)):
     return await delete_formula(db, formula_id)
 
