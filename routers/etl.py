@@ -11,6 +11,7 @@ from etl.main import run_extract_table, run_sync_table
 from etl.json.clear import clear_destination_db
 from schemas.target import TableProcessSchema
 from etl.backup.backup import backup_mysql, backup_postgresql
+from etl.logs.trigger_manager import delete_triggers
 
 router = APIRouter(prefix="/etl", tags=["etl"])
 
@@ -21,6 +22,14 @@ async def create_triggers_logs(tables: Optional[List[str]] = None):
     await run_create_triggers_logs(source_engine, tables_to_process)
     start = end - timedelta(days=1)
     return api_response_etl("Creacion de triggers ha sido completada", start, end, tables_to_process)
+
+@router.delete("/logs")
+async def delete_triggers_logs(tables: Optional[List[str]] = None):
+    end = datetime.now()
+    tables_to_process = tables or TABLES
+    await delete_triggers(source_engine, tables_to_process)
+    start = end - timedelta(days=1)
+    return api_response_etl("Eliminacion de triggers ha sido completada", start, end, tables_to_process)
 
 @router.post("/extract")
 async def extract_table_all():

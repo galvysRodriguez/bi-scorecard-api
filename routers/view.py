@@ -19,11 +19,11 @@ async def create_vw_purchase():
     return api_response_etl("Creacion de triggers ha sido completada", start, end)
 
 @router.delete("/purchase")
-async def create_vw_purchase():
+async def delete_vw_purchase():
     end = datetime.now()
     await delete_view_purchase_db(destination_engine)
     start = end - timedelta(days=1)
-    return api_response_etl("Creacion de triggers ha sido completada", start, end)
+    return api_response_etl("Eliminacion de triggers ha sido completada", start, end)
 
 @router.post("/order")
 async def create_vw_order():
@@ -33,11 +33,11 @@ async def create_vw_order():
     return api_response_etl("Creacion de triggers ha sido completada", start, end)
 
 @router.delete("/order")
-async def create_vw_order():
+async def delete_vw_order():
     end = datetime.now()
     await delete_view_order_db(destination_engine)
     start = end - timedelta(days=1)
-    return api_response_etl("Creacion de triggers ha sido completada", start, end)
+    return api_response_etl("Eliminacion de triggers ha sido completada", start, end)
 
 
 @router.post("/product")
@@ -48,11 +48,11 @@ async def create_vw_product():
     return api_response_etl("Creacion de triggers ha sido completada", start, end)
 
 @router.delete("/product")
-async def create_vw_product():
+async def delete_vw_product():
     end = datetime.now()
     await delete_view_product_db(destination_engine)
     start = end - timedelta(days=1)
-    return api_response_etl("Creacion de triggers ha sido completada", start, end)
+    return api_response_etl("Eliminacion de triggers ha sido completada", start, end)
 
 @router.post("/sale")
 async def create_vw_sale():
@@ -62,11 +62,11 @@ async def create_vw_sale():
     return api_response_etl("Creacion de triggers ha sido completada", start, end)
 
 @router.delete("/sale")
-async def create_vw_sale():
+async def delete_vw_sale():
     end = datetime.now()
     await delete_view_sale_db(destination_engine)
     start = end - timedelta(days=1)
-    return api_response_etl("Creacion de triggers ha sido completada", start, end)
+    return api_response_etl("Eliminacion de triggers ha sido completada", start, end)
 
 @router.post("/quote")
 async def create_vw_quote():
@@ -76,11 +76,11 @@ async def create_vw_quote():
     return api_response_etl("Creacion de triggers ha sido completada", start, end)
 
 @router.delete("/quote")
-async def create_vw_quote():
+async def delete_vw_quote():
     end = datetime.now()
     await delete_view_quote_db(destination_engine)
     start = end - timedelta(days=1)
-    return api_response_etl("Creacion de triggers ha sido completada", start, end)
+    return api_response_etl("Eliminacion de triggers ha sido completada", start, end)
 
 @router.post("/warehouse")
 async def create_vw_warehouse():
@@ -90,11 +90,36 @@ async def create_vw_warehouse():
     return api_response_etl("Creacion de triggers ha sido completada", start, end)
 
 @router.delete("/warehouse")
-async def create_vw_warehouse():
+async def delete_vw_warehouse():
     end = datetime.now()
     await delete_view_warehouse_db(destination_engine)
     start = end - timedelta(days=1)
+    return api_response_etl("Eliminacion de triggers ha sido completada", start, end)
+
+@router.delete("/vw_all")
+async def delete_vw_warehouse():
+    end = datetime.now()
+    await delete_view_warehouse_db(destination_engine)
+    await delete_view_sale_db(destination_engine)
+    await delete_view_quote_db(destination_engine)
+    await delete_view_purchase_db(destination_engine)
+    await delete_view_order_db(destination_engine)
+    await delete_view_product_db(destination_engine)
+    start = end - timedelta(days=1)
+    return api_response_etl("Eliminacion de triggers ha sido completada", start, end)
+
+@router.post("/vw_all")
+async def delete_vw_warehouse():
+    end = datetime.now()
+    await create_view_product_db(destination_engine)
+    await create_view_warehouse_db(destination_engine)
+    await create_view_quote_db(destination_engine)
+    await create_view_sale_db(destination_engine)
+    await create_view_order_db(destination_engine)
+    await create_view_purchase_db(destination_engine)
+    start = end - timedelta(days=1)
     return api_response_etl("Creacion de triggers ha sido completada", start, end)
+
 
 
 

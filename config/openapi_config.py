@@ -7,7 +7,7 @@ def custom_openapi(app: FastAPI):
     openapi_schema = get_openapi(
         title="Documentación BI AFTIM",
         version="1.0.0",
-        description="",
+        description="Bienvenido a la API BI de AFTIM",
         routes=app.routes,
     )
     openapi_schema["components"]["securitySchemes"] = {

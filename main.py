@@ -16,7 +16,7 @@ async def lifespan(app: FastAPI):
     print("Scheduler detenido.")
 
 app = FastAPI(lifespan=lifespan)
-#app.middleware("http")(check_access)
+app.middleware("http")(check_access)
 
 origins = [
     "http://localhost:3000",
@@ -42,7 +42,6 @@ app.add_middleware(
 
 # Configurar OpenAPI personalizado
 app.openapi = lambda: custom_openapi(app)
-
 # Montamos los routers
 app.include_router(targets.router)
 app.include_router(indicators.router)
