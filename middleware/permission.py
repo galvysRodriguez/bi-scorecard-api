@@ -8,9 +8,7 @@ from schemas.target import PermissionBase
 async def check_access(request: Request, call_next):
     if request.url.path.startswith("/docs") \
         or request.url.path.startswith("/openapi") \
-        or request.url.path.startswith("/users") \
-        or request.url.path.startswith("/etl") \
-        or request.url.path.startswith("/login"):
+        or request.url.path.startswith("/users"):
         return await call_next(request)
 
     try:

@@ -36,5 +36,5 @@ async def update_perspective(perspective_id: int, perspective_data: PerspectiveC
     return await global_update_perspective(db, perspective_id, perspective_data)
 
 @router.delete("/{perspective_id}")
-async def delete_target(perspective_id: int, db: Connection = Depends(get_db)):
+async def delete_perspective(perspective_id: int, db: Connection = Depends(get_db)):
     return await global_delete_perspective(db, perspective_id)

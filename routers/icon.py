@@ -32,5 +32,5 @@ async def update_icon(icon_id: int, icon_data: IconBase, db: Connection = Depend
     return await global_update_icon(db, icon_id, icon_data)
 
 @router.delete("/{icon_id}")
-async def delete_target(icon_id: int, db: Connection = Depends(get_db)):
+async def delete_icon(icon_id: int, db: Connection = Depends(get_db)):
     return await global_delete_icon(db, icon_id)

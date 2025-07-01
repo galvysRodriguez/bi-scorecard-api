@@ -27,7 +27,8 @@ async def create_triggers_logs(tables: Optional[List[str]] = None):
 async def delete_triggers_logs(tables: Optional[List[str]] = None):
     end = datetime.now()
     tables_to_process = tables or TABLES
-    await delete_triggers(source_engine, tables_to_process)
+    for table in tables_to_process:
+        delete_triggers(source_engine, table)
     start = end - timedelta(days=1)
     return api_response_etl("Eliminacion de triggers ha sido completada", start, end, tables_to_process)
 

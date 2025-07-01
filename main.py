@@ -4,7 +4,6 @@ from routers import indicators, targets, formula, tag, perspective, test, icon, 
 from routers.reports import warehouse, sale, purchase, order, quote, metric
 from middleware.permission import check_access
 from contextlib import asynccontextmanager
-from config.exception_handlers import http_exception_handler, unhandled_exception_handler
 from config.openapi_config import custom_openapi
 
 @asynccontextmanager
@@ -16,7 +15,7 @@ async def lifespan(app: FastAPI):
     print("Scheduler detenido.")
 
 app = FastAPI(lifespan=lifespan)
-app.middleware("http")(check_access)
+#app.middleware("http")(check_access)
 
 origins = [
     "http://localhost:3000",

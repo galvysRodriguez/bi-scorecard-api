@@ -35,5 +35,5 @@ async def update_tag(tag_id: int, tag_data: TagCreate, db: Connection = Depends(
     return await global_update_tag(db, tag_id, tag_data)
 
 @router.delete("/{tag_id}")
-async def delete_target(tag_id: int, db: Connection = Depends(get_db)):
+async def delete_tag(tag_id: int, db: Connection = Depends(get_db)):
     return await global_delete_tag(db, tag_id)

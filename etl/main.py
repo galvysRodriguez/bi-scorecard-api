@@ -9,4 +9,4 @@ async def run_extract_table(source_engine, destination_engine, TABLE_PROCESS):
 
 async def run_sync_table(source_engine, destination_engine, TABLE_PROCESS):
     for table_config in TABLE_PROCESS:
-        await sync_table(table_config, source_engine, destination_engine, last_log_ids)
+        await sync_table(table_config, source_engine, destination_engine)

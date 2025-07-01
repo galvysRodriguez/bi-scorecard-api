@@ -12,4 +12,4 @@ async def schedule_etl():
     await sync_table_logs()
     print("ETL finalizado automáticamente.")
 
-scheduler.add_job(schedule_etl, 'interval', hours=10)
+scheduler.add_job(schedule_etl, 'interval', hours=1)

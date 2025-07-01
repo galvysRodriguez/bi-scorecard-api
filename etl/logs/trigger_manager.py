@@ -7,7 +7,7 @@ def create_triggers(source_engine, table):
         AFTER INSERT ON {table}
         FOR EACH ROW
         BEGIN
-            INSERT INTO logs (table_afectada, operacion, registro_id)
+            INSERT INTO logs (tabla_afectada, operacion, registro_id)
             VALUES ('{table}', 'INSERT', NEW.id);
         END;
         """,
@@ -16,7 +16,7 @@ def create_triggers(source_engine, table):
         AFTER UPDATE ON {table}
         FOR EACH ROW
         BEGIN
-            INSERT INTO logs (table_afectada, operacion, registro_id)
+            INSERT INTO logs (tabla_afectada, operacion, registro_id)
             VALUES ('{table}', 'UPDATE', NEW.id);
         END;
         """,
@@ -25,7 +25,7 @@ def create_triggers(source_engine, table):
         AFTER DELETE ON {table}
         FOR EACH ROW
         BEGIN
-            INSERT INTO logs (table_afectada, operacion, registro_id)
+            INSERT INTO logs (tabla_afectada, operacion, registro_id)
             VALUES ('{table}', 'DELETE', OLD.id);
         END;
         """

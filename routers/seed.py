@@ -70,7 +70,7 @@ async def delete_profile_resource_bi():
     return api_response_etl("La eliminacion de recurso_perfil ha sido completada", start, end)
 
 @router.delete("/all")
-async def delete_profile_resource_bi():
+async def delete_all():
     end = datetime.now()
     await delete_profile_resource_db(source_engine)
     await delete_users_db(source_engine)
@@ -80,7 +80,7 @@ async def delete_profile_resource_bi():
     return api_response_etl("La eliminacion ha sido completada", start, end)
 
 @router.post("/all")
-async def delete_profile_resource_bi():
+async def create_all():
     end = datetime.now()
     await create_profiles_db(source_engine)
     await create_users_db(source_engine)

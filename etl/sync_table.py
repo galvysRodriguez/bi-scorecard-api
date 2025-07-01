@@ -5,31 +5,30 @@ from etl.utils.decode import safe_decode_column
 from etl.utils.adjust_stock import adjust_quantity_column
 from etl.utils.upsert_table import upsert_table
 
-async def sync_table(config, source_engine, destination_engine, last_log_ids: dict):
+async def sync_table(config, source_engine, destination_engine):
     try:
         print(f"Procesando cambios en la tabla '{config['source_table']}'...")
 
-        # Obtener el último ID de log procesado
-        last_log_id = last_log_ids.get(config["source_table"], 0)
-
-        # Consultar registros modificados en `log_auditoria` ordenados por `id_log` (del más antiguo al más reciente)
         log_query = f"""
-            SELECT id, registro_id, operacion
+            SELECT id, registro_id, operacion, fecha
             FROM logs
-            WHERE tabla_afectada = '{config['source_table']}' AND id> {last_log_id}
-            ORDER BY fecha ASC 
+            WHERE tabla_afectada = '{config['source_table']}'
+            ORDER BY fecha DESC
         """
         log_df = pd.read_sql(log_query, source_engine)
 
+        last_sync = get_last_sync_date(destination_engine, config['source_table'])
+
+        if last_sync:
+            log_df = log_df[log_df['fecha'] > last_sync]
+
         if log_df.empty:
-            print(f"No hay nuevos cambios en '{config['source_table']}', omitiendo carga.")
+            print(f"No hay cambios posteriores a {last_sync}, omitiendo carga.")
             return
 
-        # Procesar cada cambio de manera secuencial en orden de tiempo
         for _, log_entry in log_df.iterrows():
             record_id = log_entry["registro_id"]
             operation = log_entry["operacion"]
-            # ID dinámico según la tabla
             id_column = f"id_{config['target_table']}"  
 
             if operation in ["INSERT", "UPDATE"]:
@@ -51,13 +50,27 @@ async def sync_table(config, source_engine, destination_engine, last_log_ids: di
                     """)
                     result = conn.execute(delete_query, {"id": record_id})  
                     conn.commit()  
-
                 print(f"🗑️ Eliminado registro ID {record_id} de '{config['target_table']}' ({result.rowcount} filas).")
 
-            # Actualizar último ID de log procesado después de cada operación
-            last_log_ids[config["source_table"]] = log_entry["id_log"]
+        nueva_fecha_sync = log_df["fecha"].max()
+        await save_sync_table(destination_engine, config['source_table'], nueva_fecha_sync)
 
         print(f"✅ Procesamiento completado para '{config['source_table']}'.")
 
     except Exception as e:
         print(f"❌ Error procesando '{config['source_table']}': {e}")
+
+
+async def save_sync_table(destination_engine, table, fecha):
+    with destination_engine.connect() as conn:
+        conn.execute(text("""
+            INSERT INTO sync_status (tabla, fecha)
+            VALUES (:tabla, :fecha)
+        """), {"tabla": table, "fecha": fecha})
+        conn.commit()
+
+def get_last_sync_date(destination_engine, table_name):
+    query = text("SELECT max(fecha) fecha FROM public.sync_status WHERE tabla = :table")
+    with destination_engine.connect() as conn:
+        result = conn.execute(query, {"table": table_name}).fetchone()
+        return result[0] if result else None

@@ -97,7 +97,7 @@ async def delete_vw_warehouse():
     return api_response_etl("Eliminacion de triggers ha sido completada", start, end)
 
 @router.delete("/vw_all")
-async def delete_vw_warehouse():
+async def delete_vw_all():
     end = datetime.now()
     await delete_view_warehouse_db(destination_engine)
     await delete_view_sale_db(destination_engine)
@@ -109,7 +109,7 @@ async def delete_vw_warehouse():
     return api_response_etl("Eliminacion de triggers ha sido completada", start, end)
 
 @router.post("/vw_all")
-async def delete_vw_warehouse():
+async def create_vw_all():
     end = datetime.now()
     await create_view_product_db(destination_engine)
     await create_view_warehouse_db(destination_engine)
