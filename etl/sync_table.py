@@ -13,7 +13,7 @@ async def sync_table(config, source_engine, destination_engine):
             SELECT id, registro_id, operacion, fecha
             FROM logs
             WHERE tabla_afectada = '{config['source_table']}'
-            ORDER BY fecha DESC
+            ORDER BY fecha ASC
         """
         log_df = pd.read_sql(log_query, source_engine)
 
