@@ -5,7 +5,7 @@ from etl.utils.decode import safe_decode_column
 from etl.utils.adjust_stock import adjust_quantity_column
 from etl.utils.upsert_table import upsert_table
 
-async def sync_table(config, source_engine, destination_engine):
+async def sync_table(config, source_engine, destination_engine, option):
     try:
         print(f"Procesando cambios en la tabla '{config['source_table']}'...")
 
@@ -31,7 +31,7 @@ async def sync_table(config, source_engine, destination_engine):
             operation = log_entry["operacion"]
             id_column = f"id_{config['target_table']}"  
 
-            if operation in ["INSERT", "UPDATE"]:
+            if option and operation in ["INSERT", "UPDATE"]:
                 data_query = f"SELECT * FROM ({config['query']}) AS subquery WHERE {id_column} = {record_id}"
                 df = pd.read_sql(data_query, source_engine)
 
@@ -41,8 +41,10 @@ async def sync_table(config, source_engine, destination_engine):
                     df = safe_decode_column(df)
                     df = adjust_quantity_column(df)
                     upsert_table(df, config['target_table'], config["schema"], destination_engine, id_column)
+                    nueva_fecha_sync = log_df["fecha"].max()
+                    await save_sync_table(destination_engine, config['source_table'], nueva_fecha_sync)
 
-            elif operation == "DELETE":
+            elif (not option) and (operation == "DELETE"):
                 with destination_engine.connect() as conn:
                     delete_query = text(f"""
                         DELETE FROM {config['schema']}.{config['target_table']}
@@ -51,9 +53,8 @@ async def sync_table(config, source_engine, destination_engine):
                     result = conn.execute(delete_query, {"id": record_id})  
                     conn.commit()  
                 print(f"🗑️ Eliminado registro ID {record_id} de '{config['target_table']}' ({result.rowcount} filas).")
-
-        nueva_fecha_sync = log_df["fecha"].max()
-        await save_sync_table(destination_engine, config['source_table'], nueva_fecha_sync)
+                nueva_fecha_sync = log_df["fecha"].max()
+                await save_sync_table(destination_engine, config['source_table'], nueva_fecha_sync)
 
         print(f"✅ Procesamiento completado para '{config['source_table']}'.")
 

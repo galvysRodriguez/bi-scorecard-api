@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from typing import Optional, List, Literal
 from etl.db.erp import source_engine
 from etl.db.bi import destination_engine
-from etl.table_config import TABLE_PROCESS
+from etl.table_config import TABLE_PROCESS, TABLE_PROCESS_DELETE
 from etl.logs.main import run_create_triggers_logs
 from etl.logs.tables import TABLES
 from utils.api_response_etl import api_response_etl
@@ -44,7 +44,7 @@ async def extract_table_all():
 async def sync_table_logs():
     end = datetime.now()
     tables_to_process =  TABLE_PROCESS
-    await run_sync_table(source_engine, destination_engine, tables_to_process)
+    await run_sync_table(source_engine, destination_engine, tables_to_process, TABLE_PROCESS_DELETE)
     start = end - timedelta(days=1)
     return api_response_etl("La sincronizacion ha sido completada", start, end, tables_to_process)
 
