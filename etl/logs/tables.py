@@ -8,7 +8,7 @@ TABLES = ["adm_movimiento_inventario", "adm_movimientos_caja", "adm_movimientos_
                 "adm_det_presupuesto", "adm_enc_presupuesto", "adm_tipos_facturas",
                 "adm_proveedor", "adm_tipo_proveedor",
                 "adm_moneda", "adm_tipo_pago",
-                "adm_vendedor"
+                "adm_vendedor", "recurso", "perfil", "recurso_perfil"
                 ]
 
   #tabla que falta 
