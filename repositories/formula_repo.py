@@ -15,7 +15,8 @@ async def get_formula_with_tag_query(db: Connection):
                     f.id_formulas as id, 
                     f.titulo as title,
                     e.etiqueta as tag,
-                    f.id_etiquetas as tag_id
+                    f.id_etiquetas as tag_id,
+                    f.formula
                 FROM objetivos.formulas f
                 INNER JOIN objetivos.etiquetas e ON e.id_etiquetas = f.id_etiquetas
                 WHERE f.visible = True"""
