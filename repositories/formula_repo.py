@@ -85,7 +85,7 @@ async def exist_formula_query(db: Connection, formula: FormulaBase):
         """Verifica si existe la formula"""
         query = f"""
             SELECT COUNT(*) as count FROM objetivos.formulas
-            WHERE titulo = $1
+            WHERE LOWER(titulo) = LOWER($1)
         """
         return await db.fetchrow(query, formula.title)
 

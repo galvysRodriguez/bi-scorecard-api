@@ -70,7 +70,7 @@ async def exist_perspective(db: Connection, perspective: PerspectiveBase):
         """Verifica si existe la perspectiva"""
         query = """
             SELECT COUNT(*) FROM objetivos.perspectivas
-            WHERE perspectiva = $1
+            WHERE LOWER(perspectiva) = LOWER($1)
         """
         return await db.fetchrow(query, perspective.title)
 

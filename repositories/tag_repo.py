@@ -66,7 +66,7 @@ async def exist_tag(db: Connection, tag: TagBase):
         """Verifica si existe la etiqueta"""
         query = f"""
             SELECT COUNT(*) FROM objetivos.etiquetas
-            WHERE etiqueta = $1
+            WHERE LOWER(etiqueta) = LOWER($1)
         """
         return await db.fetchrow(query, tag.title)
 

@@ -15,7 +15,7 @@ async def lifespan(app: FastAPI):
     print("Scheduler detenido.")
 
 app = FastAPI(lifespan=lifespan)
-app.middleware("http")(check_access)
+#app.middleware("http")(check_access)
 
 origins = [
     "http://localhost:3000",
