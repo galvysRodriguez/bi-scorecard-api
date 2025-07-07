@@ -75,7 +75,7 @@ query_base_sale_view = """
         
         tipo_factura AS invoice_type,
 
-        fecha AS date,
+        TO_CHAR(fecha, 'DD-MM-YYYY') AS date,
         dia AS day,
         dia_semana AS weekday_number,
         nombre_dia AS weekday_name,
@@ -112,7 +112,7 @@ query_base_order_view = """
         tipo_proveedor AS supplier_type,
         tasa AS tax_rate,
         
-        fecha AS date,
+        TO_CHAR(fecha, 'DD-MM-YYYY') AS date,
         dia AS day,
         dia_semana AS weekday_number,
         nombre_dia AS weekday_name,
@@ -161,7 +161,7 @@ query_base_purchase_view = """
         tipo_factura AS invoice_type,
         tasa AS tax_rate,
         
-        fecha AS date,
+        TO_CHAR(fecha, 'DD-MM-YYYY') AS date,
         dia AS day,
         dia_semana AS weekday_number,
         nombre_dia AS weekday_name,
@@ -232,7 +232,7 @@ query_base_quote_view = """
 
         deposito AS warehouse,
 
-        fecha AS date,
+        TO_CHAR(fecha, 'DD-MM-YYYY') AS date,
         dia AS day,
         dia_semana AS weekday_number,
         nombre_dia AS weekday_name,
@@ -268,7 +268,7 @@ query_base_warehouse_view = """
 
         cantidad AS quantity,
 
-        fecha AS date,
+        TO_CHAR(fecha, 'DD-MM-YYYY') AS date,
         dia AS day,
         dia_semana AS weekday_number,
         nombre_dia AS weekday_name,
