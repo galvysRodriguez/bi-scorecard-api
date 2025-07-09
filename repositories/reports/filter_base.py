@@ -44,10 +44,10 @@ def build_warehouse_filters(warehouse_data, ids=None, initial_index=1) -> Tuple[
 
     # Fechas
     if warehouse_data.date_min:
-        date_obj = datetime.strptime(warehouse_data.date_min, "%d-%m-%Y").date()
+        date_obj = datetime.strptime(warehouse_data.date_min, "%d/%m/%Y").date()
         add_condition("DATE(fecha) >= {}", date_obj)
     if warehouse_data.date_max:
-        date_obj = datetime.strptime(warehouse_data.date_max, "%d-%m-%Y").date()
+        date_obj = datetime.strptime(warehouse_data.date_max, "%d/%m/%Y").date()
         add_condition("DATE(fecha) <= {}", date_obj)
 
     # Calendario
@@ -189,10 +189,10 @@ def build_sale_filters(sales_data, ids=None, initial_index=1) -> Tuple[str, List
 
     # Fechas
     if sales_data.date_min:
-        date_obj = datetime.strptime(sales_data.date_min, "%d-%m-%Y").date()
+        date_obj = datetime.strptime(sales_data.date_min, "%d/%m/%Y").date()
         add_condition("DATE(fecha) >= {}", date_obj)
     if sales_data.date_max:
-        date_obj = datetime.strptime(sales_data.date_max, "%d-%m-%Y").date()
+        date_obj = datetime.strptime(sales_data.date_max, "%d/%m/%Y").date()
         add_condition("DATE(fecha) <= {}", date_obj)
 
     # Calendario
@@ -329,10 +329,10 @@ def build_purchase_filters(purchase_data, ids=None, initial_index=1) -> Tuple[st
 
     # Fechas
     if purchase_data.date_min:
-        date_obj = datetime.strptime(purchase_data.date_min, "%d-%m-%Y").date()
+        date_obj = datetime.strptime(purchase_data.date_min, "%d/%m/%Y").date()
         add_condition("DATE(fecha) >= {}", date_obj)
     if purchase_data.date_max:
-        date_obj = datetime.strptime(purchase_data.date_max, "%d-%m-%Y").date()
+        date_obj = datetime.strptime(purchase_data.date_max, "%d/%m/%Y").date()
         add_condition("DATE(fecha) <= {}", date_obj)
 
     # Calendario
@@ -461,10 +461,10 @@ def build_order_filters(order_data, ids=None, initial_index=1) -> Tuple[str, Lis
 
     # Fechas
     if order_data.date_min:
-        date_obj = datetime.strptime(order_data.date_min, "%d-%m-%Y").date()
+        date_obj = datetime.strptime(order_data.date_min, "%d/%m/%Y").date()
         add_condition("DATE(fecha) >= {}", date_obj)
     if order_data.date_max:
-        date_obj = datetime.strptime(order_data.date_max, "%d-%m-%Y").date()
+        date_obj = datetime.strptime(order_data.date_max, "%d/%m/%Y").date()
         add_condition("DATE(fecha) <= {}", date_obj)
 
     # Calendario
@@ -597,10 +597,10 @@ def build_quote_filters(quote_data, ids=None, initial_index=1) -> Tuple[str, Lis
 
     # Fechas
     if quote_data.date_min:
-        date_obj = datetime.strptime(quote_data.date_min, "%d-%m-%Y").date()
+        date_obj = datetime.strptime(quote_data.date_min, "%d/%m/%Y").date()
         add_condition("DATE(fecha) >= {}", date_obj)
     if quote_data.date_max:
-        date_obj = datetime.strptime(quote_data.date_max, "%d-%m-%Y").date()
+        date_obj = datetime.strptime(quote_data.date_max, "%d/%m/%Y").date()
         add_condition("DATE(fecha) <= {}", date_obj)
 
     # Calendario
