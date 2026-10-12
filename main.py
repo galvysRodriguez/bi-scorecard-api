@@ -20,15 +20,10 @@ app = FastAPI(lifespan=lifespan)
 
 origins = [
     "http://localhost:3000",
-    "http://localhost:3000/home",
-    "http://localhost:3000/login"
-    "http://localhost:3000/",
     "http://localhost",
     "http://localhost:8080",
-    "https://inventario-lime.vercel.app/home",
-    "https://inventario-lime.vercel.app/auth",
     "https://inventario-lime.vercel.app",
-    "http://localhost:3000/dashboard/finance/update/6"
+    "https://next-ld7wnhs03-galvys-rodriguezs-projects.vercel.app",
 ]
 
 # Agrega el middleware CORS
