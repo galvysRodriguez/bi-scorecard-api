@@ -1,5 +1,5 @@
 --
--- PostgreSQL database dump
+-- neondbQL database dump
 --
 
 -- Dumped from database version 16.2
@@ -17,71 +17,51 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: almacenes; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: almacenes; Type: SCHEMA; Schema: -; Owner: neondb
 --
 
 CREATE SCHEMA almacenes;
 
 
-ALTER SCHEMA almacenes OWNER TO postgres;
 
 --
--- Name: compras; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: compras; Type: SCHEMA; Schema: -; Owner: neondb
 --
 
 CREATE SCHEMA compras;
 
 
-ALTER SCHEMA compras OWNER TO postgres;
 
 --
--- Name: finanzas; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: finanzas; Type: SCHEMA; Schema: -; Owner: neondb
 --
 
 CREATE SCHEMA finanzas;
 
 
-ALTER SCHEMA finanzas OWNER TO postgres;
 
 --
--- Name: objetivos; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: objetivos; Type: SCHEMA; Schema: -; Owner: neondb
 --
 
 CREATE SCHEMA objetivos;
 
 
-ALTER SCHEMA objetivos OWNER TO postgres;
 
 --
--- Name: productos; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: productos; Type: SCHEMA; Schema: -; Owner: neondb
 --
 
 CREATE SCHEMA productos;
 
 
-ALTER SCHEMA productos OWNER TO postgres;
 
 --
--- Name: ventas; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: ventas; Type: SCHEMA; Schema: -; Owner: neondb
 --
 
 CREATE SCHEMA ventas;
 
-
-ALTER SCHEMA ventas OWNER TO postgres;
-
---
--- Name: adminpack; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
 
 
 SET default_tablespace = '';
@@ -89,7 +69,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: depositos; Type: TABLE; Schema: almacenes; Owner: postgres
+-- Name: depositos; Type: TABLE; Schema: almacenes; Owner: neondb
 --
 
 CREATE TABLE almacenes.depositos (
@@ -98,10 +78,9 @@ CREATE TABLE almacenes.depositos (
 );
 
 
-ALTER TABLE almacenes.depositos OWNER TO postgres;
 
 --
--- Name: movimiento_statu; Type: TABLE; Schema: almacenes; Owner: postgres
+-- Name: movimiento_statu; Type: TABLE; Schema: almacenes; Owner: neondb
 --
 
 CREATE TABLE almacenes.movimiento_statu (
@@ -112,10 +91,9 @@ CREATE TABLE almacenes.movimiento_statu (
 );
 
 
-ALTER TABLE almacenes.movimiento_statu OWNER TO postgres;
 
 --
--- Name: movimientos; Type: TABLE; Schema: almacenes; Owner: postgres
+-- Name: movimientos; Type: TABLE; Schema: almacenes; Owner: neondb
 --
 
 CREATE TABLE almacenes.movimientos (
@@ -129,10 +107,9 @@ CREATE TABLE almacenes.movimientos (
 );
 
 
-ALTER TABLE almacenes.movimientos OWNER TO postgres;
 
 --
--- Name: reservas; Type: TABLE; Schema: almacenes; Owner: postgres
+-- Name: reservas; Type: TABLE; Schema: almacenes; Owner: neondb
 --
 
 CREATE TABLE almacenes.reservas (
@@ -144,10 +121,9 @@ CREATE TABLE almacenes.reservas (
 );
 
 
-ALTER TABLE almacenes.reservas OWNER TO postgres;
 
 --
--- Name: status; Type: TABLE; Schema: almacenes; Owner: postgres
+-- Name: status; Type: TABLE; Schema: almacenes; Owner: neondb
 --
 
 CREATE TABLE almacenes.status (
@@ -156,10 +132,9 @@ CREATE TABLE almacenes.status (
 );
 
 
-ALTER TABLE almacenes.status OWNER TO postgres;
 
 --
--- Name: tipo_movimientos; Type: TABLE; Schema: almacenes; Owner: postgres
+-- Name: tipo_movimientos; Type: TABLE; Schema: almacenes; Owner: neondb
 --
 
 CREATE TABLE almacenes.tipo_movimientos (
@@ -168,10 +143,9 @@ CREATE TABLE almacenes.tipo_movimientos (
 );
 
 
-ALTER TABLE almacenes.tipo_movimientos OWNER TO postgres;
 
 --
--- Name: compras; Type: TABLE; Schema: compras; Owner: postgres
+-- Name: compras; Type: TABLE; Schema: compras; Owner: neondb
 --
 
 CREATE TABLE compras.compras (
@@ -190,10 +164,9 @@ CREATE TABLE compras.compras (
 );
 
 
-ALTER TABLE compras.compras OWNER TO postgres;
 
 --
--- Name: det_compra; Type: TABLE; Schema: compras; Owner: postgres
+-- Name: det_compra; Type: TABLE; Schema: compras; Owner: neondb
 --
 
 CREATE TABLE compras.det_compra (
@@ -209,10 +182,9 @@ CREATE TABLE compras.det_compra (
 );
 
 
-ALTER TABLE compras.det_compra OWNER TO postgres;
 
 --
--- Name: det_compra_statu; Type: TABLE; Schema: compras; Owner: postgres
+-- Name: det_compra_statu; Type: TABLE; Schema: compras; Owner: neondb
 --
 
 CREATE TABLE compras.det_compra_statu (
@@ -223,10 +195,9 @@ CREATE TABLE compras.det_compra_statu (
 );
 
 
-ALTER TABLE compras.det_compra_statu OWNER TO postgres;
 
 --
--- Name: det_orden_compra; Type: TABLE; Schema: compras; Owner: postgres
+-- Name: det_orden_compra; Type: TABLE; Schema: compras; Owner: neondb
 --
 
 CREATE TABLE compras.det_orden_compra (
@@ -240,10 +211,9 @@ CREATE TABLE compras.det_orden_compra (
 );
 
 
-ALTER TABLE compras.det_orden_compra OWNER TO postgres;
 
 --
--- Name: ordenes_compras; Type: TABLE; Schema: compras; Owner: postgres
+-- Name: ordenes_compras; Type: TABLE; Schema: compras; Owner: neondb
 --
 
 CREATE TABLE compras.ordenes_compras (
@@ -255,10 +225,9 @@ CREATE TABLE compras.ordenes_compras (
 );
 
 
-ALTER TABLE compras.ordenes_compras OWNER TO postgres;
 
 --
--- Name: proveedores; Type: TABLE; Schema: compras; Owner: postgres
+-- Name: proveedores; Type: TABLE; Schema: compras; Owner: neondb
 --
 
 CREATE TABLE compras.proveedores (
@@ -268,10 +237,9 @@ CREATE TABLE compras.proveedores (
 );
 
 
-ALTER TABLE compras.proveedores OWNER TO postgres;
 
 --
--- Name: status; Type: TABLE; Schema: compras; Owner: postgres
+-- Name: status; Type: TABLE; Schema: compras; Owner: neondb
 --
 
 CREATE TABLE compras.status (
@@ -280,10 +248,9 @@ CREATE TABLE compras.status (
 );
 
 
-ALTER TABLE compras.status OWNER TO postgres;
 
 --
--- Name: tipo_proveedores; Type: TABLE; Schema: compras; Owner: postgres
+-- Name: tipo_proveedores; Type: TABLE; Schema: compras; Owner: neondb
 --
 
 CREATE TABLE compras.tipo_proveedores (
@@ -292,10 +259,9 @@ CREATE TABLE compras.tipo_proveedores (
 );
 
 
-ALTER TABLE compras.tipo_proveedores OWNER TO postgres;
 
 --
--- Name: vw_compras; Type: VIEW; Schema: compras; Owner: postgres
+-- Name: vw_compras; Type: VIEW; Schema: compras; Owner: neondb
 --
 
 CREATE VIEW compras.vw_compras AS
@@ -313,10 +279,9 @@ CREATE VIEW compras.vw_compras AS
      JOIN compras.det_compra dc ON ((dc.id_compras = c.id_compras)));
 
 
-ALTER VIEW compras.vw_compras OWNER TO postgres;
 
 --
--- Name: bancos; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: bancos; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.bancos (
@@ -326,10 +291,9 @@ CREATE TABLE finanzas.bancos (
 );
 
 
-ALTER TABLE finanzas.bancos OWNER TO postgres;
 
 --
--- Name: cajas; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: cajas; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.cajas (
@@ -338,10 +302,9 @@ CREATE TABLE finanzas.cajas (
 );
 
 
-ALTER TABLE finanzas.cajas OWNER TO postgres;
 
 --
--- Name: egreso_banco; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: egreso_banco; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.egreso_banco (
@@ -352,10 +315,9 @@ CREATE TABLE finanzas.egreso_banco (
 );
 
 
-ALTER TABLE finanzas.egreso_banco OWNER TO postgres;
 
 --
--- Name: egreso_banco_id_egreso_banco_seq; Type: SEQUENCE; Schema: finanzas; Owner: postgres
+-- Name: egreso_banco_id_egreso_banco_seq; Type: SEQUENCE; Schema: finanzas; Owner: neondb
 --
 
 CREATE SEQUENCE finanzas.egreso_banco_id_egreso_banco_seq
@@ -366,17 +328,16 @@ CREATE SEQUENCE finanzas.egreso_banco_id_egreso_banco_seq
     CACHE 1;
 
 
-ALTER SEQUENCE finanzas.egreso_banco_id_egreso_banco_seq OWNER TO postgres;
 
 --
--- Name: egreso_banco_id_egreso_banco_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: postgres
+-- Name: egreso_banco_id_egreso_banco_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: neondb
 --
 
 ALTER SEQUENCE finanzas.egreso_banco_id_egreso_banco_seq OWNED BY finanzas.egreso_banco.id_egreso_banco;
 
 
 --
--- Name: egreso_caja; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: egreso_caja; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.egreso_caja (
@@ -386,10 +347,9 @@ CREATE TABLE finanzas.egreso_caja (
 );
 
 
-ALTER TABLE finanzas.egreso_caja OWNER TO postgres;
 
 --
--- Name: egreso_caja_id_egreso_caja_seq; Type: SEQUENCE; Schema: finanzas; Owner: postgres
+-- Name: egreso_caja_id_egreso_caja_seq; Type: SEQUENCE; Schema: finanzas; Owner: neondb
 --
 
 CREATE SEQUENCE finanzas.egreso_caja_id_egreso_caja_seq
@@ -400,17 +360,16 @@ CREATE SEQUENCE finanzas.egreso_caja_id_egreso_caja_seq
     CACHE 1;
 
 
-ALTER SEQUENCE finanzas.egreso_caja_id_egreso_caja_seq OWNER TO postgres;
 
 --
--- Name: egreso_caja_id_egreso_caja_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: postgres
+-- Name: egreso_caja_id_egreso_caja_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: neondb
 --
 
 ALTER SEQUENCE finanzas.egreso_caja_id_egreso_caja_seq OWNED BY finanzas.egreso_caja.id_egreso_caja;
 
 
 --
--- Name: egresos; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: egresos; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.egresos (
@@ -426,10 +385,9 @@ CREATE TABLE finanzas.egresos (
 );
 
 
-ALTER TABLE finanzas.egresos OWNER TO postgres;
 
 --
--- Name: egresos_id_egresos_seq; Type: SEQUENCE; Schema: finanzas; Owner: postgres
+-- Name: egresos_id_egresos_seq; Type: SEQUENCE; Schema: finanzas; Owner: neondb
 --
 
 CREATE SEQUENCE finanzas.egresos_id_egresos_seq
@@ -440,17 +398,16 @@ CREATE SEQUENCE finanzas.egresos_id_egresos_seq
     CACHE 1;
 
 
-ALTER SEQUENCE finanzas.egresos_id_egresos_seq OWNER TO postgres;
 
 --
--- Name: egresos_id_egresos_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: postgres
+-- Name: egresos_id_egresos_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: neondb
 --
 
 ALTER SEQUENCE finanzas.egresos_id_egresos_seq OWNED BY finanzas.egresos.id_egresos;
 
 
 --
--- Name: ingreso_banco; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: ingreso_banco; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.ingreso_banco (
@@ -461,10 +418,9 @@ CREATE TABLE finanzas.ingreso_banco (
 );
 
 
-ALTER TABLE finanzas.ingreso_banco OWNER TO postgres;
 
 --
--- Name: ingreso_banco_id_ingreso_banco_seq; Type: SEQUENCE; Schema: finanzas; Owner: postgres
+-- Name: ingreso_banco_id_ingreso_banco_seq; Type: SEQUENCE; Schema: finanzas; Owner: neondb
 --
 
 CREATE SEQUENCE finanzas.ingreso_banco_id_ingreso_banco_seq
@@ -475,17 +431,16 @@ CREATE SEQUENCE finanzas.ingreso_banco_id_ingreso_banco_seq
     CACHE 1;
 
 
-ALTER SEQUENCE finanzas.ingreso_banco_id_ingreso_banco_seq OWNER TO postgres;
 
 --
--- Name: ingreso_banco_id_ingreso_banco_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: postgres
+-- Name: ingreso_banco_id_ingreso_banco_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: neondb
 --
 
 ALTER SEQUENCE finanzas.ingreso_banco_id_ingreso_banco_seq OWNED BY finanzas.ingreso_banco.id_ingreso_banco;
 
 
 --
--- Name: ingreso_caja; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: ingreso_caja; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.ingreso_caja (
@@ -495,10 +450,9 @@ CREATE TABLE finanzas.ingreso_caja (
 );
 
 
-ALTER TABLE finanzas.ingreso_caja OWNER TO postgres;
 
 --
--- Name: ingreso_caja_id_ingreso_caja_seq; Type: SEQUENCE; Schema: finanzas; Owner: postgres
+-- Name: ingreso_caja_id_ingreso_caja_seq; Type: SEQUENCE; Schema: finanzas; Owner: neondb
 --
 
 CREATE SEQUENCE finanzas.ingreso_caja_id_ingreso_caja_seq
@@ -509,17 +463,16 @@ CREATE SEQUENCE finanzas.ingreso_caja_id_ingreso_caja_seq
     CACHE 1;
 
 
-ALTER SEQUENCE finanzas.ingreso_caja_id_ingreso_caja_seq OWNER TO postgres;
 
 --
--- Name: ingreso_caja_id_ingreso_caja_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: postgres
+-- Name: ingreso_caja_id_ingreso_caja_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: neondb
 --
 
 ALTER SEQUENCE finanzas.ingreso_caja_id_ingreso_caja_seq OWNED BY finanzas.ingreso_caja.id_ingreso_caja;
 
 
 --
--- Name: ingresos; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: ingresos; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.ingresos (
@@ -535,10 +488,9 @@ CREATE TABLE finanzas.ingresos (
 );
 
 
-ALTER TABLE finanzas.ingresos OWNER TO postgres;
 
 --
--- Name: ingresos_id_ingresos_seq; Type: SEQUENCE; Schema: finanzas; Owner: postgres
+-- Name: ingresos_id_ingresos_seq; Type: SEQUENCE; Schema: finanzas; Owner: neondb
 --
 
 CREATE SEQUENCE finanzas.ingresos_id_ingresos_seq
@@ -549,17 +501,16 @@ CREATE SEQUENCE finanzas.ingresos_id_ingresos_seq
     CACHE 1;
 
 
-ALTER SEQUENCE finanzas.ingresos_id_ingresos_seq OWNER TO postgres;
 
 --
--- Name: ingresos_id_ingresos_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: postgres
+-- Name: ingresos_id_ingresos_seq; Type: SEQUENCE OWNED BY; Schema: finanzas; Owner: neondb
 --
 
 ALTER SEQUENCE finanzas.ingresos_id_ingresos_seq OWNED BY finanzas.ingresos.id_ingresos;
 
 
 --
--- Name: medios; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: medios; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.medios (
@@ -568,10 +519,9 @@ CREATE TABLE finanzas.medios (
 );
 
 
-ALTER TABLE finanzas.medios OWNER TO postgres;
 
 --
--- Name: metodo_pagos; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: metodo_pagos; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.metodo_pagos (
@@ -580,10 +530,9 @@ CREATE TABLE finanzas.metodo_pagos (
 );
 
 
-ALTER TABLE finanzas.metodo_pagos OWNER TO postgres;
 
 --
--- Name: monedas; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: monedas; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.monedas (
@@ -594,10 +543,9 @@ CREATE TABLE finanzas.monedas (
 );
 
 
-ALTER TABLE finanzas.monedas OWNER TO postgres;
 
 --
--- Name: tipo_bancos; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: tipo_bancos; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.tipo_bancos (
@@ -606,10 +554,9 @@ CREATE TABLE finanzas.tipo_bancos (
 );
 
 
-ALTER TABLE finanzas.tipo_bancos OWNER TO postgres;
 
 --
--- Name: tipo_movimientos; Type: TABLE; Schema: finanzas; Owner: postgres
+-- Name: tipo_movimientos; Type: TABLE; Schema: finanzas; Owner: neondb
 --
 
 CREATE TABLE finanzas.tipo_movimientos (
@@ -618,10 +565,9 @@ CREATE TABLE finanzas.tipo_movimientos (
 );
 
 
-ALTER TABLE finanzas.tipo_movimientos OWNER TO postgres;
 
 --
--- Name: etiqueta_indicador; Type: TABLE; Schema: objetivos; Owner: postgres
+-- Name: etiqueta_indicador; Type: TABLE; Schema: objetivos; Owner: neondb
 --
 
 CREATE TABLE objetivos.etiqueta_indicador (
@@ -630,10 +576,9 @@ CREATE TABLE objetivos.etiqueta_indicador (
 );
 
 
-ALTER TABLE objetivos.etiqueta_indicador OWNER TO postgres;
 
 --
--- Name: etiquetas; Type: TABLE; Schema: objetivos; Owner: postgres
+-- Name: etiquetas; Type: TABLE; Schema: objetivos; Owner: neondb
 --
 
 CREATE TABLE objetivos.etiquetas (
@@ -643,10 +588,9 @@ CREATE TABLE objetivos.etiquetas (
 );
 
 
-ALTER TABLE objetivos.etiquetas OWNER TO postgres;
 
 --
--- Name: etiquetas_id_etiquetas_seq; Type: SEQUENCE; Schema: objetivos; Owner: postgres
+-- Name: etiquetas_id_etiquetas_seq; Type: SEQUENCE; Schema: objetivos; Owner: neondb
 --
 
 CREATE SEQUENCE objetivos.etiquetas_id_etiquetas_seq
@@ -658,17 +602,16 @@ CREATE SEQUENCE objetivos.etiquetas_id_etiquetas_seq
     CACHE 1;
 
 
-ALTER SEQUENCE objetivos.etiquetas_id_etiquetas_seq OWNER TO postgres;
 
 --
--- Name: etiquetas_id_etiquetas_seq; Type: SEQUENCE OWNED BY; Schema: objetivos; Owner: postgres
+-- Name: etiquetas_id_etiquetas_seq; Type: SEQUENCE OWNED BY; Schema: objetivos; Owner: neondb
 --
 
 ALTER SEQUENCE objetivos.etiquetas_id_etiquetas_seq OWNED BY objetivos.etiquetas.id_etiquetas;
 
 
 --
--- Name: formulas; Type: TABLE; Schema: objetivos; Owner: postgres
+-- Name: formulas; Type: TABLE; Schema: objetivos; Owner: neondb
 --
 
 CREATE TABLE objetivos.formulas (
@@ -680,10 +623,9 @@ CREATE TABLE objetivos.formulas (
 );
 
 
-ALTER TABLE objetivos.formulas OWNER TO postgres;
 
 --
--- Name: formulas_id_formulas_seq; Type: SEQUENCE; Schema: objetivos; Owner: postgres
+-- Name: formulas_id_formulas_seq; Type: SEQUENCE; Schema: objetivos; Owner: neondb
 --
 
 CREATE SEQUENCE objetivos.formulas_id_formulas_seq
@@ -695,17 +637,16 @@ CREATE SEQUENCE objetivos.formulas_id_formulas_seq
     CACHE 1;
 
 
-ALTER SEQUENCE objetivos.formulas_id_formulas_seq OWNER TO postgres;
 
 --
--- Name: formulas_id_formulas_seq; Type: SEQUENCE OWNED BY; Schema: objetivos; Owner: postgres
+-- Name: formulas_id_formulas_seq; Type: SEQUENCE OWNED BY; Schema: objetivos; Owner: neondb
 --
 
 ALTER SEQUENCE objetivos.formulas_id_formulas_seq OWNED BY objetivos.formulas.id_formulas;
 
 
 --
--- Name: iconos; Type: TABLE; Schema: objetivos; Owner: postgres
+-- Name: iconos; Type: TABLE; Schema: objetivos; Owner: neondb
 --
 
 CREATE TABLE objetivos.iconos (
@@ -715,10 +656,9 @@ CREATE TABLE objetivos.iconos (
 );
 
 
-ALTER TABLE objetivos.iconos OWNER TO postgres;
 
 --
--- Name: iconos_id_iconos_seq; Type: SEQUENCE; Schema: objetivos; Owner: postgres
+-- Name: iconos_id_iconos_seq; Type: SEQUENCE; Schema: objetivos; Owner: neondb
 --
 
 CREATE SEQUENCE objetivos.iconos_id_iconos_seq
@@ -730,17 +670,16 @@ CREATE SEQUENCE objetivos.iconos_id_iconos_seq
     CACHE 1;
 
 
-ALTER SEQUENCE objetivos.iconos_id_iconos_seq OWNER TO postgres;
 
 --
--- Name: iconos_id_iconos_seq; Type: SEQUENCE OWNED BY; Schema: objetivos; Owner: postgres
+-- Name: iconos_id_iconos_seq; Type: SEQUENCE OWNED BY; Schema: objetivos; Owner: neondb
 --
 
 ALTER SEQUENCE objetivos.iconos_id_iconos_seq OWNED BY objetivos.iconos.id_iconos;
 
 
 --
--- Name: indicadores; Type: TABLE; Schema: objetivos; Owner: postgres
+-- Name: indicadores; Type: TABLE; Schema: objetivos; Owner: neondb
 --
 
 CREATE TABLE objetivos.indicadores (
@@ -753,10 +692,9 @@ CREATE TABLE objetivos.indicadores (
 );
 
 
-ALTER TABLE objetivos.indicadores OWNER TO postgres;
 
 --
--- Name: objetivos; Type: TABLE; Schema: objetivos; Owner: postgres
+-- Name: objetivos; Type: TABLE; Schema: objetivos; Owner: neondb
 --
 
 CREATE TABLE objetivos.objetivos (
@@ -771,10 +709,9 @@ CREATE TABLE objetivos.objetivos (
 );
 
 
-ALTER TABLE objetivos.objetivos OWNER TO postgres;
 
 --
--- Name: objetivos_id_objetivos_seq; Type: SEQUENCE; Schema: objetivos; Owner: postgres
+-- Name: objetivos_id_objetivos_seq; Type: SEQUENCE; Schema: objetivos; Owner: neondb
 --
 
 CREATE SEQUENCE objetivos.objetivos_id_objetivos_seq
@@ -785,17 +722,16 @@ CREATE SEQUENCE objetivos.objetivos_id_objetivos_seq
     CACHE 1;
 
 
-ALTER SEQUENCE objetivos.objetivos_id_objetivos_seq OWNER TO postgres;
 
 --
--- Name: objetivos_id_objetivos_seq; Type: SEQUENCE OWNED BY; Schema: objetivos; Owner: postgres
+-- Name: objetivos_id_objetivos_seq; Type: SEQUENCE OWNED BY; Schema: objetivos; Owner: neondb
 --
 
 ALTER SEQUENCE objetivos.objetivos_id_objetivos_seq OWNED BY objetivos.objetivos.id_objetivos;
 
 
 --
--- Name: perspectiva_etiqueta; Type: TABLE; Schema: objetivos; Owner: postgres
+-- Name: perspectiva_etiqueta; Type: TABLE; Schema: objetivos; Owner: neondb
 --
 
 CREATE TABLE objetivos.perspectiva_etiqueta (
@@ -804,10 +740,9 @@ CREATE TABLE objetivos.perspectiva_etiqueta (
 );
 
 
-ALTER TABLE objetivos.perspectiva_etiqueta OWNER TO postgres;
 
 --
--- Name: perspectivas; Type: TABLE; Schema: objetivos; Owner: postgres
+-- Name: perspectivas; Type: TABLE; Schema: objetivos; Owner: neondb
 --
 
 CREATE TABLE objetivos.perspectivas (
@@ -818,10 +753,9 @@ CREATE TABLE objetivos.perspectivas (
 );
 
 
-ALTER TABLE objetivos.perspectivas OWNER TO postgres;
 
 --
--- Name: perspectivas_id_perspectivas_seq; Type: SEQUENCE; Schema: objetivos; Owner: postgres
+-- Name: perspectivas_id_perspectivas_seq; Type: SEQUENCE; Schema: objetivos; Owner: neondb
 --
 
 CREATE SEQUENCE objetivos.perspectivas_id_perspectivas_seq
@@ -833,17 +767,16 @@ CREATE SEQUENCE objetivos.perspectivas_id_perspectivas_seq
     CACHE 1;
 
 
-ALTER SEQUENCE objetivos.perspectivas_id_perspectivas_seq OWNER TO postgres;
 
 --
--- Name: perspectivas_id_perspectivas_seq; Type: SEQUENCE OWNED BY; Schema: objetivos; Owner: postgres
+-- Name: perspectivas_id_perspectivas_seq; Type: SEQUENCE OWNED BY; Schema: objetivos; Owner: neondb
 --
 
 ALTER SEQUENCE objetivos.perspectivas_id_perspectivas_seq OWNED BY objetivos.perspectivas.id_perspectivas;
 
 
 --
--- Name: categorias; Type: TABLE; Schema: productos; Owner: postgres
+-- Name: categorias; Type: TABLE; Schema: productos; Owner: neondb
 --
 
 CREATE TABLE productos.categorias (
@@ -852,10 +785,9 @@ CREATE TABLE productos.categorias (
 );
 
 
-ALTER TABLE productos.categorias OWNER TO postgres;
 
 --
--- Name: detalle_productos; Type: TABLE; Schema: productos; Owner: postgres
+-- Name: detalle_productos; Type: TABLE; Schema: productos; Owner: neondb
 --
 
 CREATE TABLE productos.detalle_productos (
@@ -867,10 +799,9 @@ CREATE TABLE productos.detalle_productos (
 );
 
 
-ALTER TABLE productos.detalle_productos OWNER TO postgres;
 
 --
--- Name: marcas; Type: TABLE; Schema: productos; Owner: postgres
+-- Name: marcas; Type: TABLE; Schema: productos; Owner: neondb
 --
 
 CREATE TABLE productos.marcas (
@@ -879,10 +810,9 @@ CREATE TABLE productos.marcas (
 );
 
 
-ALTER TABLE productos.marcas OWNER TO postgres;
 
 --
--- Name: presentaciones; Type: TABLE; Schema: productos; Owner: postgres
+-- Name: presentaciones; Type: TABLE; Schema: productos; Owner: neondb
 --
 
 CREATE TABLE productos.presentaciones (
@@ -893,10 +823,9 @@ CREATE TABLE productos.presentaciones (
 );
 
 
-ALTER TABLE productos.presentaciones OWNER TO postgres;
 
 --
--- Name: productos; Type: TABLE; Schema: productos; Owner: postgres
+-- Name: productos; Type: TABLE; Schema: productos; Owner: neondb
 --
 
 CREATE TABLE productos.productos (
@@ -911,10 +840,9 @@ CREATE TABLE productos.productos (
 );
 
 
-ALTER TABLE productos.productos OWNER TO postgres;
 
 --
--- Name: subcategorias; Type: TABLE; Schema: productos; Owner: postgres
+-- Name: subcategorias; Type: TABLE; Schema: productos; Owner: neondb
 --
 
 CREATE TABLE productos.subcategorias (
@@ -923,10 +851,9 @@ CREATE TABLE productos.subcategorias (
 );
 
 
-ALTER TABLE productos.subcategorias OWNER TO postgres;
 
 --
--- Name: tipo_productos; Type: TABLE; Schema: productos; Owner: postgres
+-- Name: tipo_productos; Type: TABLE; Schema: productos; Owner: neondb
 --
 
 CREATE TABLE productos.tipo_productos (
@@ -935,10 +862,9 @@ CREATE TABLE productos.tipo_productos (
 );
 
 
-ALTER TABLE productos.tipo_productos OWNER TO postgres;
 
 --
--- Name: unidades; Type: TABLE; Schema: productos; Owner: postgres
+-- Name: unidades; Type: TABLE; Schema: productos; Owner: neondb
 --
 
 CREATE TABLE productos.unidades (
@@ -947,10 +873,9 @@ CREATE TABLE productos.unidades (
 );
 
 
-ALTER TABLE productos.unidades OWNER TO postgres;
 
 --
--- Name: vw_gastos; Type: VIEW; Schema: productos; Owner: postgres
+-- Name: vw_gastos; Type: VIEW; Schema: productos; Owner: neondb
 --
 
 CREATE VIEW productos.vw_gastos AS
@@ -968,10 +893,9 @@ CREATE VIEW productos.vw_gastos AS
   WHERE (p.id_tipo_productos = 4);
 
 
-ALTER VIEW productos.vw_gastos OWNER TO postgres;
 
 --
--- Name: ciudades; Type: TABLE; Schema: public; Owner: postgres
+-- Name: ciudades; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.ciudades (
@@ -981,10 +905,9 @@ CREATE TABLE public.ciudades (
 );
 
 
-ALTER TABLE public.ciudades OWNER TO postgres;
 
 --
--- Name: estados; Type: TABLE; Schema: public; Owner: postgres
+-- Name: estados; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.estados (
@@ -993,10 +916,9 @@ CREATE TABLE public.estados (
 );
 
 
-ALTER TABLE public.estados OWNER TO postgres;
 
 --
--- Name: fechas; Type: TABLE; Schema: public; Owner: postgres
+-- Name: fechas; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.fechas (
@@ -1011,10 +933,9 @@ CREATE TABLE public.fechas (
 );
 
 
-ALTER TABLE public.fechas OWNER TO postgres;
 
 --
--- Name: horas; Type: TABLE; Schema: public; Owner: postgres
+-- Name: horas; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.horas (
@@ -1024,10 +945,9 @@ CREATE TABLE public.horas (
 );
 
 
-ALTER TABLE public.horas OWNER TO postgres;
 
 --
--- Name: permisos; Type: TABLE; Schema: public; Owner: postgres
+-- Name: permisos; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.permisos (
@@ -1040,10 +960,9 @@ CREATE TABLE public.permisos (
 );
 
 
-ALTER TABLE public.permisos OWNER TO postgres;
 
 --
--- Name: personas; Type: TABLE; Schema: public; Owner: postgres
+-- Name: personas; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.personas (
@@ -1059,10 +978,9 @@ CREATE TABLE public.personas (
 );
 
 
-ALTER TABLE public.personas OWNER TO postgres;
 
 --
--- Name: role_permiso; Type: TABLE; Schema: public; Owner: postgres
+-- Name: role_permiso; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.role_permiso (
@@ -1071,10 +989,9 @@ CREATE TABLE public.role_permiso (
 );
 
 
-ALTER TABLE public.role_permiso OWNER TO postgres;
 
 --
--- Name: roles; Type: TABLE; Schema: public; Owner: postgres
+-- Name: roles; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.roles (
@@ -1084,10 +1001,9 @@ CREATE TABLE public.roles (
 );
 
 
-ALTER TABLE public.roles OWNER TO postgres;
 
 --
--- Name: tipo_factura; Type: TABLE; Schema: public; Owner: postgres
+-- Name: tipo_factura; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.tipo_factura (
@@ -1097,10 +1013,9 @@ CREATE TABLE public.tipo_factura (
 );
 
 
-ALTER TABLE public.tipo_factura OWNER TO postgres;
 
 --
--- Name: tipo_facturas; Type: TABLE; Schema: public; Owner: postgres
+-- Name: tipo_facturas; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.tipo_facturas (
@@ -1110,10 +1025,9 @@ CREATE TABLE public.tipo_facturas (
 );
 
 
-ALTER TABLE public.tipo_facturas OWNER TO postgres;
 
 --
--- Name: usuarios; Type: TABLE; Schema: public; Owner: postgres
+-- Name: usuarios; Type: TABLE; Schema: public; Owner: neondb
 --
 
 CREATE TABLE public.usuarios (
@@ -1128,10 +1042,9 @@ CREATE TABLE public.usuarios (
 );
 
 
-ALTER TABLE public.usuarios OWNER TO postgres;
 
 --
--- Name: det_venta; Type: TABLE; Schema: ventas; Owner: postgres
+-- Name: det_venta; Type: TABLE; Schema: ventas; Owner: neondb
 --
 
 CREATE TABLE ventas.det_venta (
@@ -1149,10 +1062,9 @@ CREATE TABLE ventas.det_venta (
 );
 
 
-ALTER TABLE ventas.det_venta OWNER TO postgres;
 
 --
--- Name: det_venta_statu; Type: TABLE; Schema: ventas; Owner: postgres
+-- Name: det_venta_statu; Type: TABLE; Schema: ventas; Owner: neondb
 --
 
 CREATE TABLE ventas.det_venta_statu (
@@ -1163,10 +1075,9 @@ CREATE TABLE ventas.det_venta_statu (
 );
 
 
-ALTER TABLE ventas.det_venta_statu OWNER TO postgres;
 
 --
--- Name: status; Type: TABLE; Schema: ventas; Owner: postgres
+-- Name: status; Type: TABLE; Schema: ventas; Owner: neondb
 --
 
 CREATE TABLE ventas.status (
@@ -1175,10 +1086,9 @@ CREATE TABLE ventas.status (
 );
 
 
-ALTER TABLE ventas.status OWNER TO postgres;
 
 --
--- Name: tipo_clientes; Type: TABLE; Schema: ventas; Owner: postgres
+-- Name: tipo_clientes; Type: TABLE; Schema: ventas; Owner: neondb
 --
 
 CREATE TABLE ventas.tipo_clientes (
@@ -1187,10 +1097,9 @@ CREATE TABLE ventas.tipo_clientes (
 );
 
 
-ALTER TABLE ventas.tipo_clientes OWNER TO postgres;
 
 --
--- Name: vendedores; Type: TABLE; Schema: ventas; Owner: postgres
+-- Name: vendedores; Type: TABLE; Schema: ventas; Owner: neondb
 --
 
 CREATE TABLE ventas.vendedores (
@@ -1200,10 +1109,9 @@ CREATE TABLE ventas.vendedores (
 );
 
 
-ALTER TABLE ventas.vendedores OWNER TO postgres;
 
 --
--- Name: venta_statu; Type: TABLE; Schema: ventas; Owner: postgres
+-- Name: venta_statu; Type: TABLE; Schema: ventas; Owner: neondb
 --
 
 CREATE TABLE ventas.venta_statu (
@@ -1214,10 +1122,9 @@ CREATE TABLE ventas.venta_statu (
 );
 
 
-ALTER TABLE ventas.venta_statu OWNER TO postgres;
 
 --
--- Name: ventas; Type: TABLE; Schema: ventas; Owner: postgres
+-- Name: ventas; Type: TABLE; Schema: ventas; Owner: neondb
 --
 
 CREATE TABLE ventas.ventas (
@@ -1238,10 +1145,9 @@ CREATE TABLE ventas.ventas (
 );
 
 
-ALTER TABLE ventas.ventas OWNER TO postgres;
 
 --
--- Name: vw_ventas; Type: VIEW; Schema: ventas; Owner: postgres
+-- Name: vw_ventas; Type: VIEW; Schema: ventas; Owner: neondb
 --
 
 CREATE VIEW ventas.vw_ventas AS
@@ -1268,87 +1174,86 @@ CREATE VIEW ventas.vw_ventas AS
      JOIN ventas.det_venta dv ON ((v.id_ventas = dv.id_ventas)));
 
 
-ALTER VIEW ventas.vw_ventas OWNER TO postgres;
 
 --
--- Name: egreso_banco id_egreso_banco; Type: DEFAULT; Schema: finanzas; Owner: postgres
+-- Name: egreso_banco id_egreso_banco; Type: DEFAULT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egreso_banco ALTER COLUMN id_egreso_banco SET DEFAULT nextval('finanzas.egreso_banco_id_egreso_banco_seq'::regclass);
 
 
 --
--- Name: egreso_caja id_egreso_caja; Type: DEFAULT; Schema: finanzas; Owner: postgres
+-- Name: egreso_caja id_egreso_caja; Type: DEFAULT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egreso_caja ALTER COLUMN id_egreso_caja SET DEFAULT nextval('finanzas.egreso_caja_id_egreso_caja_seq'::regclass);
 
 
 --
--- Name: egresos id_egresos; Type: DEFAULT; Schema: finanzas; Owner: postgres
+-- Name: egresos id_egresos; Type: DEFAULT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egresos ALTER COLUMN id_egresos SET DEFAULT nextval('finanzas.egresos_id_egresos_seq'::regclass);
 
 
 --
--- Name: ingreso_banco id_ingreso_banco; Type: DEFAULT; Schema: finanzas; Owner: postgres
+-- Name: ingreso_banco id_ingreso_banco; Type: DEFAULT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingreso_banco ALTER COLUMN id_ingreso_banco SET DEFAULT nextval('finanzas.ingreso_banco_id_ingreso_banco_seq'::regclass);
 
 
 --
--- Name: ingreso_caja id_ingreso_caja; Type: DEFAULT; Schema: finanzas; Owner: postgres
+-- Name: ingreso_caja id_ingreso_caja; Type: DEFAULT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingreso_caja ALTER COLUMN id_ingreso_caja SET DEFAULT nextval('finanzas.ingreso_caja_id_ingreso_caja_seq'::regclass);
 
 
 --
--- Name: ingresos id_ingresos; Type: DEFAULT; Schema: finanzas; Owner: postgres
+-- Name: ingresos id_ingresos; Type: DEFAULT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingresos ALTER COLUMN id_ingresos SET DEFAULT nextval('finanzas.ingresos_id_ingresos_seq'::regclass);
 
 
 --
--- Name: etiquetas id_etiquetas; Type: DEFAULT; Schema: objetivos; Owner: postgres
+-- Name: etiquetas id_etiquetas; Type: DEFAULT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.etiquetas ALTER COLUMN id_etiquetas SET DEFAULT nextval('objetivos.etiquetas_id_etiquetas_seq'::regclass);
 
 
 --
--- Name: formulas id_formulas; Type: DEFAULT; Schema: objetivos; Owner: postgres
+-- Name: formulas id_formulas; Type: DEFAULT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.formulas ALTER COLUMN id_formulas SET DEFAULT nextval('objetivos.formulas_id_formulas_seq'::regclass);
 
 
 --
--- Name: iconos id_iconos; Type: DEFAULT; Schema: objetivos; Owner: postgres
+-- Name: iconos id_iconos; Type: DEFAULT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.iconos ALTER COLUMN id_iconos SET DEFAULT nextval('objetivos.iconos_id_iconos_seq'::regclass);
 
 
 --
--- Name: objetivos id_objetivos; Type: DEFAULT; Schema: objetivos; Owner: postgres
+-- Name: objetivos id_objetivos; Type: DEFAULT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.objetivos ALTER COLUMN id_objetivos SET DEFAULT nextval('objetivos.objetivos_id_objetivos_seq'::regclass);
 
 
 --
--- Name: perspectivas id_perspectivas; Type: DEFAULT; Schema: objetivos; Owner: postgres
+-- Name: perspectivas id_perspectivas; Type: DEFAULT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.perspectivas ALTER COLUMN id_perspectivas SET DEFAULT nextval('objetivos.perspectivas_id_perspectivas_seq'::regclass);
 
 
 --
--- Data for Name: depositos; Type: TABLE DATA; Schema: almacenes; Owner: postgres
+-- Data for Name: depositos; Type: TABLE DATA; Schema: almacenes; Owner: neondb
 --
 
 COPY almacenes.depositos (id_depositos, deposito) FROM stdin;
@@ -1362,7 +1267,7 @@ COPY almacenes.depositos (id_depositos, deposito) FROM stdin;
 
 
 --
--- Data for Name: movimiento_statu; Type: TABLE DATA; Schema: almacenes; Owner: postgres
+-- Data for Name: movimiento_statu; Type: TABLE DATA; Schema: almacenes; Owner: neondb
 --
 
 COPY almacenes.movimiento_statu (id_salidas, id_status, id_fechas, id_horas) FROM stdin;
@@ -1370,7 +1275,7 @@ COPY almacenes.movimiento_statu (id_salidas, id_status, id_fechas, id_horas) FRO
 
 
 --
--- Data for Name: movimientos; Type: TABLE DATA; Schema: almacenes; Owner: postgres
+-- Data for Name: movimientos; Type: TABLE DATA; Schema: almacenes; Owner: neondb
 --
 
 COPY almacenes.movimientos (id_movimientos, id_productos, cantidad, id_depositos, id_tipo_movimientos, fecha, entrada) FROM stdin;
@@ -1378,7 +1283,7 @@ COPY almacenes.movimientos (id_movimientos, id_productos, cantidad, id_depositos
 
 
 --
--- Data for Name: reservas; Type: TABLE DATA; Schema: almacenes; Owner: postgres
+-- Data for Name: reservas; Type: TABLE DATA; Schema: almacenes; Owner: neondb
 --
 
 COPY almacenes.reservas (id_reservas, id_productos, id_depositos, cantidad, fecha) FROM stdin;
@@ -1386,7 +1291,7 @@ COPY almacenes.reservas (id_reservas, id_productos, id_depositos, cantidad, fech
 
 
 --
--- Data for Name: status; Type: TABLE DATA; Schema: almacenes; Owner: postgres
+-- Data for Name: status; Type: TABLE DATA; Schema: almacenes; Owner: neondb
 --
 
 COPY almacenes.status (id_status, statu) FROM stdin;
@@ -1397,7 +1302,7 @@ COPY almacenes.status (id_status, statu) FROM stdin;
 
 
 --
--- Data for Name: tipo_movimientos; Type: TABLE DATA; Schema: almacenes; Owner: postgres
+-- Data for Name: tipo_movimientos; Type: TABLE DATA; Schema: almacenes; Owner: neondb
 --
 
 COPY almacenes.tipo_movimientos (id_tipo_movimientos, tipo) FROM stdin;
@@ -1417,7 +1322,7 @@ COPY almacenes.tipo_movimientos (id_tipo_movimientos, tipo) FROM stdin;
 
 
 --
--- Data for Name: compras; Type: TABLE DATA; Schema: compras; Owner: postgres
+-- Data for Name: compras; Type: TABLE DATA; Schema: compras; Owner: neondb
 --
 
 COPY compras.compras (id_compras, id_proveedores, num_factura, id_tipo_facturas, id_fechas, id_horas, num_control, fecha, anulado, id_ordenes_compras, descuento, tasa) FROM stdin;
@@ -1461,7 +1366,7 @@ COPY compras.compras (id_compras, id_proveedores, num_factura, id_tipo_facturas,
 
 
 --
--- Data for Name: det_compra; Type: TABLE DATA; Schema: compras; Owner: postgres
+-- Data for Name: det_compra; Type: TABLE DATA; Schema: compras; Owner: neondb
 --
 
 COPY compras.det_compra (id_det_compra, id_productos, costo, cantidad, descuento, id_compras, id_depositos, id_presentaciones, anulado) FROM stdin;
@@ -1504,7 +1409,7 @@ COPY compras.det_compra (id_det_compra, id_productos, costo, cantidad, descuento
 
 
 --
--- Data for Name: det_compra_statu; Type: TABLE DATA; Schema: compras; Owner: postgres
+-- Data for Name: det_compra_statu; Type: TABLE DATA; Schema: compras; Owner: neondb
 --
 
 COPY compras.det_compra_statu (id_det_compra, id_status, id_fechas, id_horas) FROM stdin;
@@ -1512,7 +1417,7 @@ COPY compras.det_compra_statu (id_det_compra, id_status, id_fechas, id_horas) FR
 
 
 --
--- Data for Name: det_orden_compra; Type: TABLE DATA; Schema: compras; Owner: postgres
+-- Data for Name: det_orden_compra; Type: TABLE DATA; Schema: compras; Owner: neondb
 --
 
 COPY compras.det_orden_compra (id_det_orden_compra, id_depositos, id_productos, descuento, costo, id_ordenes_compras, cantidad) FROM stdin;
@@ -1525,7 +1430,7 @@ COPY compras.det_orden_compra (id_det_orden_compra, id_depositos, id_productos, 
 
 
 --
--- Data for Name: ordenes_compras; Type: TABLE DATA; Schema: compras; Owner: postgres
+-- Data for Name: ordenes_compras; Type: TABLE DATA; Schema: compras; Owner: neondb
 --
 
 COPY compras.ordenes_compras (id_ordenes_compras, id_proveedores, fecha, descuento, tasa) FROM stdin;
@@ -1537,7 +1442,7 @@ COPY compras.ordenes_compras (id_ordenes_compras, id_proveedores, fecha, descuen
 
 
 --
--- Data for Name: proveedores; Type: TABLE DATA; Schema: compras; Owner: postgres
+-- Data for Name: proveedores; Type: TABLE DATA; Schema: compras; Owner: neondb
 --
 
 COPY compras.proveedores (id_proveedores, proveedor, id_tipo_proveedores) FROM stdin;
@@ -1554,7 +1459,7 @@ COPY compras.proveedores (id_proveedores, proveedor, id_tipo_proveedores) FROM s
 
 
 --
--- Data for Name: status; Type: TABLE DATA; Schema: compras; Owner: postgres
+-- Data for Name: status; Type: TABLE DATA; Schema: compras; Owner: neondb
 --
 
 COPY compras.status (id_status, statu) FROM stdin;
@@ -1564,7 +1469,7 @@ COPY compras.status (id_status, statu) FROM stdin;
 
 
 --
--- Data for Name: tipo_proveedores; Type: TABLE DATA; Schema: compras; Owner: postgres
+-- Data for Name: tipo_proveedores; Type: TABLE DATA; Schema: compras; Owner: neondb
 --
 
 COPY compras.tipo_proveedores (id_tipo_proveedores, tipo) FROM stdin;
@@ -1576,7 +1481,7 @@ COPY compras.tipo_proveedores (id_tipo_proveedores, tipo) FROM stdin;
 
 
 --
--- Data for Name: bancos; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: bancos; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.bancos (id_bancos, cuenta, id_tipo_bancos) FROM stdin;
@@ -1584,7 +1489,7 @@ COPY finanzas.bancos (id_bancos, cuenta, id_tipo_bancos) FROM stdin;
 
 
 --
--- Data for Name: cajas; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: cajas; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.cajas (id_cajas, caja) FROM stdin;
@@ -1602,7 +1507,7 @@ COPY finanzas.cajas (id_cajas, caja) FROM stdin;
 
 
 --
--- Data for Name: egreso_banco; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: egreso_banco; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.egreso_banco (id_egresos, id_tipo_bancos, id_bancos, id_egreso_banco) FROM stdin;
@@ -1610,7 +1515,7 @@ COPY finanzas.egreso_banco (id_egresos, id_tipo_bancos, id_bancos, id_egreso_ban
 
 
 --
--- Data for Name: egreso_caja; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: egreso_caja; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.egreso_caja (id_egresos, id_cajas, id_egreso_caja) FROM stdin;
@@ -1618,7 +1523,7 @@ COPY finanzas.egreso_caja (id_egresos, id_cajas, id_egreso_caja) FROM stdin;
 
 
 --
--- Data for Name: egresos; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: egresos; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.egresos (id_mov_egresos, monto, fecha, id_tipo_movimientos, id_monedas, id_metodo_pagos, id_medios, monto_dolar, id_egresos) FROM stdin;
@@ -1626,7 +1531,7 @@ COPY finanzas.egresos (id_mov_egresos, monto, fecha, id_tipo_movimientos, id_mon
 
 
 --
--- Data for Name: ingreso_banco; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: ingreso_banco; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.ingreso_banco (id_ingresos, id_tipo_bancos, id_bancos, id_ingreso_banco) FROM stdin;
@@ -1634,7 +1539,7 @@ COPY finanzas.ingreso_banco (id_ingresos, id_tipo_bancos, id_bancos, id_ingreso_
 
 
 --
--- Data for Name: ingreso_caja; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: ingreso_caja; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.ingreso_caja (id_ingresos, id_cajas, id_ingreso_caja) FROM stdin;
@@ -1642,7 +1547,7 @@ COPY finanzas.ingreso_caja (id_ingresos, id_cajas, id_ingreso_caja) FROM stdin;
 
 
 --
--- Data for Name: ingresos; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: ingresos; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.ingresos (id_mov_ingresos, monto, fecha, id_tipo_movimientos, id_monedas, id_metodo_pagos, monto_dolar, id_medios, id_ingresos) FROM stdin;
@@ -1650,7 +1555,7 @@ COPY finanzas.ingresos (id_mov_ingresos, monto, fecha, id_tipo_movimientos, id_m
 
 
 --
--- Data for Name: medios; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: medios; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.medios (id_medios, medio) FROM stdin;
@@ -1660,7 +1565,7 @@ COPY finanzas.medios (id_medios, medio) FROM stdin;
 
 
 --
--- Data for Name: metodo_pagos; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: metodo_pagos; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.metodo_pagos (id_metodo_pagos, metodo) FROM stdin;
@@ -1682,7 +1587,7 @@ COPY finanzas.metodo_pagos (id_metodo_pagos, metodo) FROM stdin;
 
 
 --
--- Data for Name: monedas; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: monedas; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.monedas (id_monedas, simbolo, moneda, descripcion) FROM stdin;
@@ -1693,7 +1598,7 @@ COPY finanzas.monedas (id_monedas, simbolo, moneda, descripcion) FROM stdin;
 
 
 --
--- Data for Name: tipo_bancos; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: tipo_bancos; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.tipo_bancos (id_tipo_bancos, tipo) FROM stdin;
@@ -1701,7 +1606,7 @@ COPY finanzas.tipo_bancos (id_tipo_bancos, tipo) FROM stdin;
 
 
 --
--- Data for Name: tipo_movimientos; Type: TABLE DATA; Schema: finanzas; Owner: postgres
+-- Data for Name: tipo_movimientos; Type: TABLE DATA; Schema: finanzas; Owner: neondb
 --
 
 COPY finanzas.tipo_movimientos (id_tipo_movimientos, tipo) FROM stdin;
@@ -1716,7 +1621,7 @@ COPY finanzas.tipo_movimientos (id_tipo_movimientos, tipo) FROM stdin;
 
 
 --
--- Data for Name: etiqueta_indicador; Type: TABLE DATA; Schema: objetivos; Owner: postgres
+-- Data for Name: etiqueta_indicador; Type: TABLE DATA; Schema: objetivos; Owner: neondb
 --
 
 COPY objetivos.etiqueta_indicador (id_etiquetas, id_indicadores) FROM stdin;
@@ -1729,7 +1634,7 @@ COPY objetivos.etiqueta_indicador (id_etiquetas, id_indicadores) FROM stdin;
 
 
 --
--- Data for Name: etiquetas; Type: TABLE DATA; Schema: objetivos; Owner: postgres
+-- Data for Name: etiquetas; Type: TABLE DATA; Schema: objetivos; Owner: neondb
 --
 
 COPY objetivos.etiquetas (id_etiquetas, etiqueta, visible) FROM stdin;
@@ -1740,7 +1645,7 @@ COPY objetivos.etiquetas (id_etiquetas, etiqueta, visible) FROM stdin;
 
 
 --
--- Data for Name: formulas; Type: TABLE DATA; Schema: objetivos; Owner: postgres
+-- Data for Name: formulas; Type: TABLE DATA; Schema: objetivos; Owner: neondb
 --
 
 COPY objetivos.formulas (id_formulas, formula, titulo, visible, id_etiquetas) FROM stdin;
@@ -1774,7 +1679,7 @@ COPY objetivos.formulas (id_formulas, formula, titulo, visible, id_etiquetas) FR
 
 
 --
--- Data for Name: iconos; Type: TABLE DATA; Schema: objetivos; Owner: postgres
+-- Data for Name: iconos; Type: TABLE DATA; Schema: objetivos; Owner: neondb
 --
 
 COPY objetivos.iconos (id_iconos, icono, visible) FROM stdin;
@@ -2067,7 +1972,7 @@ COPY objetivos.iconos (id_iconos, icono, visible) FROM stdin;
 
 
 --
--- Data for Name: indicadores; Type: TABLE DATA; Schema: objetivos; Owner: postgres
+-- Data for Name: indicadores; Type: TABLE DATA; Schema: objetivos; Owner: neondb
 --
 
 COPY objetivos.indicadores (id_indicadores, indicador, consulta, visible, descripcion, filtro) FROM stdin;
@@ -2090,7 +1995,7 @@ COPY objetivos.indicadores (id_indicadores, indicador, consulta, visible, descri
 
 
 --
--- Data for Name: objetivos; Type: TABLE DATA; Schema: objetivos; Owner: postgres
+-- Data for Name: objetivos; Type: TABLE DATA; Schema: objetivos; Owner: neondb
 --
 
 COPY objetivos.objetivos (id_objetivos, titulo, optimo, tolerable, deficiente, fecha_inicio, fecha_final, id_formulas) FROM stdin;
@@ -2116,7 +2021,7 @@ COPY objetivos.objetivos (id_objetivos, titulo, optimo, tolerable, deficiente, f
 
 
 --
--- Data for Name: perspectiva_etiqueta; Type: TABLE DATA; Schema: objetivos; Owner: postgres
+-- Data for Name: perspectiva_etiqueta; Type: TABLE DATA; Schema: objetivos; Owner: neondb
 --
 
 COPY objetivos.perspectiva_etiqueta (id_perspectivas, id_etiquetas) FROM stdin;
@@ -2136,7 +2041,7 @@ COPY objetivos.perspectiva_etiqueta (id_perspectivas, id_etiquetas) FROM stdin;
 
 
 --
--- Data for Name: perspectivas; Type: TABLE DATA; Schema: objetivos; Owner: postgres
+-- Data for Name: perspectivas; Type: TABLE DATA; Schema: objetivos; Owner: neondb
 --
 
 COPY objetivos.perspectivas (perspectiva, id_iconos, visible, id_perspectivas) FROM stdin;
@@ -2151,7 +2056,7 @@ Almacenes	284	t	8
 
 
 --
--- Data for Name: categorias; Type: TABLE DATA; Schema: productos; Owner: postgres
+-- Data for Name: categorias; Type: TABLE DATA; Schema: productos; Owner: neondb
 --
 
 COPY productos.categorias (id_categorias, categoria) FROM stdin;
@@ -2186,7 +2091,7 @@ COPY productos.categorias (id_categorias, categoria) FROM stdin;
 
 
 --
--- Data for Name: detalle_productos; Type: TABLE DATA; Schema: productos; Owner: postgres
+-- Data for Name: detalle_productos; Type: TABLE DATA; Schema: productos; Owner: neondb
 --
 
 COPY productos.detalle_productos (id_detalle_productos, id_productos, id_ingredientes, cantidad, id_unidades) FROM stdin;
@@ -2217,7 +2122,7 @@ COPY productos.detalle_productos (id_detalle_productos, id_productos, id_ingredi
 
 
 --
--- Data for Name: marcas; Type: TABLE DATA; Schema: productos; Owner: postgres
+-- Data for Name: marcas; Type: TABLE DATA; Schema: productos; Owner: neondb
 --
 
 COPY productos.marcas (id_marcas, marca) FROM stdin;
@@ -2236,7 +2141,7 @@ COPY productos.marcas (id_marcas, marca) FROM stdin;
 
 
 --
--- Data for Name: presentaciones; Type: TABLE DATA; Schema: productos; Owner: postgres
+-- Data for Name: presentaciones; Type: TABLE DATA; Schema: productos; Owner: neondb
 --
 
 COPY productos.presentaciones (id_presentaciones, presentacion, id_productos, modificador) FROM stdin;
@@ -2250,7 +2155,7 @@ COPY productos.presentaciones (id_presentaciones, presentacion, id_productos, mo
 
 
 --
--- Data for Name: productos; Type: TABLE DATA; Schema: productos; Owner: postgres
+-- Data for Name: productos; Type: TABLE DATA; Schema: productos; Owner: neondb
 --
 
 COPY productos.productos (id_productos, titulo, codigo, id_marcas, id_categorias, id_subcategorias, id_unidades, id_tipo_productos) FROM stdin;
@@ -2342,7 +2247,7 @@ COPY productos.productos (id_productos, titulo, codigo, id_marcas, id_categorias
 
 
 --
--- Data for Name: subcategorias; Type: TABLE DATA; Schema: productos; Owner: postgres
+-- Data for Name: subcategorias; Type: TABLE DATA; Schema: productos; Owner: neondb
 --
 
 COPY productos.subcategorias (id_subcategorias, subcategoria) FROM stdin;
@@ -2372,7 +2277,7 @@ COPY productos.subcategorias (id_subcategorias, subcategoria) FROM stdin;
 
 
 --
--- Data for Name: tipo_productos; Type: TABLE DATA; Schema: productos; Owner: postgres
+-- Data for Name: tipo_productos; Type: TABLE DATA; Schema: productos; Owner: neondb
 --
 
 COPY productos.tipo_productos (id_tipo_productos, tipo) FROM stdin;
@@ -2386,7 +2291,7 @@ COPY productos.tipo_productos (id_tipo_productos, tipo) FROM stdin;
 
 
 --
--- Data for Name: unidades; Type: TABLE DATA; Schema: productos; Owner: postgres
+-- Data for Name: unidades; Type: TABLE DATA; Schema: productos; Owner: neondb
 --
 
 COPY productos.unidades (id_unidades, unidad) FROM stdin;
@@ -2403,7 +2308,7 @@ COPY productos.unidades (id_unidades, unidad) FROM stdin;
 
 
 --
--- Data for Name: ciudades; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: ciudades; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.ciudades (id_ciudades, ciudad, id_estados) FROM stdin;
@@ -2909,7 +2814,7 @@ COPY public.ciudades (id_ciudades, ciudad, id_estados) FROM stdin;
 
 
 --
--- Data for Name: estados; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: estados; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.estados (id_estados, estado) FROM stdin;
@@ -2942,7 +2847,7 @@ COPY public.estados (id_estados, estado) FROM stdin;
 
 
 --
--- Data for Name: fechas; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: fechas; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.fechas (id_fechas, dia, mes, trimestre, cuatrimestre, semestre, "año", semana) FROM stdin;
@@ -5142,7 +5047,7 @@ COPY public.fechas (id_fechas, dia, mes, trimestre, cuatrimestre, semestre, "añ
 
 
 --
--- Data for Name: horas; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: horas; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.horas (id_horas, hora, minutos) FROM stdin;
@@ -6590,7 +6495,7 @@ COPY public.horas (id_horas, hora, minutos) FROM stdin;
 
 
 --
--- Data for Name: permisos; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: permisos; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.permisos (id_permisos, activo, controlador, accion, recurso, modulo) FROM stdin;
@@ -6599,7 +6504,7 @@ COPY public.permisos (id_permisos, activo, controlador, accion, recurso, modulo)
 
 
 --
--- Data for Name: personas; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: personas; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.personas (id_personas, nombre, cedula, correo, telefono, id_ciudades, nombre_comercial, fecha_nacimiento, direccion) FROM stdin;
@@ -6633,7 +6538,7 @@ COPY public.personas (id_personas, nombre, cedula, correo, telefono, id_ciudades
 
 
 --
--- Data for Name: role_permiso; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: role_permiso; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.role_permiso (id_roles, id_permisos) FROM stdin;
@@ -6642,7 +6547,7 @@ COPY public.role_permiso (id_roles, id_permisos) FROM stdin;
 
 
 --
--- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.roles (rol, acceso, id_roles) FROM stdin;
@@ -6663,7 +6568,7 @@ cliente	t	18
 
 
 --
--- Data for Name: tipo_factura; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: tipo_factura; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.tipo_factura (id_tipo_facturas, inicial, tipo) FROM stdin;
@@ -6716,7 +6621,7 @@ COPY public.tipo_factura (id_tipo_facturas, inicial, tipo) FROM stdin;
 
 
 --
--- Data for Name: tipo_facturas; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: tipo_facturas; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.tipo_facturas (id_tipo_facturas, tipo, inicial) FROM stdin;
@@ -6733,7 +6638,7 @@ COPY public.tipo_facturas (id_tipo_facturas, tipo, inicial) FROM stdin;
 
 
 --
--- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: neondb
 --
 
 COPY public.usuarios (id_usuarios, nombre_usuario, "contraseña", correo, nombre, apellido, acceso, id_roles) FROM stdin;
@@ -6748,7 +6653,7 @@ COPY public.usuarios (id_usuarios, nombre_usuario, "contraseña", correo, nombre
 
 
 --
--- Data for Name: det_venta; Type: TABLE DATA; Schema: ventas; Owner: postgres
+-- Data for Name: det_venta; Type: TABLE DATA; Schema: ventas; Owner: neondb
 --
 
 COPY ventas.det_venta (id_det_venta, id_productos, id_depositos, precio, cantidad, id_ventas, descuento, id_presentaciones, id_empleados, anulado, devuelto) FROM stdin;
@@ -6920,7 +6825,7 @@ COPY ventas.det_venta (id_det_venta, id_productos, id_depositos, precio, cantida
 
 
 --
--- Data for Name: det_venta_statu; Type: TABLE DATA; Schema: ventas; Owner: postgres
+-- Data for Name: det_venta_statu; Type: TABLE DATA; Schema: ventas; Owner: neondb
 --
 
 COPY ventas.det_venta_statu (id_det_venta, id_status, id_fechas, id_horas) FROM stdin;
@@ -6928,7 +6833,7 @@ COPY ventas.det_venta_statu (id_det_venta, id_status, id_fechas, id_horas) FROM 
 
 
 --
--- Data for Name: status; Type: TABLE DATA; Schema: ventas; Owner: postgres
+-- Data for Name: status; Type: TABLE DATA; Schema: ventas; Owner: neondb
 --
 
 COPY ventas.status (id_status, statu) FROM stdin;
@@ -6936,7 +6841,7 @@ COPY ventas.status (id_status, statu) FROM stdin;
 
 
 --
--- Data for Name: tipo_clientes; Type: TABLE DATA; Schema: ventas; Owner: postgres
+-- Data for Name: tipo_clientes; Type: TABLE DATA; Schema: ventas; Owner: neondb
 --
 
 COPY ventas.tipo_clientes (id_tipo_clientes, tipo) FROM stdin;
@@ -7003,7 +6908,7 @@ COPY ventas.tipo_clientes (id_tipo_clientes, tipo) FROM stdin;
 
 
 --
--- Data for Name: vendedores; Type: TABLE DATA; Schema: ventas; Owner: postgres
+-- Data for Name: vendedores; Type: TABLE DATA; Schema: ventas; Owner: neondb
 --
 
 COPY ventas.vendedores (id_vendedores, nombre, porcentaje) FROM stdin;
@@ -7015,7 +6920,7 @@ COPY ventas.vendedores (id_vendedores, nombre, porcentaje) FROM stdin;
 
 
 --
--- Data for Name: venta_statu; Type: TABLE DATA; Schema: ventas; Owner: postgres
+-- Data for Name: venta_statu; Type: TABLE DATA; Schema: ventas; Owner: neondb
 --
 
 COPY ventas.venta_statu (id_ventas, id_status, id_fechas, id_horas) FROM stdin;
@@ -7023,7 +6928,7 @@ COPY ventas.venta_statu (id_ventas, id_status, id_fechas, id_horas) FROM stdin;
 
 
 --
--- Data for Name: ventas; Type: TABLE DATA; Schema: ventas; Owner: postgres
+-- Data for Name: ventas; Type: TABLE DATA; Schema: ventas; Owner: neondb
 --
 
 COPY ventas.ventas (id_ventas, id_personas, id_cajas, id_vendedores, descuento, id_tipo_facturas, num_factura, num_control, id_ciudades, tasa, id_tipo_clientes, id_estados, anulado, fecha) FROM stdin;
@@ -7161,84 +7066,84 @@ COPY ventas.ventas (id_ventas, id_personas, id_cajas, id_vendedores, descuento, 
 
 
 --
--- Name: egreso_banco_id_egreso_banco_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: postgres
+-- Name: egreso_banco_id_egreso_banco_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: neondb
 --
 
 SELECT pg_catalog.setval('finanzas.egreso_banco_id_egreso_banco_seq', 138, true);
 
 
 --
--- Name: egreso_caja_id_egreso_caja_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: postgres
+-- Name: egreso_caja_id_egreso_caja_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: neondb
 --
 
 SELECT pg_catalog.setval('finanzas.egreso_caja_id_egreso_caja_seq', 456, true);
 
 
 --
--- Name: egresos_id_egresos_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: postgres
+-- Name: egresos_id_egresos_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: neondb
 --
 
 SELECT pg_catalog.setval('finanzas.egresos_id_egresos_seq', 146, true);
 
 
 --
--- Name: ingreso_banco_id_ingreso_banco_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: postgres
+-- Name: ingreso_banco_id_ingreso_banco_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: neondb
 --
 
 SELECT pg_catalog.setval('finanzas.ingreso_banco_id_ingreso_banco_seq', 9, true);
 
 
 --
--- Name: ingreso_caja_id_ingreso_caja_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: postgres
+-- Name: ingreso_caja_id_ingreso_caja_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: neondb
 --
 
 SELECT pg_catalog.setval('finanzas.ingreso_caja_id_ingreso_caja_seq', 33, true);
 
 
 --
--- Name: ingresos_id_ingresos_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: postgres
+-- Name: ingresos_id_ingresos_seq; Type: SEQUENCE SET; Schema: finanzas; Owner: neondb
 --
 
 SELECT pg_catalog.setval('finanzas.ingresos_id_ingresos_seq', 18, true);
 
 
 --
--- Name: etiquetas_id_etiquetas_seq; Type: SEQUENCE SET; Schema: objetivos; Owner: postgres
+-- Name: etiquetas_id_etiquetas_seq; Type: SEQUENCE SET; Schema: objetivos; Owner: neondb
 --
 
 SELECT pg_catalog.setval('objetivos.etiquetas_id_etiquetas_seq', 6, true);
 
 
 --
--- Name: formulas_id_formulas_seq; Type: SEQUENCE SET; Schema: objetivos; Owner: postgres
+-- Name: formulas_id_formulas_seq; Type: SEQUENCE SET; Schema: objetivos; Owner: neondb
 --
 
 SELECT pg_catalog.setval('objetivos.formulas_id_formulas_seq', 29, true);
 
 
 --
--- Name: iconos_id_iconos_seq; Type: SEQUENCE SET; Schema: objetivos; Owner: postgres
+-- Name: iconos_id_iconos_seq; Type: SEQUENCE SET; Schema: objetivos; Owner: neondb
 --
 
 SELECT pg_catalog.setval('objetivos.iconos_id_iconos_seq', 285, true);
 
 
 --
--- Name: objetivos_id_objetivos_seq; Type: SEQUENCE SET; Schema: objetivos; Owner: postgres
+-- Name: objetivos_id_objetivos_seq; Type: SEQUENCE SET; Schema: objetivos; Owner: neondb
 --
 
 SELECT pg_catalog.setval('objetivos.objetivos_id_objetivos_seq', 37, true);
 
 
 --
--- Name: perspectivas_id_perspectivas_seq; Type: SEQUENCE SET; Schema: objetivos; Owner: postgres
+-- Name: perspectivas_id_perspectivas_seq; Type: SEQUENCE SET; Schema: objetivos; Owner: neondb
 --
 
 SELECT pg_catalog.setval('objetivos.perspectivas_id_perspectivas_seq', 11, true);
 
 
 --
--- Name: depositos depositos_pk; Type: CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: depositos depositos_pk; Type: CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.depositos
@@ -7246,7 +7151,7 @@ ALTER TABLE ONLY almacenes.depositos
 
 
 --
--- Name: movimientos movimientos_pk; Type: CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: movimientos movimientos_pk; Type: CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.movimientos
@@ -7254,7 +7159,7 @@ ALTER TABLE ONLY almacenes.movimientos
 
 
 --
--- Name: reservas reservas_pk; Type: CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: reservas reservas_pk; Type: CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.reservas
@@ -7262,7 +7167,7 @@ ALTER TABLE ONLY almacenes.reservas
 
 
 --
--- Name: movimiento_statu salida_statu_unique; Type: CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: movimiento_statu salida_statu_unique; Type: CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.movimiento_statu
@@ -7270,7 +7175,7 @@ ALTER TABLE ONLY almacenes.movimiento_statu
 
 
 --
--- Name: status status_pk; Type: CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: status status_pk; Type: CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.status
@@ -7278,7 +7183,7 @@ ALTER TABLE ONLY almacenes.status
 
 
 --
--- Name: tipo_movimientos tipo_salidas_pk; Type: CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: tipo_movimientos tipo_salidas_pk; Type: CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.tipo_movimientos
@@ -7286,7 +7191,7 @@ ALTER TABLE ONLY almacenes.tipo_movimientos
 
 
 --
--- Name: compras compras_pk; Type: CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: compras compras_pk; Type: CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.compras
@@ -7294,7 +7199,7 @@ ALTER TABLE ONLY compras.compras
 
 
 --
--- Name: det_compra det_compras_pk; Type: CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_compra det_compras_pk; Type: CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_compra
@@ -7302,7 +7207,7 @@ ALTER TABLE ONLY compras.det_compra
 
 
 --
--- Name: det_orden_compra det_orden_compra_pk; Type: CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_orden_compra det_orden_compra_pk; Type: CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_orden_compra
@@ -7310,7 +7215,7 @@ ALTER TABLE ONLY compras.det_orden_compra
 
 
 --
--- Name: ordenes_compras ordenes_compras_pk; Type: CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: ordenes_compras ordenes_compras_pk; Type: CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.ordenes_compras
@@ -7318,7 +7223,7 @@ ALTER TABLE ONLY compras.ordenes_compras
 
 
 --
--- Name: proveedores proveedores_pk; Type: CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: proveedores proveedores_pk; Type: CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.proveedores
@@ -7326,7 +7231,7 @@ ALTER TABLE ONLY compras.proveedores
 
 
 --
--- Name: status statu_pk; Type: CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: status statu_pk; Type: CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.status
@@ -7334,7 +7239,7 @@ ALTER TABLE ONLY compras.status
 
 
 --
--- Name: tipo_proveedores tipo_proveedores_pk; Type: CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: tipo_proveedores tipo_proveedores_pk; Type: CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.tipo_proveedores
@@ -7342,7 +7247,7 @@ ALTER TABLE ONLY compras.tipo_proveedores
 
 
 --
--- Name: tipo_proveedores tipo_proveedores_unique; Type: CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: tipo_proveedores tipo_proveedores_unique; Type: CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.tipo_proveedores
@@ -7350,7 +7255,7 @@ ALTER TABLE ONLY compras.tipo_proveedores
 
 
 --
--- Name: bancos bancos_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: bancos bancos_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.bancos
@@ -7358,7 +7263,7 @@ ALTER TABLE ONLY finanzas.bancos
 
 
 --
--- Name: cajas cajas_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: cajas cajas_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.cajas
@@ -7366,7 +7271,7 @@ ALTER TABLE ONLY finanzas.cajas
 
 
 --
--- Name: egreso_banco egreso_banco_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egreso_banco egreso_banco_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egreso_banco
@@ -7374,7 +7279,7 @@ ALTER TABLE ONLY finanzas.egreso_banco
 
 
 --
--- Name: egreso_caja egreso_caja_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egreso_caja egreso_caja_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egreso_caja
@@ -7382,7 +7287,7 @@ ALTER TABLE ONLY finanzas.egreso_caja
 
 
 --
--- Name: egresos egresos_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egresos egresos_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egresos
@@ -7390,7 +7295,7 @@ ALTER TABLE ONLY finanzas.egresos
 
 
 --
--- Name: egresos egresos_unique; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egresos egresos_unique; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egresos
@@ -7398,7 +7303,7 @@ ALTER TABLE ONLY finanzas.egresos
 
 
 --
--- Name: ingreso_banco ingreso_banco_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingreso_banco ingreso_banco_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingreso_banco
@@ -7406,7 +7311,7 @@ ALTER TABLE ONLY finanzas.ingreso_banco
 
 
 --
--- Name: ingreso_caja ingreso_caja_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingreso_caja ingreso_caja_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingreso_caja
@@ -7414,7 +7319,7 @@ ALTER TABLE ONLY finanzas.ingreso_caja
 
 
 --
--- Name: ingresos ingresos_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingresos ingresos_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingresos
@@ -7422,7 +7327,7 @@ ALTER TABLE ONLY finanzas.ingresos
 
 
 --
--- Name: ingresos ingresos_unique; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingresos ingresos_unique; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingresos
@@ -7430,7 +7335,7 @@ ALTER TABLE ONLY finanzas.ingresos
 
 
 --
--- Name: medios medios_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: medios medios_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.medios
@@ -7438,7 +7343,7 @@ ALTER TABLE ONLY finanzas.medios
 
 
 --
--- Name: metodo_pagos metodo_pagos_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: metodo_pagos metodo_pagos_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.metodo_pagos
@@ -7446,7 +7351,7 @@ ALTER TABLE ONLY finanzas.metodo_pagos
 
 
 --
--- Name: monedas monedas_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: monedas monedas_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.monedas
@@ -7454,7 +7359,7 @@ ALTER TABLE ONLY finanzas.monedas
 
 
 --
--- Name: tipo_bancos tipo_bancos_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: tipo_bancos tipo_bancos_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.tipo_bancos
@@ -7462,7 +7367,7 @@ ALTER TABLE ONLY finanzas.tipo_bancos
 
 
 --
--- Name: tipo_movimientos tipo_entradas_cajas_pk; Type: CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: tipo_movimientos tipo_entradas_cajas_pk; Type: CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.tipo_movimientos
@@ -7470,7 +7375,7 @@ ALTER TABLE ONLY finanzas.tipo_movimientos
 
 
 --
--- Name: etiqueta_indicador etiqueta_indicador_unique; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: etiqueta_indicador etiqueta_indicador_unique; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.etiqueta_indicador
@@ -7478,7 +7383,7 @@ ALTER TABLE ONLY objetivos.etiqueta_indicador
 
 
 --
--- Name: etiquetas etiquetas_pk; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: etiquetas etiquetas_pk; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.etiquetas
@@ -7486,7 +7391,7 @@ ALTER TABLE ONLY objetivos.etiquetas
 
 
 --
--- Name: etiquetas etiquetas_unique; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: etiquetas etiquetas_unique; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.etiquetas
@@ -7494,7 +7399,7 @@ ALTER TABLE ONLY objetivos.etiquetas
 
 
 --
--- Name: formulas formulas_pk; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: formulas formulas_pk; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.formulas
@@ -7502,7 +7407,7 @@ ALTER TABLE ONLY objetivos.formulas
 
 
 --
--- Name: iconos iconos_pk; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: iconos iconos_pk; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.iconos
@@ -7510,7 +7415,7 @@ ALTER TABLE ONLY objetivos.iconos
 
 
 --
--- Name: iconos iconos_unique; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: iconos iconos_unique; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.iconos
@@ -7518,7 +7423,7 @@ ALTER TABLE ONLY objetivos.iconos
 
 
 --
--- Name: indicadores indicadores_pk; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: indicadores indicadores_pk; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.indicadores
@@ -7526,7 +7431,7 @@ ALTER TABLE ONLY objetivos.indicadores
 
 
 --
--- Name: objetivos objetivos_pkey; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: objetivos objetivos_pkey; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.objetivos
@@ -7534,7 +7439,7 @@ ALTER TABLE ONLY objetivos.objetivos
 
 
 --
--- Name: perspectiva_etiqueta perspectiva_etiqueta_unique; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: perspectiva_etiqueta perspectiva_etiqueta_unique; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.perspectiva_etiqueta
@@ -7542,7 +7447,7 @@ ALTER TABLE ONLY objetivos.perspectiva_etiqueta
 
 
 --
--- Name: perspectivas perspectivas_pk; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: perspectivas perspectivas_pk; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.perspectivas
@@ -7550,7 +7455,7 @@ ALTER TABLE ONLY objetivos.perspectivas
 
 
 --
--- Name: perspectivas perspectivas_unique; Type: CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: perspectivas perspectivas_unique; Type: CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.perspectivas
@@ -7558,7 +7463,7 @@ ALTER TABLE ONLY objetivos.perspectivas
 
 
 --
--- Name: categorias categorias_pk; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: categorias categorias_pk; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.categorias
@@ -7566,7 +7471,7 @@ ALTER TABLE ONLY productos.categorias
 
 
 --
--- Name: categorias categorias_unique; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: categorias categorias_unique; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.categorias
@@ -7574,7 +7479,7 @@ ALTER TABLE ONLY productos.categorias
 
 
 --
--- Name: detalle_productos detalle_productos_pk; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: detalle_productos detalle_productos_pk; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.detalle_productos
@@ -7582,7 +7487,7 @@ ALTER TABLE ONLY productos.detalle_productos
 
 
 --
--- Name: marcas marcas_pk; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: marcas marcas_pk; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.marcas
@@ -7590,7 +7495,7 @@ ALTER TABLE ONLY productos.marcas
 
 
 --
--- Name: marcas marcas_unique; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: marcas marcas_unique; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.marcas
@@ -7598,7 +7503,7 @@ ALTER TABLE ONLY productos.marcas
 
 
 --
--- Name: presentaciones presentaciones_pk; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: presentaciones presentaciones_pk; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.presentaciones
@@ -7606,7 +7511,7 @@ ALTER TABLE ONLY productos.presentaciones
 
 
 --
--- Name: productos productos_pk; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: productos productos_pk; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.productos
@@ -7614,7 +7519,7 @@ ALTER TABLE ONLY productos.productos
 
 
 --
--- Name: productos productos_unique; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: productos productos_unique; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.productos
@@ -7622,7 +7527,7 @@ ALTER TABLE ONLY productos.productos
 
 
 --
--- Name: subcategorias subcategorias_pk; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: subcategorias subcategorias_pk; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.subcategorias
@@ -7630,7 +7535,7 @@ ALTER TABLE ONLY productos.subcategorias
 
 
 --
--- Name: subcategorias subcategorias_unique; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: subcategorias subcategorias_unique; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.subcategorias
@@ -7638,7 +7543,7 @@ ALTER TABLE ONLY productos.subcategorias
 
 
 --
--- Name: tipo_productos tipo_productos_pk; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: tipo_productos tipo_productos_pk; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.tipo_productos
@@ -7646,7 +7551,7 @@ ALTER TABLE ONLY productos.tipo_productos
 
 
 --
--- Name: tipo_productos tipo_productos_unique; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: tipo_productos tipo_productos_unique; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.tipo_productos
@@ -7654,7 +7559,7 @@ ALTER TABLE ONLY productos.tipo_productos
 
 
 --
--- Name: unidades unidades_pk; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: unidades unidades_pk; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.unidades
@@ -7662,7 +7567,7 @@ ALTER TABLE ONLY productos.unidades
 
 
 --
--- Name: unidades unidades_unique; Type: CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: unidades unidades_unique; Type: CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.unidades
@@ -7670,7 +7575,7 @@ ALTER TABLE ONLY productos.unidades
 
 
 --
--- Name: ciudades ciudades_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: ciudades ciudades_pk; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.ciudades
@@ -7678,7 +7583,7 @@ ALTER TABLE ONLY public.ciudades
 
 
 --
--- Name: ciudades ciudades_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: ciudades ciudades_unique; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.ciudades
@@ -7686,7 +7591,7 @@ ALTER TABLE ONLY public.ciudades
 
 
 --
--- Name: estados estados_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: estados estados_pk; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.estados
@@ -7694,7 +7599,7 @@ ALTER TABLE ONLY public.estados
 
 
 --
--- Name: estados estados_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: estados estados_unique; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.estados
@@ -7702,7 +7607,7 @@ ALTER TABLE ONLY public.estados
 
 
 --
--- Name: fechas fechas_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fechas fechas_pk; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.fechas
@@ -7710,7 +7615,7 @@ ALTER TABLE ONLY public.fechas
 
 
 --
--- Name: horas horas_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: horas horas_pk; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.horas
@@ -7718,7 +7623,7 @@ ALTER TABLE ONLY public.horas
 
 
 --
--- Name: permisos permisos_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: permisos permisos_pk; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.permisos
@@ -7726,7 +7631,7 @@ ALTER TABLE ONLY public.permisos
 
 
 --
--- Name: personas personas_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: personas personas_pk; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.personas
@@ -7734,7 +7639,7 @@ ALTER TABLE ONLY public.personas
 
 
 --
--- Name: role_permiso role_permiso_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: role_permiso role_permiso_unique; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.role_permiso
@@ -7742,7 +7647,7 @@ ALTER TABLE ONLY public.role_permiso
 
 
 --
--- Name: roles roles_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: roles roles_pk; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.roles
@@ -7750,7 +7655,7 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- Name: tipo_facturas tipo_facturas_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: tipo_facturas tipo_facturas_pk; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.tipo_facturas
@@ -7758,7 +7663,7 @@ ALTER TABLE ONLY public.tipo_facturas
 
 
 --
--- Name: tipo_facturas tipo_facturas_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: tipo_facturas tipo_facturas_unique; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.tipo_facturas
@@ -7766,7 +7671,7 @@ ALTER TABLE ONLY public.tipo_facturas
 
 
 --
--- Name: usuarios usuarios_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: usuarios usuarios_pk; Type: CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.usuarios
@@ -7774,7 +7679,7 @@ ALTER TABLE ONLY public.usuarios
 
 
 --
--- Name: det_venta det_venta_pk; Type: CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: det_venta det_venta_pk; Type: CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.det_venta
@@ -7782,7 +7687,7 @@ ALTER TABLE ONLY ventas.det_venta
 
 
 --
--- Name: det_venta_statu det_venta_statu_unique; Type: CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: det_venta_statu det_venta_statu_unique; Type: CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.det_venta_statu
@@ -7790,7 +7695,7 @@ ALTER TABLE ONLY ventas.det_venta_statu
 
 
 --
--- Name: status status_pk; Type: CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: status status_pk; Type: CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.status
@@ -7798,7 +7703,7 @@ ALTER TABLE ONLY ventas.status
 
 
 --
--- Name: tipo_clientes tipo_clientes_pk; Type: CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: tipo_clientes tipo_clientes_pk; Type: CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.tipo_clientes
@@ -7806,7 +7711,7 @@ ALTER TABLE ONLY ventas.tipo_clientes
 
 
 --
--- Name: tipo_clientes tipo_clientes_unique; Type: CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: tipo_clientes tipo_clientes_unique; Type: CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.tipo_clientes
@@ -7814,7 +7719,7 @@ ALTER TABLE ONLY ventas.tipo_clientes
 
 
 --
--- Name: vendedores vendedores_pk; Type: CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: vendedores vendedores_pk; Type: CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.vendedores
@@ -7822,7 +7727,7 @@ ALTER TABLE ONLY ventas.vendedores
 
 
 --
--- Name: venta_statu venta_statu_unique; Type: CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: venta_statu venta_statu_unique; Type: CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.venta_statu
@@ -7830,7 +7735,7 @@ ALTER TABLE ONLY ventas.venta_statu
 
 
 --
--- Name: ventas ventas_pk; Type: CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: ventas ventas_pk; Type: CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.ventas
@@ -7838,7 +7743,7 @@ ALTER TABLE ONLY ventas.ventas
 
 
 --
--- Name: movimientos entradas_depositos_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: movimientos entradas_depositos_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.movimientos
@@ -7846,7 +7751,7 @@ ALTER TABLE ONLY almacenes.movimientos
 
 
 --
--- Name: movimientos entradas_productos_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: movimientos entradas_productos_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.movimientos
@@ -7854,7 +7759,7 @@ ALTER TABLE ONLY almacenes.movimientos
 
 
 --
--- Name: movimientos entradas_tipo_movimientos_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: movimientos entradas_tipo_movimientos_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.movimientos
@@ -7862,7 +7767,7 @@ ALTER TABLE ONLY almacenes.movimientos
 
 
 --
--- Name: reservas reservas_depositos_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: reservas reservas_depositos_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.reservas
@@ -7870,7 +7775,7 @@ ALTER TABLE ONLY almacenes.reservas
 
 
 --
--- Name: reservas reservas_productos_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: reservas reservas_productos_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.reservas
@@ -7878,7 +7783,7 @@ ALTER TABLE ONLY almacenes.reservas
 
 
 --
--- Name: movimiento_statu salida_statu_fechas_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: movimiento_statu salida_statu_fechas_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.movimiento_statu
@@ -7886,7 +7791,7 @@ ALTER TABLE ONLY almacenes.movimiento_statu
 
 
 --
--- Name: movimiento_statu salida_statu_horas_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: movimiento_statu salida_statu_horas_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.movimiento_statu
@@ -7894,7 +7799,7 @@ ALTER TABLE ONLY almacenes.movimiento_statu
 
 
 --
--- Name: movimiento_statu salida_statu_status_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: postgres
+-- Name: movimiento_statu salida_statu_status_fk; Type: FK CONSTRAINT; Schema: almacenes; Owner: neondb
 --
 
 ALTER TABLE ONLY almacenes.movimiento_statu
@@ -7902,7 +7807,7 @@ ALTER TABLE ONLY almacenes.movimiento_statu
 
 
 --
--- Name: compras compras_fechas_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: compras compras_fechas_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.compras
@@ -7910,7 +7815,7 @@ ALTER TABLE ONLY compras.compras
 
 
 --
--- Name: compras compras_horas_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: compras compras_horas_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.compras
@@ -7918,7 +7823,7 @@ ALTER TABLE ONLY compras.compras
 
 
 --
--- Name: compras compras_ordenes_compras_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: compras compras_ordenes_compras_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.compras
@@ -7926,7 +7831,7 @@ ALTER TABLE ONLY compras.compras
 
 
 --
--- Name: compras compras_proveedores_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: compras compras_proveedores_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.compras
@@ -7934,7 +7839,7 @@ ALTER TABLE ONLY compras.compras
 
 
 --
--- Name: compras compras_tipo_facturas_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: compras compras_tipo_facturas_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.compras
@@ -7942,7 +7847,7 @@ ALTER TABLE ONLY compras.compras
 
 
 --
--- Name: det_compra det_compra_compras_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_compra det_compra_compras_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_compra
@@ -7950,7 +7855,7 @@ ALTER TABLE ONLY compras.det_compra
 
 
 --
--- Name: det_compra det_compra_depositos_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_compra det_compra_depositos_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_compra
@@ -7958,7 +7863,7 @@ ALTER TABLE ONLY compras.det_compra
 
 
 --
--- Name: det_compra det_compra_presentaciones_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_compra det_compra_presentaciones_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_compra
@@ -7966,7 +7871,7 @@ ALTER TABLE ONLY compras.det_compra
 
 
 --
--- Name: det_compra det_compra_productos_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_compra det_compra_productos_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_compra
@@ -7974,7 +7879,7 @@ ALTER TABLE ONLY compras.det_compra
 
 
 --
--- Name: det_compra_statu det_compra_statu_det_compra_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_compra_statu det_compra_statu_det_compra_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_compra_statu
@@ -7982,7 +7887,7 @@ ALTER TABLE ONLY compras.det_compra_statu
 
 
 --
--- Name: det_compra_statu det_compra_statu_status_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_compra_statu det_compra_statu_status_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_compra_statu
@@ -7990,7 +7895,7 @@ ALTER TABLE ONLY compras.det_compra_statu
 
 
 --
--- Name: det_orden_compra det_orden_compra_depositos_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_orden_compra det_orden_compra_depositos_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_orden_compra
@@ -7998,7 +7903,7 @@ ALTER TABLE ONLY compras.det_orden_compra
 
 
 --
--- Name: det_orden_compra det_orden_compra_ordenes_compras_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_orden_compra det_orden_compra_ordenes_compras_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_orden_compra
@@ -8006,7 +7911,7 @@ ALTER TABLE ONLY compras.det_orden_compra
 
 
 --
--- Name: det_orden_compra det_orden_compra_productos_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: det_orden_compra det_orden_compra_productos_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.det_orden_compra
@@ -8014,7 +7919,7 @@ ALTER TABLE ONLY compras.det_orden_compra
 
 
 --
--- Name: ordenes_compras ordenes_compras_proveedores_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: ordenes_compras ordenes_compras_proveedores_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.ordenes_compras
@@ -8022,7 +7927,7 @@ ALTER TABLE ONLY compras.ordenes_compras
 
 
 --
--- Name: proveedores proveedores_tipo_proveedores_fk; Type: FK CONSTRAINT; Schema: compras; Owner: postgres
+-- Name: proveedores proveedores_tipo_proveedores_fk; Type: FK CONSTRAINT; Schema: compras; Owner: neondb
 --
 
 ALTER TABLE ONLY compras.proveedores
@@ -8030,7 +7935,7 @@ ALTER TABLE ONLY compras.proveedores
 
 
 --
--- Name: bancos bancos_tipo_bancos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: bancos bancos_tipo_bancos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.bancos
@@ -8038,7 +7943,7 @@ ALTER TABLE ONLY finanzas.bancos
 
 
 --
--- Name: egreso_banco egreso_banco_bancos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egreso_banco egreso_banco_bancos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egreso_banco
@@ -8046,7 +7951,7 @@ ALTER TABLE ONLY finanzas.egreso_banco
 
 
 --
--- Name: egreso_banco egreso_banco_tipo_bancos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egreso_banco egreso_banco_tipo_bancos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egreso_banco
@@ -8054,7 +7959,7 @@ ALTER TABLE ONLY finanzas.egreso_banco
 
 
 --
--- Name: egreso_caja egreso_caja_cajas_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egreso_caja egreso_caja_cajas_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egreso_caja
@@ -8062,7 +7967,7 @@ ALTER TABLE ONLY finanzas.egreso_caja
 
 
 --
--- Name: egresos egresos_medios_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egresos egresos_medios_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egresos
@@ -8070,7 +7975,7 @@ ALTER TABLE ONLY finanzas.egresos
 
 
 --
--- Name: egresos egresos_metodo_pagos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egresos egresos_metodo_pagos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egresos
@@ -8078,7 +7983,7 @@ ALTER TABLE ONLY finanzas.egresos
 
 
 --
--- Name: egresos egresos_monedas_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egresos egresos_monedas_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egresos
@@ -8086,7 +7991,7 @@ ALTER TABLE ONLY finanzas.egresos
 
 
 --
--- Name: egresos egresos_tipo_movimientos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: egresos egresos_tipo_movimientos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.egresos
@@ -8094,7 +7999,7 @@ ALTER TABLE ONLY finanzas.egresos
 
 
 --
--- Name: ingreso_banco ingreso_banco_bancos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingreso_banco ingreso_banco_bancos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingreso_banco
@@ -8102,7 +8007,7 @@ ALTER TABLE ONLY finanzas.ingreso_banco
 
 
 --
--- Name: ingreso_banco ingreso_banco_tipo_bancos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingreso_banco ingreso_banco_tipo_bancos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingreso_banco
@@ -8110,7 +8015,7 @@ ALTER TABLE ONLY finanzas.ingreso_banco
 
 
 --
--- Name: ingreso_caja ingreso_caja_cajas_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingreso_caja ingreso_caja_cajas_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingreso_caja
@@ -8118,7 +8023,7 @@ ALTER TABLE ONLY finanzas.ingreso_caja
 
 
 --
--- Name: ingresos ingresos_medios_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingresos ingresos_medios_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingresos
@@ -8126,7 +8031,7 @@ ALTER TABLE ONLY finanzas.ingresos
 
 
 --
--- Name: ingresos ingresos_metodo_pagos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingresos ingresos_metodo_pagos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingresos
@@ -8134,7 +8039,7 @@ ALTER TABLE ONLY finanzas.ingresos
 
 
 --
--- Name: ingresos ingresos_monedas_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingresos ingresos_monedas_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingresos
@@ -8142,7 +8047,7 @@ ALTER TABLE ONLY finanzas.ingresos
 
 
 --
--- Name: ingresos ingresos_tipo_movimientos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: postgres
+-- Name: ingresos ingresos_tipo_movimientos_fk; Type: FK CONSTRAINT; Schema: finanzas; Owner: neondb
 --
 
 ALTER TABLE ONLY finanzas.ingresos
@@ -8150,7 +8055,7 @@ ALTER TABLE ONLY finanzas.ingresos
 
 
 --
--- Name: etiqueta_indicador etiqueta_indicador_etiquetas_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: etiqueta_indicador etiqueta_indicador_etiquetas_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.etiqueta_indicador
@@ -8158,7 +8063,7 @@ ALTER TABLE ONLY objetivos.etiqueta_indicador
 
 
 --
--- Name: etiqueta_indicador etiqueta_indicador_indicadores_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: etiqueta_indicador etiqueta_indicador_indicadores_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.etiqueta_indicador
@@ -8166,7 +8071,7 @@ ALTER TABLE ONLY objetivos.etiqueta_indicador
 
 
 --
--- Name: formulas formulas_etiquetas_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: formulas formulas_etiquetas_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.formulas
@@ -8174,7 +8079,7 @@ ALTER TABLE ONLY objetivos.formulas
 
 
 --
--- Name: objetivos objetivos_formulas_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: objetivos objetivos_formulas_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.objetivos
@@ -8182,7 +8087,7 @@ ALTER TABLE ONLY objetivos.objetivos
 
 
 --
--- Name: perspectiva_etiqueta perspectiva_etiqueta_etiquetas_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: perspectiva_etiqueta perspectiva_etiqueta_etiquetas_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.perspectiva_etiqueta
@@ -8190,7 +8095,7 @@ ALTER TABLE ONLY objetivos.perspectiva_etiqueta
 
 
 --
--- Name: perspectivas perspectivas_iconos_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: postgres
+-- Name: perspectivas perspectivas_iconos_fk; Type: FK CONSTRAINT; Schema: objetivos; Owner: neondb
 --
 
 ALTER TABLE ONLY objetivos.perspectivas
@@ -8198,7 +8103,7 @@ ALTER TABLE ONLY objetivos.perspectivas
 
 
 --
--- Name: detalle_productos detalle_productos_ingredientes_fk; Type: FK CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: detalle_productos detalle_productos_ingredientes_fk; Type: FK CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.detalle_productos
@@ -8206,7 +8111,7 @@ ALTER TABLE ONLY productos.detalle_productos
 
 
 --
--- Name: detalle_productos detalle_productos_productos_fk; Type: FK CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: detalle_productos detalle_productos_productos_fk; Type: FK CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.detalle_productos
@@ -8214,7 +8119,7 @@ ALTER TABLE ONLY productos.detalle_productos
 
 
 --
--- Name: detalle_productos detalle_productos_unidades_fk; Type: FK CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: detalle_productos detalle_productos_unidades_fk; Type: FK CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.detalle_productos
@@ -8222,7 +8127,7 @@ ALTER TABLE ONLY productos.detalle_productos
 
 
 --
--- Name: presentaciones presentaciones_productos_fk; Type: FK CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: presentaciones presentaciones_productos_fk; Type: FK CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.presentaciones
@@ -8230,7 +8135,7 @@ ALTER TABLE ONLY productos.presentaciones
 
 
 --
--- Name: productos productos_categorias_fk; Type: FK CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: productos productos_categorias_fk; Type: FK CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.productos
@@ -8238,7 +8143,7 @@ ALTER TABLE ONLY productos.productos
 
 
 --
--- Name: productos productos_marcas_fk; Type: FK CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: productos productos_marcas_fk; Type: FK CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.productos
@@ -8246,7 +8151,7 @@ ALTER TABLE ONLY productos.productos
 
 
 --
--- Name: productos productos_subcategorias_fk; Type: FK CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: productos productos_subcategorias_fk; Type: FK CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.productos
@@ -8254,7 +8159,7 @@ ALTER TABLE ONLY productos.productos
 
 
 --
--- Name: productos productos_tipo_productos_fk; Type: FK CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: productos productos_tipo_productos_fk; Type: FK CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.productos
@@ -8262,7 +8167,7 @@ ALTER TABLE ONLY productos.productos
 
 
 --
--- Name: productos productos_unidades_fk; Type: FK CONSTRAINT; Schema: productos; Owner: postgres
+-- Name: productos productos_unidades_fk; Type: FK CONSTRAINT; Schema: productos; Owner: neondb
 --
 
 ALTER TABLE ONLY productos.productos
@@ -8270,7 +8175,7 @@ ALTER TABLE ONLY productos.productos
 
 
 --
--- Name: ciudades ciudades_estados_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: ciudades ciudades_estados_fk; Type: FK CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.ciudades
@@ -8278,7 +8183,7 @@ ALTER TABLE ONLY public.ciudades
 
 
 --
--- Name: personas personas_ciudades_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: personas personas_ciudades_fk; Type: FK CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.personas
@@ -8286,7 +8191,7 @@ ALTER TABLE ONLY public.personas
 
 
 --
--- Name: role_permiso role_permiso_permisos_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: role_permiso role_permiso_permisos_fk; Type: FK CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.role_permiso
@@ -8294,7 +8199,7 @@ ALTER TABLE ONLY public.role_permiso
 
 
 --
--- Name: role_permiso role_permiso_roles_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: role_permiso role_permiso_roles_fk; Type: FK CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.role_permiso
@@ -8302,7 +8207,7 @@ ALTER TABLE ONLY public.role_permiso
 
 
 --
--- Name: usuarios usuarios_roles_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: usuarios usuarios_roles_fk; Type: FK CONSTRAINT; Schema: public; Owner: neondb
 --
 
 ALTER TABLE ONLY public.usuarios
@@ -8310,7 +8215,7 @@ ALTER TABLE ONLY public.usuarios
 
 
 --
--- Name: det_venta det_venta_depositos_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: det_venta det_venta_depositos_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.det_venta
@@ -8318,7 +8223,7 @@ ALTER TABLE ONLY ventas.det_venta
 
 
 --
--- Name: det_venta det_venta_presentaciones_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: det_venta det_venta_presentaciones_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.det_venta
@@ -8326,7 +8231,7 @@ ALTER TABLE ONLY ventas.det_venta
 
 
 --
--- Name: det_venta det_venta_productos_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: det_venta det_venta_productos_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.det_venta
@@ -8334,7 +8239,7 @@ ALTER TABLE ONLY ventas.det_venta
 
 
 --
--- Name: det_venta_statu det_venta_statu_det_venta_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: det_venta_statu det_venta_statu_det_venta_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.det_venta_statu
@@ -8342,7 +8247,7 @@ ALTER TABLE ONLY ventas.det_venta_statu
 
 
 --
--- Name: det_venta_statu det_venta_statu_fechas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: det_venta_statu det_venta_statu_fechas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.det_venta_statu
@@ -8350,7 +8255,7 @@ ALTER TABLE ONLY ventas.det_venta_statu
 
 
 --
--- Name: det_venta_statu det_venta_statu_horas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: det_venta_statu det_venta_statu_horas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.det_venta_statu
@@ -8358,7 +8263,7 @@ ALTER TABLE ONLY ventas.det_venta_statu
 
 
 --
--- Name: det_venta_statu det_venta_statu_status_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: det_venta_statu det_venta_statu_status_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.det_venta_statu
@@ -8366,7 +8271,7 @@ ALTER TABLE ONLY ventas.det_venta_statu
 
 
 --
--- Name: det_venta det_venta_ventas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: det_venta det_venta_ventas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.det_venta
@@ -8374,7 +8279,7 @@ ALTER TABLE ONLY ventas.det_venta
 
 
 --
--- Name: venta_statu venta_statu_fechas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: venta_statu venta_statu_fechas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.venta_statu
@@ -8382,7 +8287,7 @@ ALTER TABLE ONLY ventas.venta_statu
 
 
 --
--- Name: venta_statu venta_statu_horas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: venta_statu venta_statu_horas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.venta_statu
@@ -8390,7 +8295,7 @@ ALTER TABLE ONLY ventas.venta_statu
 
 
 --
--- Name: venta_statu venta_statu_status_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: venta_statu venta_statu_status_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.venta_statu
@@ -8398,7 +8303,7 @@ ALTER TABLE ONLY ventas.venta_statu
 
 
 --
--- Name: venta_statu venta_statu_ventas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: venta_statu venta_statu_ventas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.venta_statu
@@ -8406,7 +8311,7 @@ ALTER TABLE ONLY ventas.venta_statu
 
 
 --
--- Name: ventas ventas_cajas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: ventas ventas_cajas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.ventas
@@ -8414,7 +8319,7 @@ ALTER TABLE ONLY ventas.ventas
 
 
 --
--- Name: ventas ventas_ciudades_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: ventas ventas_ciudades_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.ventas
@@ -8422,7 +8327,7 @@ ALTER TABLE ONLY ventas.ventas
 
 
 --
--- Name: ventas ventas_estados_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: ventas ventas_estados_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.ventas
@@ -8430,7 +8335,7 @@ ALTER TABLE ONLY ventas.ventas
 
 
 --
--- Name: ventas ventas_personas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: ventas ventas_personas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.ventas
@@ -8438,7 +8343,7 @@ ALTER TABLE ONLY ventas.ventas
 
 
 --
--- Name: ventas ventas_tipo_clientes_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: ventas ventas_tipo_clientes_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.ventas
@@ -8446,7 +8351,7 @@ ALTER TABLE ONLY ventas.ventas
 
 
 --
--- Name: ventas ventas_tipo_facturas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: postgres
+-- Name: ventas ventas_tipo_facturas_fk; Type: FK CONSTRAINT; Schema: ventas; Owner: neondb
 --
 
 ALTER TABLE ONLY ventas.ventas
@@ -8454,6 +8359,6 @@ ALTER TABLE ONLY ventas.ventas
 
 
 --
--- PostgreSQL database dump complete
+-- neondbQL database dump complete
 --
 
