@@ -7,14 +7,9 @@ python-multipart
 pyjwt
 bcrypt
 passlib
-pyparsing
-simpy
 pytz
 sympy
 pandas
-pytest
-pytest-asyncio
-httpx
 delegator
 APScheduler>=3.10,<4
 SQLAlchemy>=2.0,<3

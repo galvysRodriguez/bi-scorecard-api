@@ -35,8 +35,8 @@ origins += [o.strip() for o in os.getenv("CORS_ORIGINS", "").split(",") if o.str
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    # Deploys de preview del frontend en Vercel (next-bi-xxxx-galvys-rodriguezs-projects.vercel.app)
-    allow_origin_regex=r"https://next-bi(-[a-z0-9-]+)?\.vercel\.app",
+    # Dominios del frontend en Vercel y cualquier deploy del equipo (xxxx-galvys-rodriguezs-projects.vercel.app)
+    allow_origin_regex=r"https://(next-bi(-[a-z0-9-]+)?|[a-z0-9-]+-galvys-rodriguezs-projects)\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
