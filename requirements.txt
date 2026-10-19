@@ -9,6 +9,7 @@ bcrypt
 passlib
 pytz
 sympy
+antlr4-python3-runtime==4.11.*
 pandas
 delegator
 APScheduler>=3.10,<4
