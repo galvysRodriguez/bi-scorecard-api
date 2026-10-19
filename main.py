@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from routers import indicators, targets, formula, tag, perspective, test, icon, etl, task, user, seed, view
@@ -24,12 +25,18 @@ origins = [
     "http://localhost:8080",
     "https://inventario-lime.vercel.app",
     "https://next-ld7wnhs03-galvys-rodriguezs-projects.vercel.app",
+    "https://next-bi-omega.vercel.app",
 ]
+
+# Orígenes extra separados por coma, configurables desde Vercel sin redeploy de código
+origins += [o.strip() for o in os.getenv("CORS_ORIGINS", "").split(",") if o.strip()]
 
 # Agrega el middleware CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    # Deploys de preview del frontend en Vercel (next-bi-xxxx-galvys-rodriguezs-projects.vercel.app)
+    allow_origin_regex=r"https://next-bi(-[a-z0-9-]+)?\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

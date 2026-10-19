@@ -2,7 +2,7 @@ from fastapi import Request, HTTPException
 from auth.jwt_handler import decode_access_token
 from repositories.user_repo import login_query, verify_permission_role_query
 from schemas.target import UserBase
-from jose import JWTError, ExpiredSignatureError
+from jwt import ExpiredSignatureError, InvalidTokenError as JWTError
 from db.database import get_db
 
 async def get_current_user(request: Request):

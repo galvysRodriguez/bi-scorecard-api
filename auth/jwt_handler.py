@@ -1,7 +1,12 @@
-from jose import jwt, JWTError, ExpiredSignatureError
+import os
+import jwt
+from jwt import ExpiredSignatureError, InvalidTokenError as JWTError
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 
-SECRET_KEY = "tu_clave_secreta"
+load_dotenv()
+
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "tu_clave_secreta")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
