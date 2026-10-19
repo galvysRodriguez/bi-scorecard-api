@@ -10,9 +10,13 @@ from config.openapi_config import custom_openapi
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # En Vercel (serverless) no hay proceso persistente para el scheduler
+    if os.getenv("VERCEL"):
+        yield
+        return
     task.scheduler.start()
     print("Scheduler iniciado automáticamente.")
-    yield 
+    yield
     task.scheduler.shutdown()
     print("Scheduler detenido.")
 
