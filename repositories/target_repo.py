@@ -1,6 +1,7 @@
 from asyncpg import Connection
 from typing import Optional
 from schemas.target import TargetCreate, TargetUpdate, TargetBase
+from datetime import datetime
 
 
 class TargetRepository:
@@ -34,33 +35,43 @@ class TargetRepository:
                    o.fecha_final AS end_date, o.id_formulas AS indicator_id,
                    f.titulo AS indicator,
                    p.id_perspectivas AS perspective_id,
+                   e.id_etiquetas AS tag_id,
+                   e.etiqueta AS tag,
                    p.perspectiva AS perspective
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
             LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
             LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = pe.id_perspectivas
+            LEFT JOIN objetivos.etiquetas e ON e.id_etiquetas = pe.id_etiquetas
             WHERE pe.id_perspectivas = $1
             ORDER BY  o.fecha_inicio ASC, o.fecha_final ASC
         """
         return await db.fetch(query, perspective_id)
 
     @staticmethod
-    async def get_all_targets(db: Connection):
+    async def get_all_targets(date_from:str, date_to:str, db: Connection):
         """Consulta todos los objetivos. no esta en produccion"""
+        date_from_parsed = datetime.strptime(date_from, "%Y-%m-%d").date()
+        date_to_parsed = datetime.strptime(date_to, "%Y-%m-%d").date()
+
         query = f"""
             SELECT o.id_objetivos AS id, o.titulo AS title, o.optimo AS optimal, o.tolerable, 
                    o.deficiente AS deficient, o.fecha_inicio AS start_date, 
                    o.fecha_final AS end_date, o.id_formulas AS indicator_id,
                    p.id_perspectivas AS perspective_id,
-                   p.perspectiva AS perspective,
-                   f.titulo AS indicator
+                   f.titulo AS indicator,
+                   e.id_etiquetas AS tag_id,
+                   e.etiqueta AS tag,
+                   p.perspectiva AS perspective
             FROM objetivos.objetivos o
             LEFT JOIN objetivos.formulas f ON f.id_formulas = o.id_formulas
             LEFT JOIN objetivos.perspectiva_etiqueta pe ON pe.id_etiquetas = f.id_etiquetas
             LEFT JOIN objetivos.perspectivas p ON p.id_perspectivas = pe.id_perspectivas
+            LEFT JOIN objetivos.etiquetas e ON e.id_etiquetas = pe.id_etiquetas
+            WHERE o.fecha_inicio >= $1 AND o.fecha_final <= $2 AND p.visible = TRUE
             ORDER BY  o.fecha_inicio ASC, o.fecha_final ASC
         """
-        return await db.fetch(query)
+        return await db.fetch(query, date_from_parsed, date_to_parsed)
 
     @staticmethod
     async def add_target(db: Connection, target_data: TargetCreate):
@@ -121,7 +132,7 @@ class TargetRepository:
         """Verifica si existe la etiqueta"""
         query = f"""
             SELECT COUNT(*) FROM objetivos.objetivos
-            WHERE titulo = $1
+            WHERE LOWER(titulo) = LOWER($1)
         """
         return await db.fetchrow(query, target.title)
     

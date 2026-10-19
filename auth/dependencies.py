@@ -18,8 +18,10 @@ async def get_current_user(request: Request):
             raise HTTPException(status_code=401, detail="Invalid token")
         
         db = await get_db()
-        user_data = UserBase(username=username)
-        user = await login_query(db, user_data)
+        try:
+            user = await login_query(db, UserBase(username=username))
+        finally:
+            await db.close()
 
         if not user:
             raise HTTPException(status_code=401, detail="User not found")

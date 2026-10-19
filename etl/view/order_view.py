@@ -6,13 +6,28 @@ select
 	dc.id_det_orden_compra as id,
 	dc.cantidad,
 	dc.costo,
+	round(dc.costo * c.tasa, 2) as costo_bs,
+    dc.costo * dc.cantidad as subtotal,
+    round(dc.costo * c.tasa * dc.cantidad, 2) as subtotal_bs,
+	dc.descuento as descuento_porcentaje,
+	round(dc.costo * dc.descuento* c.tasa * dc.cantidad/100, 2) as descuento,
+	round(dc.costo * dc.descuento * c.tasa * dc.cantidad/100, 2) as descuento_bs,
+	dc.costo * dc.cantidad - round(dc.costo * dc.descuento* c.tasa * dc.cantidad/100, 2) as total,
+	round(dc.costo * c.tasa * dc.cantidad, 2) - round(dc.costo * dc.descuento * c.tasa * dc.cantidad/100, 2) as total_bs,
 	d.deposito,
-	dc.descuento,
 	p.proveedor,
 	tp.tipo as tipo_proveedor,
 	c.tasa,
     f.*,
-    vp.*
+    vp.*,
+    CASE 
+        WHEN (
+                select COUNT(*) from compras.compras c
+                where c.id_ordenes_compras = dc.id_ordenes_compras
+            ) >= 1 THEN 
+                    true
+        ELSE false
+    END AS comprado
 from compras.det_orden_compra dc 
 inner join compras.ordenes_compras c on c.id_ordenes_compras = dc.id_ordenes_compras
 left join compras.proveedores p on p.id_proveedores = c.id_proveedores 

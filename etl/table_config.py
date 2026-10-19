@@ -26,7 +26,9 @@ from etl.json.public_schema.profile_resource import PROFILE_RESOURCE
 from etl.json.warehouse.warehouse import WAREHOUSE
 from etl.json.warehouse.move import MOVE
 from etl.json.sales.quote import QUOTE
+from etl.json.sales.box import BOX_SALE
 from etl.json.sales.quote_detail import QUOTE_DETAIL
+from etl.json.public_schema.enterprise import ENTERPRISE
 
 
 
@@ -49,6 +51,9 @@ TABLE_PROCESS = [
     PRODUCT,
     PRODUCT_DETAIL,
     PRESENTATION,
+    BOX_SALE,
+    QUOTE,
+    QUOTE_DETAIL,
     SALE,
     SALE_DETAIL,
     GROUP_PROVIDER,
@@ -58,6 +63,39 @@ TABLE_PROCESS = [
     PURCHASE,
     PURCHASE_DETAIL,
     MOVE,
+    ENTERPRISE,
+]
+
+TABLE_PROCESS_DELETE = [
+    PURCHASE_DETAIL,
+    PURCHASE_ORDER_DETAIL,
+    QUOTE_DETAIL,
+    SALE_DETAIL,
+    MOVE,
+    PURCHASE,
+    PURCHASE_ORDER,
     QUOTE,
-    QUOTE_DETAIL
+    SALE,
+    BOX_SALE,
+    PRODUCT_DETAIL,
+    PRESENTATION,
+    PRODUCT,
+    UNIT,
+    SUBGROUP,
+    GROUP,
+    BRAND,
+    PROFILE_RESOURCE,
+    RESOURCE,
+    USER,
+    PROFILE,
+    INVOICE_TYPE,
+    WAREHOUSE,
+    SELLER,
+    PERSON,
+    CITY,
+    STATE,
+    CUSTOMER_GROUP,
+    PROVIDER,
+    GROUP_PROVIDER,
+    ENTERPRISE,
 ]

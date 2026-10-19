@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from typing import Optional, List, Literal
 from etl.db.erp import source_engine
 from etl.db.bi import destination_engine
-from etl.table_config import TABLE_PROCESS
+from etl.table_config import TABLE_PROCESS, TABLE_PROCESS_DELETE
 from etl.logs.main import run_create_triggers_logs
 from etl.logs.tables import TABLES
 from utils.api_response_etl import api_response_etl
@@ -11,6 +11,7 @@ from etl.main import run_extract_table, run_sync_table
 from etl.json.clear import clear_destination_db
 from schemas.target import TableProcessSchema
 from etl.backup.backup import backup_mysql, backup_postgresql
+from etl.logs.trigger_manager import delete_triggers
 
 router = APIRouter(prefix="/etl", tags=["etl"])
 
@@ -21,6 +22,15 @@ async def create_triggers_logs(tables: Optional[List[str]] = None):
     await run_create_triggers_logs(source_engine, tables_to_process)
     start = end - timedelta(days=1)
     return api_response_etl("Creacion de triggers ha sido completada", start, end, tables_to_process)
+
+@router.delete("/logs")
+async def delete_triggers_logs(tables: Optional[List[str]] = None):
+    end = datetime.now()
+    tables_to_process = tables or TABLES
+    for table in tables_to_process:
+        delete_triggers(source_engine, table)
+    start = end - timedelta(days=1)
+    return api_response_etl("Eliminacion de triggers ha sido completada", start, end, tables_to_process)
 
 @router.post("/extract")
 async def extract_table_all():
@@ -34,11 +44,11 @@ async def extract_table_all():
 async def sync_table_logs():
     end = datetime.now()
     tables_to_process =  TABLE_PROCESS
-    await run_sync_table(source_engine, destination_engine, tables_to_process)
+    await run_sync_table(source_engine, destination_engine, tables_to_process, TABLE_PROCESS_DELETE)
     start = end - timedelta(days=1)
     return api_response_etl("La sincronizacion ha sido completada", start, end, tables_to_process)
 
-@router.post("/clear")
+@router.delete("/clear")
 async def delete_table_all():
     end = datetime.now()
     await clear_destination_db(destination_engine)

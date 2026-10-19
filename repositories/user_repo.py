@@ -48,9 +48,10 @@ async def verify_permission_role_query(db: Connection, user_id:int, resource:str
         INNER JOIN public.permisos p ON p.id_permisos = rp.id_permisos
         INNER JOIN public.usuarios u ON u.id_roles = r.id_roles
         WHERE (u.id_usuarios = $1 AND r.acceso = TRUE) AND 
-            ((p.modulo = '*') OR 
+            ((p.modulo = '*') OR
             (p.recurso = '*') OR
-            (p.recurso = $2 AND p.accion = $3))
+            (p.controlador = '*') OR
+            (p.controlador = $2 AND (p.accion = $3 OR p.accion = '*')))
     """
     return await db.fetchrow(query, user_id, resource, action)
 

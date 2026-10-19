@@ -1,5 +1,5 @@
 query_base_warehouse = """
-    SELECT m.id_movimientos FROM almacenes.movimientos m
+    SELECT m.id_movimientos as id FROM almacenes.movimientos m
     INNER JOIN almacenes.depositos d ON d.id_depositos = m.id_depositos 
     INNER JOIN almacenes.tipo_movimientos tm ON tm.id_tipo_movimientos = m.id_tipo_movimientos 
     INNER JOIN productos.productos p ON p.id_productos = m.id_productos 
@@ -24,3 +24,349 @@ query_base_sale = """
     left join public.personas p3 on vv.id_personas = p3.id_personas 
     left join ventas.vendedores v on vv.id_vendedores = v.id_vendedores 
 """
+
+query_base_sale_view = """
+    SELECT
+        id,
+        cantidad AS quantity,
+        devuelto AS returned,
+        precio as price,
+        precio_bs as price_bs,
+        subtotal as subtotal,
+        subtotal_bs as subtotal_bs,
+        total as total,
+        total_bs as total_bs,
+        descuento as discount,
+        descuento_bs as discount_bs,
+        descuento_porcentaje as discount_percentage,
+
+        
+        num_control AS control_number,
+        num_factura AS invoice_number,
+        tasa AS tax_rate,
+
+        cliente_direccion as customer_address,
+        cliente_comercial as customer_commercial,
+        cliente as customer_name,
+        tipo_cliente as customer_type,
+        
+        vendedor AS seller_name,
+        porcentaje_vendedor AS seller_percentage,
+        
+        ciudad AS city,
+        estado AS state,
+        
+        id_productos AS product_id,
+        producto AS product_name,
+        codigo AS product_code,
+        categoria AS category,
+        subcategoria AS subcategory,
+        tipo_producto AS product_type,
+        unidad AS unit,
+        marca AS brand,
+        
+        detalles AS product_details,
+        presentaciones AS product_presentations,
+        presentacion as presentation,
+        modificador as modificator,
+        
+        deposito AS warehouse,
+        caja AS cash_register,
+        
+        tipo_factura AS invoice_type,
+
+        TO_CHAR(fecha, 'DD/MM/YYYY') AS date,
+        dia AS day,
+        dia_semana AS weekday_number,
+        nombre_dia AS weekday_name,
+        semana_anio AS week_of_year,
+        semana_mes AS week_of_month,
+        quincena AS fortnight,
+        mes AS month,
+        nombre_mes AS month_name,
+        trimestre AS quarter,
+        semestre AS semester,
+        anio AS year,
+        es_fin_de_semana AS is_weekend
+    FROM
+        ventas.vw_ventas
+
+"""
+
+query_base_order_view = """
+    SELECT 
+        id,
+        cantidad AS quantity,
+        costo as cost,
+        costo_bs as cost_bs,
+        subtotal as subtotal,
+        subtotal_bs as subtotal_bs,
+        total as total,
+        total_bs as total_bs,
+        descuento as discount,
+        descuento_bs as discount_bs,
+        descuento_porcentaje as discount_percentage,
+        deposito AS warehouse,
+        
+        proveedor AS supplier,
+        tipo_proveedor AS supplier_type,
+        tasa AS tax_rate,
+        
+        TO_CHAR(fecha, 'DD/MM/YYYY') AS date,
+        dia AS day,
+        dia_semana AS weekday_number,
+        nombre_dia AS weekday_name,
+        semana_anio AS week_of_year,
+        semana_mes AS week_of_month,
+        quincena AS fortnight,
+        mes AS month,
+        nombre_mes AS month_name,
+        trimestre AS quarter,
+        semestre AS semester,
+        anio AS year,
+        es_fin_de_semana AS is_weekend,
+
+        id_productos AS product_id,
+        producto AS product_name,
+        codigo AS product_code,
+        categoria AS category,
+        subcategoria AS subcategory,
+        tipo_producto AS product_type,
+        unidad AS unit,
+        marca AS brand,
+        detalles AS product_details,
+        presentaciones AS product_presentations
+    FROM compras.vw_ordenes
+"""
+
+query_base_purchase_view = """
+    SELECT 
+        id,
+        cantidad AS quantity,
+        costo as cost,
+        costo_bs as cost_bs,
+        subtotal as subtotal,
+        subtotal_bs as subtotal_bs,
+        total as total_bs,
+        total_bs as total,
+        descuento as discount,
+        descuento_bs as discount_bs,
+        descuento_porcentaje as discount_percentage,
+        deposito AS warehouse,
+        
+        proveedor AS supplier,
+        tipo_proveedor AS supplier_type,
+        num_control AS control_number,
+        num_factura AS invoice_number,
+        tipo_factura AS invoice_type,
+        tasa AS tax_rate,
+        
+        TO_CHAR(fecha, 'DD/MM/YYYY') AS date,
+        dia AS day,
+        dia_semana AS weekday_number,
+        nombre_dia AS weekday_name,
+        semana_anio AS week_of_year,
+        semana_mes AS week_of_month,
+        quincena AS fortnight,
+        mes AS month,
+        nombre_mes AS month_name,
+        trimestre AS quarter,
+        semestre AS semester,
+        anio AS year,
+        es_fin_de_semana AS is_weekend,
+        
+        -- Product breakdown
+        id_productos AS product_id,
+        producto AS product_name,
+        codigo AS product_code,
+        categoria AS category,
+        subcategoria AS subcategory,
+        tipo_producto AS product_type,
+        unidad AS unit,
+        marca AS brand,
+        detalles AS product_details,
+        presentaciones AS product_presentations,
+        presentacion as presentation,
+        modificador as modificator
+    FROM compras.vw_compras
+"""
+
+query_base_quote_view = """
+    SELECT 
+        id,
+        cantidad AS quantity,
+        precio as price,
+        precio_bs as price_bs,
+        subtotal as subtotal,
+        subtotal_bs as subtotal_bs,
+        total as total,
+        total_bs as total_bs,
+        descuento as discount,
+        descuento_bs as discount_bs,
+        descuento_porcentaje as discount_percentage,
+
+        num_control AS control_number,
+        tasa AS tax_rate,
+
+        
+        cliente_direccion as customer_address,
+        cliente_comercial as customer_commercial,
+        cliente as customer_name,
+        tipo_cliente as customer_type,
+
+        vendedor AS seller_name,
+        porcentaje_vendedor AS seller_percentage,
+
+        ciudad AS city,
+        estado AS state,
+
+        id_productos AS product_id,
+        producto AS product_name,
+        codigo AS product_code,
+        categoria AS category,
+        subcategoria AS subcategory,
+        tipo_producto AS product_type,
+        unidad AS unit,
+        marca AS brand,
+        detalles AS product_details,
+
+        deposito AS warehouse,
+
+        TO_CHAR(fecha, 'DD/MM/YYYY') AS date,
+        dia AS day,
+        dia_semana AS weekday_number,
+        nombre_dia AS weekday_name,
+        semana_anio AS week_of_year,
+        semana_mes AS week_of_month,
+        quincena AS fortnight,
+        mes AS month,
+        nombre_mes AS month_name,
+        trimestre AS quarter,
+        semestre AS semester,
+        anio AS year,
+        es_fin_de_semana AS is_weekend
+    FROM ventas.vw_cotizaciones
+"""
+
+
+query_base_warehouse_view = """
+    SELECT 
+        id,
+        deposito AS warehouse,
+        tipo_movimiento AS movement_type,
+
+        id_productos AS product_id,
+        producto AS product_name,
+        codigo AS product_code,
+        categoria AS category,
+        subcategoria AS subcategory,
+        tipo_producto AS product_type,
+        unidad AS unit,
+        marca AS brand,
+        detalles AS product_details,
+        presentaciones AS presentaciones,
+
+        cantidad AS quantity,
+
+        TO_CHAR(fecha, 'DD/MM/YYYY') AS date,
+        dia AS day,
+        dia_semana AS weekday_number,
+        nombre_dia AS weekday_name,
+        semana_anio AS week_of_year,
+        semana_mes AS week_of_month,
+        quincena AS fortnight,
+        mes AS month,
+        nombre_mes AS month_name,
+        trimestre AS quarter,
+        semestre AS semester,
+        anio AS year,
+        es_fin_de_semana AS is_weekend
+    FROM almacenes.vw_almacenes
+"""
+
+where_clause_warehouse_general = """
+    WHERE 
+        deposito ILIKE $1 OR 
+        tipo_movimiento ILIKE $1 OR 
+        producto ILIKE $1 OR
+        codigo ILIKE $1 OR
+        marca ILIKE $1 OR
+        categoria ILIKE $1 OR
+        subcategoria ILIKE $1 OR
+        nombre_dia ILIKE $1 OR
+        nombre_mes ILIKE $1
+"""
+
+
+where_clause_purchase_general = """
+    WHERE 
+        deposito ILIKE $1 OR 
+        proveedor ILIKE $1 OR
+        tipo_proveedor ILIKE $1 OR
+        num_control ILIKE $1 OR
+        num_factura ILIKE $1 OR
+        producto ILIKE $1 OR
+        codigo ILIKE $1 OR
+        marca ILIKE $1 OR
+        categoria ILIKE $1 OR
+        subcategoria ILIKE $1 OR
+        nombre_dia ILIKE $1 OR
+        nombre_mes ILIKE $1
+"""
+
+where_clause_sale_general = """
+    WHERE 
+        deposito ILIKE $1 OR 
+        num_control ILIKE $1 OR
+        num_factura ILIKE $1 OR
+        vendedor ILIKE $1 OR
+        ciudad ILIKE $1 OR
+        estado ILIKE $1 OR
+        cliente ILIKE $1 OR
+        cliente_direccion ILIKE $1 OR
+        cliente_comercial ILIKE $1 OR
+        tipo_cliente ILIKE $1 OR
+        producto ILIKE $1 OR
+        codigo ILIKE $1 OR
+        marca ILIKE $1 OR
+        categoria ILIKE $1 OR
+        subcategoria ILIKE $1 OR
+        nombre_dia ILIKE $1 OR
+        nombre_mes ILIKE $1
+"""
+
+where_clause_order_general = """
+    WHERE 
+        deposito ILIKE $1 OR 
+        proveedor ILIKE $1 OR
+        tipo_proveedor ILIKE $1 OR
+        producto ILIKE $1 OR
+        codigo ILIKE $1 OR
+        marca ILIKE $1 OR
+        categoria ILIKE $1 OR
+        subcategoria ILIKE $1 OR
+        nombre_dia ILIKE $1 OR
+        nombre_mes ILIKE $1
+"""
+
+where_clause_quote_general = """
+    WHERE 
+        deposito ILIKE $1 OR 
+        num_control ILIKE $1 OR
+        vendedor ILIKE $1 OR
+        ciudad ILIKE $1 OR
+        estado ILIKE $1 OR
+        cliente ILIKE $1 OR
+        cliente_direccion ILIKE $1 OR
+        cliente_comercial ILIKE $1 OR
+        tipo_cliente ILIKE $1 OR
+        producto ILIKE $1 OR
+        codigo ILIKE $1 OR
+        marca ILIKE $1 OR
+        categoria ILIKE $1 OR
+        subcategoria ILIKE $1 OR
+        nombre_dia ILIKE $1 OR
+        nombre_mes ILIKE $1
+"""
+
+

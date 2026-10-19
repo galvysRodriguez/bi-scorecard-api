@@ -11,7 +11,7 @@ async def backup_mysql():
     database_name = "probando_stock"
     backup_dir = r"backups\erp"
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    backup_file = os.path.join(backup_dir, f"backup_mysql_{timestamp}.sql")
+    backup_file = os.path.join(backup_dir, f"backup_mysql_{timestamp}.backup")
 
     command = [mysqldump_path, "-u", username,"-h", host, "-P", str(port), database_name]
 
@@ -37,7 +37,7 @@ async def backup_postgresql():
     database_name = "postgres"
     backup_dir = r"backups\bi"
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    backup_file = os.path.join(backup_dir, f"backup_postgres_{timestamp}.sql")
+    backup_file = os.path.join(backup_dir, f"backup_postgres_{timestamp}.backup")
 
     command = [pg_dump_path,"-h",host,"-p", str(port),"-U",username,"-f", backup_file]
 

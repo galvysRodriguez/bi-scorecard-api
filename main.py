@@ -2,10 +2,9 @@ import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from routers import indicators, targets, formula, tag, perspective, test, icon, etl, task, user, seed, view
-from routers.reports import warehouse
+from routers.reports import warehouse, sale, purchase, order, quote, metric
 from middleware.permission import check_access
 from contextlib import asynccontextmanager
-from config.exception_handlers import http_exception_handler, unhandled_exception_handler
 from config.openapi_config import custom_openapi
 
 @asynccontextmanager
@@ -21,7 +20,7 @@ async def lifespan(app: FastAPI):
     print("Scheduler detenido.")
 
 app = FastAPI(lifespan=lifespan)
-#app.middleware("http")(check_access)
+app.middleware("http")(check_access)
 
 origins = [
     "http://localhost:3000",
@@ -48,7 +47,6 @@ app.add_middleware(
 
 # Configurar OpenAPI personalizado
 app.openapi = lambda: custom_openapi(app)
-
 # Montamos los routers
 app.include_router(targets.router)
 app.include_router(indicators.router)
@@ -57,6 +55,11 @@ app.include_router(tag.router)
 app.include_router(perspective.router)
 app.include_router(icon.router)
 app.include_router(warehouse.router)
+app.include_router(sale.router)
+app.include_router(purchase.router)
+app.include_router(order.router)
+app.include_router(quote.router)
+app.include_router(metric.router)
 app.include_router(user.router)
 app.include_router(etl.router)
 app.include_router(view.router)

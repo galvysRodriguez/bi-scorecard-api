@@ -8,7 +8,7 @@ from schemas.target import TargetBase, TargetCreate
 async def test_target_perspective_len():
     db = await get_db()  
     result = await TargetRepository.get_targets(db, 1)
-    assert len(result) == 18
+    assert len(result) == 19
     await db.close()  
 
 @pytest.mark.asyncio

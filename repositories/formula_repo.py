@@ -15,7 +15,8 @@ async def get_formula_with_tag_query(db: Connection):
                     f.id_formulas as id, 
                     f.titulo as title,
                     e.etiqueta as tag,
-                    f.id_etiquetas as tag_id
+                    f.id_etiquetas as tag_id,
+                    f.formula
                 FROM objetivos.formulas f
                 INNER JOIN objetivos.etiquetas e ON e.id_etiquetas = f.id_etiquetas
                 WHERE f.visible = True"""
@@ -31,7 +32,7 @@ async def get_by_id_formula_query(db: Connection, formula_id: int):
                     e.etiqueta as tag
                 FROM objetivos.formulas f
                 INNER JOIN objetivos.etiquetas e ON e.id_etiquetas = f.id_etiquetas
-                WHERE f.id_formulas = $1 AND f.visible = true"""
+                WHERE f.id_formulas = $1"""
 
     return await db.fetchrow(query, formula_id)
 
@@ -65,7 +66,7 @@ async def update_formula_query(db: Connection, formula_id: int,  formula_data:Fo
             SET titulo =($2),
                 formula =($3),
                 id_etiquetas =($4)
-            WHERE id_etiquetas = $1
+            WHERE id_formulas = $1
             RETURNING *;
         """
         return await db.fetchrow(query, formula_id, formula_data.title, formula_data.formula, formula_data.tag_id)
@@ -85,7 +86,7 @@ async def exist_formula_query(db: Connection, formula: FormulaBase):
         """Verifica si existe la formula"""
         query = f"""
             SELECT COUNT(*) as count FROM objetivos.formulas
-            WHERE titulo = $1
+            WHERE LOWER(titulo) = LOWER($1)
         """
         return await db.fetchrow(query, formula.title)
 

@@ -8,12 +8,14 @@ query = """
     (1502, 'BI', 'targets', 'put', '/targets/:id', 1, 1, 'Actualizar un target'),
     (1503, 'BI', 'targets', 'delete', '/targets/:id', 1, 1, 'Eliminar un target'),
     (1504, 'BI', 'targets', 'get', '/targets/detail/:id', 1, 1, 'Obtener detalle de un target'),
+    (1567, 'BI', 'targets', 'get', '/targets/detail/chart/:id', 1, 1, 'Obtener detalle de un target parametrizado por fecha'),
     (1505, 'BI', 'targets', 'get', '/targets', 1, 1, 'Obtener todos los targets'),
     (1506, 'BI', 'targets', 'post', '/targets', 1, 1, 'Crear un nuevo target'),
     (1507, 'BI', 'targets', 'get', '/targets/perspective/:id', 1, 1, 'Obtener targets por perspectiva'),
     (1557, 'BI', 'targets', 'get', '/targets/perspective/7', 1, 1, 'Obtener targets por venta'),
     (1558, 'BI', 'targets', 'get', '/targets/perspective/8', 1, 1, 'Obtener targets por almacen'),
     (1559, 'BI', 'targets', 'get', '/targets/perspective/11', 1, 1, 'Obtener targets por compras'),
+    (1562, 'BI', 'targets', 'get', '*', 1, 1, 'get general de objetivos'),
 
     -- Indicators
     (1508, 'BI', 'indicators', 'get', '/indicators', 1, 1, 'Obtener todos los indicadores'),
@@ -28,6 +30,7 @@ query = """
     (1515, 'BI', 'formula', 'get', '/formula/:id', 1, 1, 'Obtener fórmula por ID'),
     (1516, 'BI', 'formula', 'put', '/formula/:id', 1, 1, 'Actualizar fórmula'),
     (1517, 'BI', 'formula', 'delete', '/formula/:id', 1, 1, 'Eliminar fórmula'),
+    (1563, 'BI', 'formula', 'get', '*', 1, 1, 'get generla de formulas'),
 
     -- Tags
     (1518, 'BI', 'tags', 'get', '/tags/exist', 1, 1, 'Verificar si existe un tag'),
@@ -36,6 +39,7 @@ query = """
     (1521, 'BI', 'tags', 'get', '/tags/:id', 1, 1, 'Obtener tag por ID'),
     (1522, 'BI', 'tags', 'put', '/tags/:id', 1, 1, 'Actualizar tag'),
     (1523, 'BI', 'tags', 'delete', '/tags/:id', 1, 1, 'Eliminar tag'),
+    (1564, 'BI', 'tags', 'get', '/tags/exist', 1, 1, 'get general de tags'),
 
     -- Perspectives
     (1524, 'BI', 'perspectives', 'get', '/perspectives/exist', 1, 1, 'Verificar si existe una perspectiva'),
@@ -45,6 +49,7 @@ query = """
     (1528, 'BI', 'perspectives', 'get', '/perspectives/:id', 1, 1, 'Obtener perspectiva por ID'),
     (1529, 'BI', 'perspectives', 'put', '/perspectives/:id', 1, 1, 'Actualizar perspectiva'),
     (1530, 'BI', 'perspectives', 'delete', '/perspectives/:id', 1, 1, 'Eliminar perspectiva'),
+    (1565, 'BI', 'perspectives', 'get', '*', 1, 1, 'get general de perspective'),
 
     -- Icons
     (1531, 'BI', 'icons', 'get', '/icons/exist', 1, 1, 'Verificar si existe un ícono'),
@@ -53,6 +58,7 @@ query = """
     (1534, 'BI', 'icons', 'get', '/icons/:id', 1, 1, 'Obtener ícono por ID'),
     (1535, 'BI', 'icons', 'put', '/icons/:id', 1, 1, 'Actualizar ícono'),
     (1536, 'BI', 'icons', 'delete', '/icons/:id', 1, 1, 'Eliminar ícono'),
+    (1566, 'BI', 'icons', 'get', '*', 1, 1, 'get general de iconos'),
 
     -- Accesos globales
     (1537, 'BI', '*', '*', '*', 1, 1, 'Acceso global a todos los recursos del módulo BI'),
@@ -69,6 +75,8 @@ query = """
     (1546, 'BI', 'reports', 'get', '/reports/sale', 1, 1, 'Obtener reporte de ventas'),
     (1547, 'BI', 'reports', 'get', '/reports/purchase', 1, 1, 'Obtener reporte de compras'),
     (1548, 'BI', 'reports', 'get', '/reports/warehouse', 1, 1, 'Obtener reporte de almacén'),
+    (1560, 'BI', 'reports', 'get', '/reports/order', 1, 1, 'Obtener reporte de ordenes de compras'),
+    (1561, 'BI', 'reports', 'get', '/reports/quote', 1, 1, 'Obtener reporte de cotizaciones'),
     
     -- ETL
     (1549, 'BI', 'etl', 'post', '/etl/logs', 1, 1, 'Registrar logs del proceso ETL'),
@@ -77,7 +85,11 @@ query = """
     (1552, 'BI', 'etl', 'post', '/etl/resource', 1, 1, 'Crear recursos en la bdd del ERP'),
     (1553, 'BI', 'etl', 'post', '/etl/clear', 1, 1, 'Limpiar datos en el proceso ETL'),
 
-    (1554, 'BI', 'dashboard', '*', '*', 1, 1, 'Acceso a todo el dashboard');
+    (1554, 'BI', 'dashboard', '*', '*', 1, 1, 'Acceso a todo el dashboard'),
+
+    (1555, 'BI', 'dashboard', 'get', '/dashboard/target', 1, 1, 'Acceso al status de objetivos'),
+    (1556, 'BI', 'dashboard', 'get', '/dashboard/metrics', 1, 1, 'Acceso a las metricas principales');
+    ;
 """
 
 async def create_resources_db(source_engine):

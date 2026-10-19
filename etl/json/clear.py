@@ -21,6 +21,9 @@ query = """
 
     delete from ventas.det_venta;
     delete from ventas.ventas;
+    delete from ventas.det_cotizacion;
+    delete from ventas.cotizaciones;
+    delete from ventas.cajas;
     delete from ventas.vendedores;
     delete from ventas.tipo_clientes;
 
@@ -43,6 +46,8 @@ query = """
     delete from productos.subcategorias;
     delete from productos.categorias;
     delete from productos.marcas;
+    
+    delete from public.empresas;
 
     delete from almacenes.depositos;
 """

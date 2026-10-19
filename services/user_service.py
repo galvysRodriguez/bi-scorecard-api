@@ -6,6 +6,7 @@ from repositories.user_repo import login_query, get_permissions_by_role
 from schemas.target import UserBase
 import hashlib
 from auth.jwt_handler import create_access_token
+from repositories.enterprise import get_enterprise
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -26,9 +27,12 @@ async def login_service(db: Connection, user:UserBase):
 
     permissions_result = [dict(record) for record in permissions]
 
+    enterprise = await get_enterprise(db)
+
     return {
         "access_token": access_token,
         "token_type": "bearer",
+        "enterprise": dict(enterprise),
         "user": {
             "name": result['name'],
             "role": result['role'],
